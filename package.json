@@ -1,0 +1,13 @@
+{
+  "name": "kinetix-technologies-cms",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Static marketing site with a self-contained content management system",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}

@@ -1,0 +1,1486 @@
+{
+  "settings": {
+    "siteName": "Kinetix Technologies",
+    "logoText": "KINETIX",
+    "logoImage": "",
+    "email": "kinetix.technologies.web@gmail.com",
+    "footerBlurb": "Kinetix builds websites, clinic systems and inventory and ERP modules that move businesses forward.",
+    "footerTagline": "Built for Momentum.",
+    "themeColor": "#18181B",
+    "social": {
+      "linkedin": "https://www.linkedin.com",
+      "x": "https://www.x.com",
+      "github": "https://www.github.com"
+    },
+    "colors": {
+      "bg": "#18181b",
+      "bg-deep": "#111113",
+      "surface": "#1e1e22",
+      "surface-2": "#27272a",
+      "muted": "#a1a1aa",
+      "text": "#f4f4f5",
+      "accent": "#fafafa",
+      "accent-ink": "#18181b",
+      "line": "rgba(161, 161, 170, 0.16)",
+      "line-strong": "rgba(161, 161, 170, 0.34)"
+    }
+  },
+  "seo": {
+    "index.html": {
+      "title": "Kinetix Technologies | Websites, Clinic Systems & ERP Modules",
+      "description": "Kinetix Technologies builds fast websites, clinic management systems, e-commerce stores, inventory and ERP modules and CRM tools that move businesses forward."
+    },
+    "services.html": {
+      "title": "Services | Kinetix Technologies",
+      "description": "Website development, e-commerce, clinic management systems, inventory and ERP modules, CRM tools and custom digital solutions."
+    },
+    "work.html": {
+      "title": "Selected Work | Kinetix Technologies",
+      "description": "Real projects built for real businesses: clinic systems, e-commerce platforms, inventory and ERP, CRM suites and high-converting websites."
+    },
+    "about.html": {
+      "title": "About | Kinetix Technologies",
+      "description": "A focused team building digital systems with precision and momentum."
+    },
+    "insights.html": {
+      "title": "Insights | Kinetix Technologies",
+      "description": "Practical notes on websites, clinic systems, inventory and ERP, and building software people actually use."
+    },
+    "collaborations.html": {
+      "title": "Collaborations | Kinetix Technologies",
+      "description": "Design and build, subcontracting, product partnerships and consulting with Kinetix Technologies."
+    },
+    "contact.html": {
+      "title": "Contact | Kinetix Technologies",
+      "description": "Tell Kinetix Technologies about your project and get a clear answer within one business day."
+    },
+    "case-studies/mediflow.html": {
+      "title": "MediFlow | Case Study | Kinetix Technologies",
+      "description": "One patient timeline, from check-in to billing, across every branch."
+    },
+    "case-studies/stockpilot.html": {
+      "title": "StockPilot | Case Study | Kinetix Technologies",
+      "description": "Inventory and sales management for a distribution company."
+    },
+    "case-studies/cobalt.html": {
+      "title": "Cobalt | Case Study | Kinetix Technologies",
+      "description": "Payments, subscriptions and order management for a B2B brand."
+    },
+    "case-studies/pulse.html": {
+      "title": "Pulse | Case Study | Kinetix Technologies",
+      "description": "A sales CRM that unifies leads, follow-ups and reporting."
+    },
+    "insights/why-clinic-systems-fail.html": {
+      "title": "Why most clinic systems fail (and how to avoid it) | Kinetix Insights",
+      "description": "Clinic software often impresses in a demo and falls apart in daily use. Here is what really matters."
+    },
+    "insights/real-cost-of-a-slow-website.html": {
+      "title": "The real cost of a slow website | Kinetix Insights",
+      "description": "Slow sites quietly erode conversions, search rankings and trust. Here is how to measure the cost and fix it."
+    },
+    "insights/principles-inventory-design.html": {
+      "title": "5 principles we use when designing inventory systems | Kinetix Insights",
+      "description": "Lessons from inventory and ERP builds about what to prioritise so people actually use the tool."
+    },
+    "insights/custom-vs-off-the-shelf.html": {
+      "title": "How to choose between a custom system and off-the-shelf tools | Kinetix Insights",
+      "description": "A practical framework for deciding between custom software and ready-made tools."
+    },
+    "insights/designing-for-non-technical-users.html": {
+      "title": "Designing for non-technical users | Kinetix Insights",
+      "description": "Software should not assume users think like developers. Five habits that make interfaces easier to use."
+    }
+  },
+  "nav": {
+    "labels": [
+      "Home",
+      "Services",
+      "Work",
+      "About",
+      "Insights",
+      "Collaborations",
+      "Contact"
+    ],
+    "cta": "Start a Project"
+  },
+  "home": {
+    "hero": {
+      "tag": "Software studio · Open for new projects",
+      "titleWords": [
+        {
+          "text": "We",
+          "serif": false
+        },
+        {
+          "text": "build",
+          "serif": false
+        },
+        {
+          "text": "digital",
+          "serif": false
+        },
+        {
+          "text": "systems",
+          "serif": false
+        },
+        {
+          "text": "that",
+          "serif": false
+        },
+        {
+          "text": "keep",
+          "serif": true
+        },
+        {
+          "text": "your",
+          "serif": true
+        },
+        {
+          "text": "business",
+          "serif": true
+        },
+        {
+          "text": "moving.",
+          "serif": true
+        }
+      ],
+      "sub": "Kinetix designs and builds high-converting websites, clinic systems, e-commerce stores and business tools for teams that want software they will actually use.",
+      "badges": [
+        {
+          "value": "40%",
+          "label": "less admin time"
+        },
+        {
+          "value": "3.2x",
+          "label": "faster page loads"
+        },
+        {
+          "value": "100%",
+          "label": "clients still with us"
+        }
+      ]
+    },
+    "marquee": [
+      "Websites",
+      "E-commerce",
+      "Clinic Systems",
+      "Inventory & ERP",
+      "CRM Tools",
+      "Custom Software"
+    ],
+    "why": {
+      "eyebrow": "Why Kinetix",
+      "title": "Software that earns its place in your day.",
+      "lead": "Trusted by growing businesses across industries to build systems that are quick, clear and dependable.",
+      "cards": [
+        {
+          "icon": "bolt",
+          "title": "Performance first",
+          "text": "Lightweight builds that stay quick on busy networks and older phones."
+        },
+        {
+          "icon": "flow",
+          "title": "Built around your workflow",
+          "text": "We watch how your team actually works before we draw a single screen."
+        },
+        {
+          "icon": "minus",
+          "title": "Simple by design",
+          "text": "Clean interfaces that need minutes of training, not days."
+        },
+        {
+          "icon": "venn",
+          "title": "Long-term partnership",
+          "text": "Support, training and new features well after launch."
+        }
+      ]
+    },
+    "services": {
+      "eyebrow": "What we do",
+      "title": "Six ways we help you move.",
+      "cards": [
+        {
+          "icon": "website",
+          "title": "Website Development",
+          "text": "Fast, modern websites and landing pages built to turn visitors into customers.",
+          "link": "services.html#website"
+        },
+        {
+          "icon": "cart",
+          "title": "E-commerce Websites",
+          "text": "Online stores with catalogs, secure payments and order management.",
+          "link": "services.html#ecom"
+        },
+        {
+          "icon": "clinic",
+          "title": "Clinic Management Systems",
+          "text": "Appointments, patient records, billing and supplies on one platform.",
+          "link": "services.html#clinic"
+        },
+        {
+          "icon": "cube",
+          "title": "Inventory & ERP Modules",
+          "text": "Track stock, purchases and sales with reports you can act on.",
+          "link": "services.html#inventory"
+        },
+        {
+          "icon": "funnel",
+          "title": "CRM & Business Tools",
+          "text": "Keep leads, follow-ups and reporting in one clear place.",
+          "link": "services.html#crm"
+        },
+        {
+          "icon": "spark",
+          "title": "Custom Digital Solutions",
+          "text": "Purpose-built tools for workflows that ready-made software cannot match.",
+          "link": "services.html#custom"
+        }
+      ]
+    },
+    "work": {
+      "eyebrow": "Selected work",
+      "title": "Real projects. Real results.",
+      "rows": [
+        {
+          "year": "2025",
+          "title": "MediFlow",
+          "category": "Clinic System",
+          "link": "case-studies/mediflow.html"
+        },
+        {
+          "year": "2026",
+          "title": "StockPilot",
+          "category": "Inventory & ERP",
+          "link": "case-studies/stockpilot.html"
+        },
+        {
+          "year": "2026",
+          "title": "Cobalt",
+          "category": "E-Commerce Platform",
+          "link": "case-studies/cobalt.html"
+        },
+        {
+          "year": "2026",
+          "title": "Pulse",
+          "category": "CRM Suite",
+          "link": "case-studies/pulse.html"
+        }
+      ]
+    },
+    "stats": [
+      {
+        "value": 40,
+        "dec": 0,
+        "suffix": "%",
+        "label": "reduction in admin time"
+      },
+      {
+        "value": 3.2,
+        "dec": 1,
+        "suffix": "x",
+        "label": "faster page loads"
+      },
+      {
+        "value": 98,
+        "dec": 0,
+        "suffix": "%",
+        "label": "inventory accuracy"
+      },
+      {
+        "value": 100,
+        "dec": 0,
+        "suffix": "%",
+        "label": "of clients still working with us"
+      }
+    ],
+    "process": {
+      "eyebrow": "How we work",
+      "title": "Four steps. No surprises.",
+      "steps": [
+        {
+          "number": "01",
+          "title": "Discover",
+          "text": "We learn your goals, your users and your constraints before proposing anything."
+        },
+        {
+          "number": "02",
+          "title": "Design",
+          "text": "Clean interfaces and flows, with your approval on every screen."
+        },
+        {
+          "number": "03",
+          "title": "Build",
+          "text": "Reliable, maintainable systems, with working software shown throughout."
+        },
+        {
+          "number": "04",
+          "title": "Launch & Support",
+          "text": "Training, go-live support and steady improvements after launch."
+        }
+      ]
+    },
+    "testimonials": {
+      "eyebrow": "Testimonials",
+      "title": "What working with us feels like.",
+      "ctaTitle": "Ready to build something that performs?",
+      "ctaText": "Tell us what you need. You will get a clear answer within one business day.",
+      "quotes": [
+        {
+          "quote": "The system is part of our daily routine now. Front-desk staff stopped asking how to do things and just do them.",
+          "initials": "PM",
+          "who": "Practice Manager, multi-branch medical clinic"
+        },
+        {
+          "quote": "Our site is faster, enquiries are up and the brand finally looks the way we always meant it to.",
+          "initials": "FO",
+          "who": "Founder, retail brand"
+        }
+      ]
+    }
+  },
+  "services": {
+    "hero": {
+      "tag": "Services",
+      "titleWords": [
+        {
+          "text": "What",
+          "serif": false
+        },
+        {
+          "text": "we",
+          "serif": false
+        },
+        {
+          "text": "build.",
+          "serif": true
+        }
+      ],
+      "sub": "Practical digital systems for real business needs, designed around how you work and built to last."
+    },
+    "ctaTitle": "Not sure where to start?",
+    "ctaText": "Describe your project in a few lines and we will recommend an approach, a scope and a sensible first step.",
+    "items": [
+      {
+        "id": "website",
+        "number": "01",
+        "title": "Website Development",
+        "icon": "website",
+        "description": "We design and build websites that guide a visitor to one clear action. Every build starts by mapping the path a customer needs to take, then makes that path obvious through clean design, sharp copy and strong performance.",
+        "features": [
+          "Landing pages",
+          "Corporate and marketing websites",
+          "Web applications",
+          "Speed and SEO optimisation",
+          "Content handover so your team can edit",
+          "Analytics and conversion tracking"
+        ],
+        "buttonLabel": "Discuss a Website Project"
+      },
+      {
+        "id": "ecom",
+        "number": "02",
+        "title": "E-commerce Websites",
+        "icon": "cart",
+        "description": "Conversion-focused stores that shorten the road from interest to checkout. Whether you are launching your first product or replacing a store that keeps losing sales, we build the whole flow, from catalog to confirmation email.",
+        "features": [
+          "Product catalogs and variants",
+          "Payments and shipping integration",
+          "Order management and notifications",
+          "Promotions and discounts",
+          "Sales analytics and reporting"
+        ],
+        "buttonLabel": "Discuss an E-commerce Store"
+      },
+      {
+        "id": "clinic",
+        "number": "03",
+        "title": "Clinic Management Systems",
+        "icon": "clinic",
+        "description": "A digital platform that brings appointments, records, billing and supplies together, cutting missed follow-ups, double bookings and admin time. We design it with your clinic staff and migrate your existing records.",
+        "features": [
+          "Patient records",
+          "Appointment scheduling",
+          "Billing and invoicing",
+          "Medical supply inventory",
+          "Staff management"
+        ],
+        "buttonLabel": "Discuss a Clinic System"
+      },
+      {
+        "id": "inventory",
+        "number": "04",
+        "title": "Inventory & ERP Modules",
+        "icon": "cube",
+        "description": "Modular tools that track stock as it moves, manage purchases and sales, and produce reports you can act on across locations and roles. Start with one module and add more when you need them.",
+        "features": [
+          "Real-time inventory tracking",
+          "Purchase and sales management",
+          "Multi-location support",
+          "Reports and analytics",
+          "User roles and permissions"
+        ],
+        "buttonLabel": "Discuss an ERP Project"
+      },
+      {
+        "id": "crm",
+        "number": "05",
+        "title": "CRM & Business Tools",
+        "icon": "funnel",
+        "description": "A CRM that keeps contacts, leads, pipelines and follow-ups in one place so your team always knows the next move. Less chasing, faster selling, better service.",
+        "features": [
+          "Contact and lead database",
+          "Pipeline and deal tracking",
+          "Follow-up reminders and automation",
+          "Surveys and client feedback",
+          "Team reports and dashboards"
+        ],
+        "buttonLabel": "Discuss a CRM Setup"
+      },
+      {
+        "id": "custom",
+        "number": "06",
+        "title": "Custom Digital Solutions",
+        "icon": "spark",
+        "description": "For businesses whose processes differ from what ready-made software supports. We prototype quickly so you see results early, then grow the system alongside your business. Every custom build starts with your workflow, never with a template.",
+        "features": [
+          "Workflow discovery and mapping",
+          "Rapid prototypes",
+          "Internal tools and dashboards",
+          "Integrations with the tools you already use",
+          "Ongoing iteration after launch"
+        ],
+        "buttonLabel": "Talk About a Custom Project"
+      }
+    ]
+  },
+  "work": {
+    "hero": {
+      "tag": "Selected work",
+      "titleWords": [
+        {
+          "text": "Real",
+          "serif": false
+        },
+        {
+          "text": "projects.",
+          "serif": false
+        },
+        {
+          "text": "Real",
+          "serif": true
+        },
+        {
+          "text": "results.",
+          "serif": true
+        }
+      ],
+      "sub": "Every project starts with a business problem and ends with a system that makes daily work easier.",
+      "badges": [
+        {
+          "value": "40%",
+          "label": "reduction in admin time"
+        },
+        {
+          "value": "3.2x",
+          "label": "faster page loads"
+        },
+        {
+          "value": "100%",
+          "label": "of clients still working with us"
+        }
+      ]
+    },
+    "intro": {
+      "eyebrow": "Our portfolio",
+      "title": "Real projects, built for real businesses."
+    },
+    "filters": [
+      {
+        "label": "All",
+        "value": "all"
+      },
+      {
+        "label": "Websites",
+        "value": "websites"
+      },
+      {
+        "label": "E-commerce",
+        "value": "ecommerce"
+      },
+      {
+        "label": "Clinic Systems",
+        "value": "clinic"
+      },
+      {
+        "label": "ERP",
+        "value": "erp"
+      },
+      {
+        "label": "CRM",
+        "value": "crm"
+      },
+      {
+        "label": "Custom",
+        "value": "custom"
+      }
+    ],
+    "projects": [
+      {
+        "title": "MediFlow",
+        "category": "Clinic System",
+        "categories": [
+          "clinic"
+        ],
+        "year": "2025",
+        "description": "A complete clinic platform for a multi-branch medical practice, giving every patient one timeline from check-in to billing.",
+        "tags": [
+          "Patient records",
+          "Scheduling",
+          "Billing"
+        ],
+        "link": "case-studies/mediflow.html",
+        "image": "",
+        "viz": "timeline"
+      },
+      {
+        "title": "Commerce Website",
+        "category": "Website Development",
+        "categories": [
+          "websites",
+          "ecommerce"
+        ],
+        "year": "2025",
+        "description": "A high-converting online store for a growing retail brand, built around the path from browsing to checkout.",
+        "tags": [
+          "Storefront",
+          "Payments",
+          "SEO"
+        ],
+        "link": "contact.html",
+        "image": "",
+        "viz": "browser"
+      },
+      {
+        "title": "StockPilot",
+        "category": "Inventory & ERP",
+        "categories": [
+          "erp"
+        ],
+        "year": "2026",
+        "description": "Inventory and sales management for a distribution company, with real-time stock data the whole team can trust.",
+        "tags": [
+          "Inventory",
+          "Reports",
+          "Roles"
+        ],
+        "link": "case-studies/stockpilot.html",
+        "image": "",
+        "viz": "bars"
+      },
+      {
+        "title": "Corporate Website",
+        "category": "Website Development",
+        "categories": [
+          "websites"
+        ],
+        "year": "2026",
+        "description": "A clean corporate site for a professional services firm, focused on credibility and clear routes to enquiry.",
+        "tags": [
+          "Branding",
+          "Lead capture",
+          "CMS"
+        ],
+        "link": "contact.html",
+        "image": "",
+        "viz": "layout"
+      },
+      {
+        "title": "Cobalt",
+        "category": "E-Commerce Platform",
+        "categories": [
+          "ecommerce"
+        ],
+        "year": "2026",
+        "description": "Payments, subscriptions and order management for a B2B brand with complex catalogues.",
+        "tags": [
+          "Payments",
+          "Subscriptions",
+          "Orders"
+        ],
+        "link": "case-studies/cobalt.html",
+        "image": "",
+        "viz": "grid"
+      },
+      {
+        "title": "Pulse",
+        "category": "CRM Suite",
+        "categories": [
+          "crm"
+        ],
+        "year": "2026",
+        "description": "A sales CRM that brings leads, follow-ups and reporting together so no enquiry slips through.",
+        "tags": [
+          "Pipeline",
+          "Reminders",
+          "Reports"
+        ],
+        "link": "case-studies/pulse.html",
+        "image": "",
+        "viz": "funnel"
+      },
+      {
+        "title": "Launch Page",
+        "category": "Landing Page",
+        "categories": [
+          "websites"
+        ],
+        "year": "2026",
+        "description": "A high-converting campaign page for a SaaS product launch, tuned using real visitor behaviour.",
+        "tags": [
+          "Landing page",
+          "A/B tests",
+          "Analytics"
+        ],
+        "link": "contact.html",
+        "image": "",
+        "viz": "spotlight"
+      }
+    ],
+    "empty": {
+      "text": "No public projects in this category yet.",
+      "linkText": "Tell us about yours",
+      "link": "contact.html",
+      "tail": "and we may build the first one."
+    },
+    "ctaTitle": "Want results like these?",
+    "ctaText": "Tell us about your project and we will reply within one business day."
+  },
+  "about": {
+    "hero": {
+      "tag": "About",
+      "titleWords": [
+        {
+          "text": "We",
+          "serif": false
+        },
+        {
+          "text": "are",
+          "serif": false
+        },
+        {
+          "text": "Kinetix.",
+          "serif": true
+        }
+      ],
+      "sub": "A focused team building digital systems with precision and momentum."
+    },
+    "story": {
+      "eyebrow": "Our story",
+      "title": "Software should help businesses move forward.",
+      "paragraphs": [
+        "Kinetix Technologies was founded on a simple idea: software should help a business move. We combine clean design, solid engineering and practical thinking to build things people are glad to use.",
+        "The name comes from kinetics, the science of movement. You can see it in a website that loads instantly, a clinic system that keeps reception calm and an inventory tool a manager can trust.",
+        "We are deliberately small. That means the people you meet are the people who build, and everyone stays accountable from the first conversation to the final invoice. We would rather do fewer projects properly than many halfway."
+      ]
+    },
+    "principles": {
+      "eyebrow": "Built for Momentum",
+      "items": [
+        "Direct access to the people building your system, with no middlemen or account managers.",
+        "Honest timelines, and dates that are met.",
+        "Plain English instead of jargon."
+      ]
+    },
+    "values": {
+      "eyebrow": "Values",
+      "title": "What we stand for.",
+      "items": [
+        {
+          "number": "01",
+          "title": "Precision",
+          "text": "We sweat the details."
+        },
+        {
+          "number": "02",
+          "title": "Momentum",
+          "text": "We build for progress."
+        },
+        {
+          "number": "03",
+          "title": "Clarity",
+          "text": "Simple is better."
+        },
+        {
+          "number": "04",
+          "title": "Partnership",
+          "text": "We work with you, not just for you."
+        }
+      ]
+    },
+    "working": {
+      "eyebrow": "Working with us",
+      "title": "You are never left guessing.",
+      "items": [
+        "Weekly progress updates you can actually read",
+        "Decisions explained in plain language",
+        "Support and training after launch"
+      ]
+    },
+    "philosophy": {
+      "eyebrow": "Philosophy",
+      "title": "Three things we refuse to trade away.",
+      "items": [
+        {
+          "title": "Clarity",
+          "text": "in every screen and every message"
+        },
+        {
+          "title": "Performance",
+          "text": "on real devices and real networks"
+        },
+        {
+          "title": "Maintainability",
+          "text": "so your team can own it"
+        }
+      ]
+    },
+    "ctaTitle": "Want to build something together?",
+    "ctaText": "Tell us what you have in mind and we will tell you honestly how we would approach it."
+  },
+  "insights": {
+    "hero": {
+      "tag": "Insights",
+      "titleWords": [
+        {
+          "text": "Practical",
+          "serif": false
+        },
+        {
+          "text": "notes",
+          "serif": false
+        },
+        {
+          "text": "on",
+          "serif": false
+        },
+        {
+          "text": "building",
+          "serif": false
+        },
+        {
+          "text": "digital",
+          "serif": true
+        },
+        {
+          "text": "systems.",
+          "serif": true
+        }
+      ],
+      "sub": "Short, useful writing on websites, clinic systems, inventory and the habits that make software work."
+    },
+    "intro": {
+      "eyebrow": "From the studio",
+      "title": "Field notes, not fluff.",
+      "text": "Two kinds of posts: Pitfalls guide cover how to evaluate software before you buy or build it. Build notes explain how the systems behind our projects were designed."
+    },
+    "newsletter": {
+      "eyebrow": "Newsletter",
+      "title": "Stay ahead.",
+      "lead": "Occasional insights on digital systems, product design and growth.",
+      "note": "No spam. Unsubscribe anytime."
+    },
+    "ctaTitle": "Have a project in mind?",
+    "ctaText": "Share the problem and we will tell you how we would solve it."
+  },
+  "articles": [
+    {
+      "slug": "why-clinic-systems-fail",
+      "date": "September 2026",
+      "author": "KINETIX TEAM",
+      "readTime": "5 MIN READ",
+      "title": "Why most clinic systems fail (and how to avoid it)",
+      "excerpt": "Clinic software often impresses in a demo and falls apart in daily use. Here is what really matters.",
+      "tag": "Clinic Systems",
+      "sub": "A demo is a quiet room. A real clinic is not.",
+      "blocks": [
+        {
+          "type": "p",
+          "text": "Clinic software almost always looks good in a demo. The room is quiet, the data is tidy and the presenter knows exactly where to click. A real clinic is nothing like that."
+        },
+        {
+          "type": "h2",
+          "text": "The demo problem"
+        },
+        {
+          "type": "p",
+          "text": "Real clinics are chaotic. Phones ring while a queue forms at the desk, and someone needs a record found right now. Software designed for calm conditions struggles in that environment, and this gap is where most systems quietly fail."
+        },
+        {
+          "type": "h2",
+          "text": "Where systems actually fail"
+        },
+        {
+          "type": "ul",
+          "items": [
+            "The workflow fights the staff: people are forced to adapt to the software instead of the other way round.",
+            "Repeated data entry: the same detail typed three times in three places.",
+            "Slow screens: a two second delay at a busy desk becomes a bottleneck by mid-morning.",
+            "Thin training: staff get one session and then no help."
+          ]
+        },
+        {
+          "type": "quote",
+          "text": "If staff keep private notes or spreadsheets next to the system, it is already failing, even if it is nominally in use."
+        },
+        {
+          "type": "h2",
+          "text": "What to demand instead"
+        },
+        {
+          "type": "ul",
+          "items": [
+            "Software built around the front-desk workflow",
+            "Fast performance on ordinary hardware",
+            "Patient data entered once and reused everywhere",
+            "Tolerance for poor connectivity",
+            "Clear audit logs and a weekly report someone will act on"
+          ]
+        },
+        {
+          "type": "h2",
+          "text": "How we approach it"
+        },
+        {
+          "type": "p",
+          "text": "We start by watching the front desk. Then we build patient records, scheduling and billing into one streamlined flow, and we stay on after launch. Small choices, like shorter intake forms and billing screens that are hard to get wrong, often decide whether a system survives."
+        },
+        {
+          "type": "quote",
+          "text": "One practical test: evaluate any clinic system during a busy morning, not a quiet afternoon. The systems that hold up then are the ones worth buying."
+        }
+      ],
+      "related": "real-cost-of-a-slow-website"
+    },
+    {
+      "slug": "real-cost-of-a-slow-website",
+      "date": "August 2026",
+      "author": "KINETIX TEAM",
+      "readTime": "5 MIN READ",
+      "title": "The real cost of a slow website",
+      "excerpt": "Slow sites quietly erode conversions, search rankings and trust. Here is how to measure the cost and fix it.",
+      "tag": "Websites",
+      "sub": "Nobody complains. They just leave.",
+      "blocks": [
+        {
+          "type": "p",
+          "text": "A slow website rarely announces itself. There is no error message and no angry email. Visitors simply leave, and the loss shows up later as fewer enquiries and weaker sales."
+        },
+        {
+          "type": "h2",
+          "text": "Where the cost hides"
+        },
+        {
+          "type": "ul",
+          "items": [
+            "Conversions: every extra second of waiting gives a visitor one more reason to go back to the search results.",
+            "Search visibility: search engines factor page experience into rankings.",
+            "Trust: a site that stutters feels like a business that stutters."
+          ]
+        },
+        {
+          "type": "h2",
+          "text": "Measure it properly"
+        },
+        {
+          "type": "p",
+          "text": "Do not test on your own fast laptop and office wifi. Open the site on a mid-range phone with a throttled connection, which is how many of your customers will see it. Free tools such as Lighthouse and PageSpeed Insights give a repeatable baseline you can track."
+        },
+        {
+          "type": "quote",
+          "text": "Test on the slowest device your customers realistically use, not the fastest one you own."
+        },
+        {
+          "type": "h2",
+          "text": "The usual fixes"
+        },
+        {
+          "type": "ul",
+          "items": [
+            "Resize and compress images, and serve modern formats",
+            "Remove scripts and plugins nobody can justify",
+            "Load fonts sparingly and avoid layout shifts",
+            "Cache aggressively and serve assets from a nearby edge",
+            "Ship less JavaScript, especially above the fold"
+          ]
+        },
+        {
+          "type": "quote",
+          "text": "Speed is not a one-off task. Treat it as a budget: decide what a page is allowed to weigh, and refuse additions that break it."
+        }
+      ],
+      "related": "principles-inventory-design"
+    },
+    {
+      "slug": "principles-inventory-design",
+      "date": "July 2026",
+      "author": "KINETIX TEAM",
+      "readTime": "5 MIN READ",
+      "title": "5 principles we use when designing inventory systems",
+      "excerpt": "Lessons from inventory and ERP builds about what to prioritise so people actually use the tool.",
+      "tag": "Inventory & ERP",
+      "sub": "Good data starts with easy entry.",
+      "blocks": [
+        {
+          "type": "p",
+          "text": "An inventory system is only as good as the data people put into it, and people only put data in when it is easy and obviously useful. These five principles come from builds where that was tested daily."
+        },
+        {
+          "type": "h2",
+          "text": "1. Log once, at the source"
+        },
+        {
+          "type": "p",
+          "text": "Record each movement at the moment and place it happens, by the person who did it. Re-entry later, by someone else, is where errors are born."
+        },
+        {
+          "type": "h2",
+          "text": "2. Speak the floor's language"
+        },
+        {
+          "type": "p",
+          "text": "Loaders, dispatchers and accountants use different words for the same things. The system should too, per role, with one truth underneath."
+        },
+        {
+          "type": "h2",
+          "text": "3. Make the wrong thing hard"
+        },
+        {
+          "type": "p",
+          "text": "Validate at entry. A scanner that rejects an impossible quantity saves a week of reconciliation."
+        },
+        {
+          "type": "h2",
+          "text": "4. Show the number people trust"
+        },
+        {
+          "type": "p",
+          "text": "Trust is earned when the screen matches the shelf. Prioritise accuracy and freshness over extra widgets."
+        },
+        {
+          "type": "h2",
+          "text": "5. Reports should arrive, not be requested"
+        },
+        {
+          "type": "p",
+          "text": "Schedule the daily and weekly views people need and deliver them automatically. A report nobody has to ask for is a report that gets read."
+        },
+        {
+          "type": "quote",
+          "text": "If the system matches the warehouse floor, everything else becomes easy to decide."
+        }
+      ],
+      "related": "custom-vs-off-the-shelf"
+    },
+    {
+      "slug": "custom-vs-off-the-shelf",
+      "date": "June 2026",
+      "author": "KINETIX TEAM",
+      "readTime": "5 MIN READ",
+      "title": "How to choose between a custom system and off-the-shelf tools",
+      "excerpt": "A practical framework for deciding between custom software and ready-made tools.",
+      "tag": "Buying software",
+      "sub": "Start with the work, not the technology.",
+      "blocks": [
+        {
+          "type": "p",
+          "text": "Custom software is not always the answer, and ready-made tools are not always the cheap option. The right choice depends on a handful of honest questions."
+        },
+        {
+          "type": "h2",
+          "text": "Start with off-the-shelf when"
+        },
+        {
+          "type": "ul",
+          "items": [
+            "Your process is standard and the tool already matches it",
+            "You need to be live within days",
+            "The cost of small compromises is low"
+          ]
+        },
+        {
+          "type": "h2",
+          "text": "Consider custom when"
+        },
+        {
+          "type": "ul",
+          "items": [
+            "Your workflow is a competitive advantage or genuinely unusual",
+            "You are stitching together five tools with manual copy and paste",
+            "Per-seat pricing will outgrow the cost of owning the system",
+            "Staff keep building workarounds around the software"
+          ]
+        },
+        {
+          "type": "h2",
+          "text": "A simple test"
+        },
+        {
+          "type": "p",
+          "text": "List the ten things your team does every week. Mark each one as handled well, handled awkwardly, or not handled. If most are awkward after a fair trial, the tool is shaping your business instead of serving it."
+        },
+        {
+          "type": "quote",
+          "text": "You do not have to choose forever. Start small, prove the value, then grow."
+        },
+        {
+          "type": "p",
+          "text": "Many of our clients begin with one module, such as inventory or a CRM, and extend it as the business grows. That keeps the first investment small and the learning real."
+        }
+      ],
+      "related": "designing-for-non-technical-users"
+    },
+    {
+      "slug": "designing-for-non-technical-users",
+      "date": "May 2026",
+      "author": "KINETIX TEAM",
+      "readTime": "5 MIN READ",
+      "title": "Designing for non-technical users",
+      "excerpt": "Software should not assume users think like developers. Five habits that make interfaces easier to use.",
+      "tag": "Design",
+      "sub": "People want to finish their work.",
+      "blocks": [
+        {
+          "type": "p",
+          "text": "Most people using business software are not interested in software. They are interested in finishing their work. Good design respects that."
+        },
+        {
+          "type": "h2",
+          "text": "1. One screen, one job"
+        },
+        {
+          "type": "p",
+          "text": "When a screen tries to do five things, users freeze. Give each screen one clear purpose and one obvious next step."
+        },
+        {
+          "type": "h2",
+          "text": "2. Plain labels"
+        },
+        {
+          "type": "p",
+          "text": "Replace internal jargon with the words your users already say out loud. If you need a tooltip to explain a button, rename the button."
+        },
+        {
+          "type": "h2",
+          "text": "3. Show consequences before the click"
+        },
+        {
+          "type": "p",
+          "text": "Tell people what will happen. \"This will email the invoice to the customer\" beats a bare \"Submit\"."
+        },
+        {
+          "type": "h2",
+          "text": "4. Forgive mistakes"
+        },
+        {
+          "type": "p",
+          "text": "Provide undo, drafts and confirmations for destructive actions. People move faster when they are not afraid."
+        },
+        {
+          "type": "h2",
+          "text": "5. Test on a busy day"
+        },
+        {
+          "type": "p",
+          "text": "Watch real users work in real conditions, with interruptions. The problems you find will never show up in a quiet review."
+        },
+        {
+          "type": "quote",
+          "text": "If someone needs a manual to use it, the design is not finished."
+        }
+      ],
+      "related": "why-clinic-systems-fail"
+    }
+  ],
+  "collaborations": {
+    "hero": {
+      "tag": "Partnership",
+      "titleWords": [
+        {
+          "text": "Let's",
+          "serif": false
+        },
+        {
+          "text": "build",
+          "serif": false
+        },
+        {
+          "text": "together.",
+          "serif": true
+        }
+      ],
+      "sub": "Bring an idea, a client or a project. We bring the craft.",
+      "buttonLabel": "Let's talk"
+    },
+    "intro": {
+      "eyebrow": "Ways to work with us",
+      "title": "Four ways to collaborate."
+    },
+    "items": [
+      {
+        "number": "01",
+        "title": "Design & build",
+        "text": "You bring the vision, we handle the build from start to finish. Ideal for founders who want one partner accountable for quality and deadlines."
+      },
+      {
+        "number": "02",
+        "title": "Subcontracting",
+        "text": "White-label capacity for agencies and studios. The client relationship stays entirely yours."
+      },
+      {
+        "number": "03",
+        "title": "Product partnerships",
+        "text": "Ongoing support, maintenance and co-building of new features, for teams that need a technical partner over months."
+      },
+      {
+        "number": "04",
+        "title": "Consulting",
+        "text": "Architecture reviews, rescue projects and second opinions for teams that already have their own people."
+      }
+    ],
+    "process": {
+      "eyebrow": "How it starts",
+      "title": "Conversation first.",
+      "text": "Send us a short note covering the idea, a rough timeline and what success looks like. We will give you a candid view on fit, approach and likely effort, and point you elsewhere if we are not the right match."
+    },
+    "ctaTitle": "Pitch your project.",
+    "ctaText": "Share a few lines about the idea, the timeline and the outcome you want."
+  },
+  "contact": {
+    "hero": {
+      "tag": "Contact",
+      "titleWords": [
+        {
+          "text": "Let's",
+          "serif": false
+        },
+        {
+          "text": "talk.",
+          "serif": true
+        }
+      ],
+      "sub": "Tell us about your project. We will get back to you within one business day."
+    },
+    "intro": {
+      "eyebrow": "Contact",
+      "title": "Tell us about your project."
+    },
+    "form": {
+      "nameLabel": "Full name",
+      "emailLabel": "Work email",
+      "companyLabel": "Company",
+      "typeLabel": "Project type *",
+      "typePlaceholder": "Select a project type",
+      "types": [
+        "Website",
+        "E-commerce",
+        "Clinic System",
+        "Inventory / ERP",
+        "CRM",
+        "Custom project",
+        "Other / Not sure"
+      ],
+      "budgetLabel": "Budget range (optional)",
+      "budgetPlaceholder": "A rough range is fine",
+      "messageLabel": "Message",
+      "messagePlaceholder": "A link to your current site, the rough scope and any deadlines all help.",
+      "buttonLabel": "Send Message",
+      "note": "The more context you share, the better our first reply will be. Not ready to write a long message? A one-line note is enough to start the conversation."
+    },
+    "details": [
+      {
+        "label": "Email us",
+        "value": "kinetix.technologies.web@gmail.com"
+      },
+      {
+        "label": "Response time",
+        "value": "Within 1 business day"
+      },
+      {
+        "label": "Our promise",
+        "value": "Built for Momentum"
+      }
+    ],
+    "next": {
+      "eyebrow": "What happens next",
+      "title": "After you hit send.",
+      "text": "No black boxes, and no waiting for a call that never comes.",
+      "steps": [
+        {
+          "number": "01",
+          "title": "We reply within one business day",
+          "text": "A real person, not an autoresponder, reviews your message and replies with whether your project is a fit and the key questions."
+        },
+        {
+          "number": "02",
+          "title": "We scope it together",
+          "text": "A short discovery call or email exchange covers goals, must-haves and budget, ending with a clear scope and price before anything is signed."
+        },
+        {
+          "number": "03",
+          "title": "We build, you watch it land",
+          "text": "Work moves in visible stages with regular check-ins, and you can always reach the team by message."
+        }
+      ]
+    },
+    "newsletter": {
+      "eyebrow": "Newsletter",
+      "title": "Stay ahead in your inbox.",
+      "lead": "Occasional insights on digital systems, product design and growth.",
+      "note": "Occasional insights. No spam. Unsubscribe anytime."
+    }
+  },
+  "ui": {
+    "learnMore": "Learn more",
+    "startProject": "Start a Project",
+    "exploreServices": "Explore Services",
+    "viewWork": "View Our Work",
+    "allServices": "All services",
+    "viewAllProjects": "View All Projects",
+    "letsTalk": "Let's talk",
+    "nextProject": "Next project",
+    "backToWork": "Back to work",
+    "allInsights": "All insights",
+    "keepReading": "Keep reading",
+    "newsletterPlaceholder": "Email address",
+    "newsletterInvalid": "Please enter a valid email address.",
+    "newsletterSuccess": "You are on the list. Thank you.",
+    "subscribe": "Subscribe",
+    "contactSubject": "New project enquiry",
+    "contactOpening": "Opening your email app with your message ready to send.",
+    "footerNavigation": "Navigation",
+    "footerCompany": "Company",
+    "footerStayAhead": "Stay ahead",
+    "footerNewsletterNote": "Occasional notes on digital systems, product design and growth."
+  },
+  "cta": {
+    "eyebrow": "Start a conversation",
+    "title": "Ready to build something that performs?",
+    "text": "Tell us about your project and we will reply within one business day.",
+    "buttonLabel": "Start a Project"
+  },
+  "caseStudies": [
+    {
+      "slug": "mediflow",
+      "title": "MediFlow",
+      "tag": "Clinic Management System · 2025",
+      "sub": "One patient timeline, from check-in to billing, across every branch.",
+      "client": "Multi-branch medical practice",
+      "service": "Clinic Management System",
+      "year": "2025",
+      "blocks": [
+        {
+          "eyebrow": "Overview",
+          "lead": "MediFlow runs the daily operations of a multi-branch practice. Each patient journey, from check-in to billing, now lives on a single timeline. It replaced spreadsheets, paper forms and phone scheduling, and it had to enforce one standard across branches while still holding up during the busiest front-desk hours."
+        },
+        {
+          "eyebrow": "The challenge",
+          "paragraphs": [
+            "Manual processes caused delays and errors. A patient's details were split between a paper file, a spreadsheet and staff memory, which led to duplicate records, missed appointments and billing disputes. Across three branches, the errors compounded."
+          ]
+        },
+        {
+          "eyebrow": "The solution",
+          "bullets": [
+            "Patient records on a single timeline",
+            "Online and front-desk appointment scheduling",
+            "Billing and invoicing built into the daily workflow"
+          ],
+          "paragraphs": [
+            "We started by watching patient flow at the front desk. Screens follow the order of the day: check-in, then records, then billing. Migration went branch by branch, with existing records reconciled before go-live and the old process running in parallel for the first weeks."
+          ]
+        },
+        {
+          "eyebrow": "Results",
+          "results": [
+            {
+              "value": "40%",
+              "suffix": "%",
+              "label": "Reduction in administrative time",
+              "count": 40
+            },
+            {
+              "value": "Seconds",
+              "label": "To book an appointment online"
+            },
+            {
+              "value": "Near zero",
+              "label": "Billing errors after go-live"
+            }
+          ]
+        }
+      ],
+      "next": "cobalt",
+      "ctaButton": "Discuss a Clinic System"
+    },
+    {
+      "slug": "stockpilot",
+      "title": "StockPilot",
+      "tag": "Inventory & ERP · 2026",
+      "sub": "Inventory and sales management for a distribution company.",
+      "client": "Distribution company",
+      "service": "Inventory & ERP Modules",
+      "year": "2026",
+      "blocks": [
+        {
+          "eyebrow": "Overview",
+          "lead": "StockPilot gives a distribution team one dependable view of stock and sales across locations, replacing a patchwork of spreadsheets and after-the-fact reconciliation."
+        },
+        {
+          "eyebrow": "The challenge",
+          "paragraphs": [
+            "The team could see what had been ordered and what had been invoiced, but not what was actually on the shelf. Stockouts and over-ordering were both common, and nobody trusted the numbers enough to act on them."
+          ]
+        },
+        {
+          "eyebrow": "The solution",
+          "bullets": [
+            "Stock movements logged at the point of work",
+            "Purchase and sales flows in one system",
+            "Scheduled reports for managers"
+          ],
+          "paragraphs": [
+            "We mapped the warehouse day, then designed screens around the moments staff actually record movement. Reports are delivered rather than requested, so the numbers stay current and get used."
+          ]
+        },
+        {
+          "eyebrow": "Results",
+          "results": [
+            {
+              "value": "98%",
+              "suffix": "%",
+              "label": "Inventory accuracy",
+              "count": 98
+            },
+            {
+              "value": "Live",
+              "label": "Stock position across locations"
+            },
+            {
+              "value": "Weekly",
+              "label": "Reports delivered automatically"
+            }
+          ]
+        }
+      ],
+      "next": "pulse",
+      "ctaButton": "Discuss an ERP Project"
+    },
+    {
+      "slug": "cobalt",
+      "title": "Cobalt",
+      "tag": "E-Commerce Platform · 2026",
+      "sub": "Payments, subscriptions and order management for a B2B brand.",
+      "client": "B2B brand",
+      "service": "E-commerce Platform",
+      "year": "2026",
+      "blocks": [
+        {
+          "eyebrow": "Overview",
+          "lead": "Cobalt is a B2B store built around repeat purchasing, complex catalogues and subscriptions, with an order flow that makes the next reorder almost automatic."
+        },
+        {
+          "eyebrow": "The challenge",
+          "paragraphs": [
+            "The old site showed products but could not handle contract pricing, recurring orders or the volume of enquiries that came with a growing catalogue. Sales spent too much time manually turning questions into orders."
+          ]
+        },
+        {
+          "eyebrow": "The solution",
+          "bullets": [
+            "Account-based pricing and catalogues",
+            "Subscriptions and repeat orders",
+            "Order tracking and notifications"
+          ],
+          "paragraphs": [
+            "We built the buyer journey first, then the admin tools behind it. Account managers could see customer history and turn enquiries into orders without leaving the system."
+          ]
+        },
+        {
+          "eyebrow": "Results",
+          "results": [
+            {
+              "value": "3.2x",
+              "suffix": "x",
+              "label": "Faster page loads",
+              "count": 3.2,
+              "dec": 1
+            },
+            {
+              "value": "Live",
+              "label": "Contract pricing per account"
+            },
+            {
+              "value": "Fewer",
+              "label": "Manual order entries"
+            }
+          ]
+        }
+      ],
+      "next": "stockpilot",
+      "ctaButton": "Discuss an E-commerce Store"
+    },
+    {
+      "slug": "pulse",
+      "title": "Pulse",
+      "tag": "CRM & Business Tools · 2026",
+      "sub": "A sales CRM that unifies leads, follow-ups and reporting.",
+      "client": "Growing services team",
+      "service": "CRM & Business Tools",
+      "year": "2026",
+      "blocks": [
+        {
+          "eyebrow": "Overview",
+          "lead": "Pulse keeps every lead, follow-up and deal in one place so a growing sales team can see the next move without a weekly spreadsheet ritual."
+        },
+        {
+          "eyebrow": "The challenge",
+          "paragraphs": [
+            "Enquiries arrived by email, chat and referral, then lived in different inboxes. Follow-ups were missed, and management had no reliable picture of the pipeline until it was too late to act."
+          ]
+        },
+        {
+          "eyebrow": "The solution",
+          "bullets": [
+            "One pipeline for every enquiry",
+            "Reminders and automated follow-ups",
+            "Dashboards the team actually opens"
+          ],
+          "paragraphs": [
+            "We designed the CRM around the team's existing language for stages, then added automation only where it removed repetitive work rather than adding noise."
+          ]
+        },
+        {
+          "eyebrow": "Results",
+          "results": [
+            {
+              "value": "100%",
+              "suffix": "%",
+              "label": "Of enquiries captured in one place",
+              "count": 100
+            },
+            {
+              "value": "Faster",
+              "label": "Follow-up on new leads"
+            },
+            {
+              "value": "Clear",
+              "label": "Weekly pipeline reporting"
+            }
+          ]
+        }
+      ],
+      "next": "mediflow",
+      "ctaButton": "Discuss a CRM Setup"
+    }
+  ]
+}

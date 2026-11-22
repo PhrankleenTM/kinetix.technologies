@@ -2,6 +2,9 @@
 (() => {
   const $ = (s, c = document) => c.querySelector(s), $$ = (s, c = document) => [...c.querySelectorAll(s)];
   const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const cms = (window.__CMS__ && window.__CMS__.content) || {};
+  const ui = cms.ui || {};
+  const siteEmail = (cms.settings || {}).email || 'kinetix.technologies.web@gmail.com';
 
   // nav state
   const nav = $('.nav');
@@ -51,8 +54,8 @@
   $$('form.nl-form').forEach(f => f.addEventListener('submit', e => {
     e.preventDefault();
     const i = $('input', f), m = $('.nl-msg', f.parentElement), v = i.value.trim();
-    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v)) { m.textContent = 'Please enter a valid email address.'; return; }
-    m.textContent = 'You are on the list. Thank you.'; i.value = '';
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v)) { m.textContent = ui.newsletterInvalid || 'Please enter a valid email address.'; return; }
+    m.textContent = ui.newsletterSuccess || 'You are on the list. Thank you.'; i.value = '';
   }));
 
   // contact form: opens the visitor's email app with the message filled in
@@ -61,8 +64,9 @@
     e.preventDefault();
     const d = Object.fromEntries(new FormData(cf)), msg = $('#form-msg');
     const body = `Name: ${d.name}\nEmail: ${d.email}\nCompany: ${d.company || '-'}\nProject type: ${d.type}\nBudget: ${d.budget || '-'}\n\n${d.message || ''}`;
-    location.href = `mailto:kinetix.technologies.web@gmail.com?subject=${encodeURIComponent('New project enquiry: ' + d.type)}&body=${encodeURIComponent(body)}`;
-    msg.textContent = 'Opening your email app with your message ready to send. If nothing opens, write to kinetix.technologies.web@gmail.com.';
+    const subject = ui.contactSubject || 'New project enquiry';
+    location.href = `mailto:${siteEmail}?subject=${encodeURIComponent(subject + ': ' + d.type)}&body=${encodeURIComponent(body)}`;
+    msg.textContent = (ui.contactOpening || 'Opening your email app with your message ready to send.') + ` If nothing opens, write to ${siteEmail}.`;
     msg.classList.add('show');
   });
 

@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Kinetix CMS — Admin</title>
+    <meta name="theme-color" content="#18181B" />
+    <link rel="icon" type="image/svg+xml" href="/assets/img/favicon.svg" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Geist:wght@300..700&family=Geist+Mono:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="/assets/css/style.css" />
+    <link rel="stylesheet" href="/assets/css/admin.css" />
+  </head>
+  <body class="admin-body">
+    <div id="login" class="login-wrap">
+      <form class="login-card" id="login-form">
+        <div class="brand">KINETIX <span>CMS</span></div>
+        <h1>Welcome back.</h1>
+        <p class="muted">Sign in to manage site content.</p>
+        <p class="login-hint">Start the server with <code>npm start</code>, then use http://localhost:3000/admin.html</p>
+        <label for="password">Admin password</label>
+        <input
+          id="password"
+          name="password"
+          type="password"
+          required
+          autocomplete="current-password"
+          placeholder="Admin password"
+        />
+        <button class="btn btn-primary" type="submit">Sign in</button>
+        <p class="error" id="login-error"></p>
+      </form>
+    </div>
+
+    <div id="app" class="admin-app" hidden>
+      <aside class="admin-side">
+        <div class="brand">KINETIX <span>CMS</span></div>
+        <nav id="sections" class="sections" aria-label="Content sections"></nav>
+        <div class="side-tools">
+          <button type="button" id="export-btn">Export backup</button>
+          <label class="import-label"
+            >Import backup<input
+              type="file"
+              id="import-file"
+              accept="application/json"
+              hidden
+          /></label>
+          <button type="button" id="password-btn">Change password</button>
+          <a href="/index.html" target="_blank" rel="noopener">View site</a>
+          <button type="button" id="logout-btn">Sign out</button>
+        </div>
+      </aside>
+      <main class="admin-main">
+        <header class="admin-top">
+          <div>
+            <span class="eyebrow">Content management</span>
+            <h1 id="section-title">Loading…</h1>
+          </div>
+          <div class="top-actions">
+            <span id="status" class="status" role="status"></span>
+            <button class="btn btn-primary" id="save-btn" type="button">
+              Save changes
+            </button>
+          </div>
+        </header>
+        <div id="fields" class="fields"></div>
+        <footer class="admin-foot">
+          Changes go live on the public pages as soon as you save.
+        </footer>
+      </main>
+    </div>
+
+    <div id="password-modal" class="modal" hidden>
+      <form class="modal-card" id="password-form">
+        <h2>Change admin password</h2>
+        <label for="new-password">New password</label>
+        <input id="new-password" type="password" minlength="8" required />
+        <label for="confirm-password">Confirm password</label>
+        <input id="confirm-password" type="password" minlength="8" required />
+        <p class="error" id="password-error"></p>
+        <div class="modal-actions">
+          <button type="button" class="btn btn-ghost" id="password-cancel">
+            Cancel</button
+          ><button type="submit" class="btn btn-primary">
+            Update password
+          </button>
+        </div>
+      </form>
+    </div>
+
+    <script src="/assets/js/admin.js" defer></script>
+  </body>
+</html>

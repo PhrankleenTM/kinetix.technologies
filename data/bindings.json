@@ -1,0 +1,521 @@
+{
+  "_global": {
+    "list": {
+      "nav.labels": {
+        "selector": [
+          ".links a",
+          ".mobile-menu a.ml",
+          ".f-grid > div:nth-child(2) ul li a"
+        ],
+        "render": "navLinks"
+      },
+      "nav.cta": {
+        "selector": [".btn-nav", ".mobile-menu a.btn"],
+        "render": "ctaLabel"
+      },
+      "settings.social": { "selector": ".socials", "render": "socials" },
+      "settings.email": {
+        "selector": "a[href^=\"mailto:\"]",
+        "render": "mailto"
+      }
+    },
+    "text": {
+      "settings.footerBlurb": ".f-grid > div:first-child .blurb",
+      "settings.footerTagline": ".f-bottom > span:last-child",
+      "settings.logoText": ".wordmark",
+      "insights.newsletter.note": ".f-grid > div:nth-child(4) > .note:last-of-type",
+      "ui.footerNewsletterNote": ".f-grid > div:nth-child(4) > .note:first-of-type"
+    },
+    "special": ["seo", "colors", "logo", "ui", "siteName", "companyFooter"]
+  },
+  "index.html": {
+    "list": {
+      "home.hero.titleWords": {
+        "selector": "main > section:nth-of-type(1) h1",
+        "render": "words"
+      },
+      "home.hero.badges": {
+        "selector": "main > section:nth-of-type(1) .badges",
+        "render": "badges"
+      },
+      "home.marquee": { "selector": ".marquee .track", "render": "marquee" },
+      "home.why.cards": {
+        "selector": "main > section:nth-of-type(2) .grid.g4",
+        "render": "iconCards"
+      },
+      "home.services.cards": {
+        "selector": "main > section:nth-of-type(3) .grid.g3",
+        "render": "serviceCards"
+      },
+      "home.work.rows": { "selector": ".rows", "render": "workRows" },
+      "home.stats": { "selector": ".stats", "render": "stats" },
+      "home.process.steps": { "selector": ".steps", "render": "steps" },
+      "home.testimonials.quotes": {
+        "selector": "main > section:nth-of-type(6) .grid.g2",
+        "render": "quotes"
+      }
+    },
+    "text": {
+      "home.hero.tag": "main > section:nth-of-type(1) .hero-tag",
+      "home.hero.sub": "main > section:nth-of-type(1) .sub",
+      "ui.startProject": "main > section:nth-of-type(1) .actions .btn-primary@first",
+      "ui.exploreServices": "main > section:nth-of-type(1) .actions .btn-ghost@first",
+      "ui.viewWork": "main > section:nth-of-type(1) .actions .link-arrow@first",
+      "ui.allServices": "main > section:nth-of-type(3) .sec-head .btn-ghost@first",
+      "ui.viewAllProjects": "main > section:nth-of-type(4) .sec-head .btn-ghost@first",
+      "home.why.eyebrow": "main > section:nth-of-type(2) .eyebrow",
+      "home.why.title": "main > section:nth-of-type(2) .h2",
+      "home.why.lead": "main > section:nth-of-type(2) .lead",
+      "home.services.eyebrow": "main > section:nth-of-type(3) .eyebrow",
+      "home.services.title": "main > section:nth-of-type(3) .h2",
+      "home.work.eyebrow": "main > section:nth-of-type(4) .eyebrow",
+      "home.work.title": "main > section:nth-of-type(4) .h2",
+      "home.process.eyebrow": "main > section:nth-of-type(5) .eyebrow",
+      "home.process.title": "main > section:nth-of-type(5) .h2",
+      "home.testimonials.eyebrow": "main > section:nth-of-type(6) .eyebrow",
+      "home.testimonials.title": "main > section:nth-of-type(6) .h2"
+    },
+    "cta": {
+      "eyebrow": "cta.eyebrow",
+      "title": "home.testimonials.ctaTitle",
+      "text": "home.testimonials.ctaText"
+    },
+    "special": ["cta"]
+  },
+  "services.html": {
+    "list": {
+      "services.hero.titleWords": {
+        "selector": "main > section:nth-of-type(1) h1",
+        "render": "words"
+      },
+      "services.items": {
+        "selector": "main .svc-row",
+        "render": "serviceRows",
+        "replaceWith": "after"
+      }
+    },
+    "text": {
+      "services.hero.tag": "main > section:nth-of-type(1) .hero-tag",
+      "services.hero.sub": "main > section:nth-of-type(1) .sub",
+      "ui.startProject": "main > section:nth-of-type(1) .actions .btn-primary@first"
+    },
+    "cta": {
+      "eyebrow": "cta.eyebrow",
+      "title": "services.ctaTitle",
+      "text": "services.ctaText"
+    },
+    "special": ["cta"]
+  },
+  "work.html": {
+    "list": {
+      "work.hero.titleWords": {
+        "selector": "main > section:nth-of-type(1) h1",
+        "render": "words"
+      },
+      "work.hero.badges": {
+        "selector": "main > section:nth-of-type(1) .badges",
+        "render": "badges"
+      },
+      "work.filters": { "selector": ".chips", "render": "chips" },
+      "work.projects": { "selector": ".pgrid", "render": "projects" }
+    },
+    "text": {
+      "work.hero.tag": "main > section:nth-of-type(1) .hero-tag",
+      "work.hero.sub": "main > section:nth-of-type(1) .sub",
+      "ui.startProject": "main > section:nth-of-type(1) .actions .btn-primary@first",
+      "work.intro.eyebrow": "main > section:nth-of-type(2) > .container > .eyebrow",
+      "work.intro.title": "main > section:nth-of-type(2) .h2"
+    },
+    "html": { "work.empty": ".empty" },
+    "cta": {
+      "eyebrow": "cta.eyebrow",
+      "title": "work.ctaTitle",
+      "text": "work.ctaText"
+    },
+    "special": ["cta"]
+  },
+  "about.html": {
+    "list": {
+      "about.hero.titleWords": {
+        "selector": "main > section:nth-of-type(1) h1",
+        "render": "words"
+      },
+      "about.story.paragraphs": {
+        "selector": "main > section:nth-of-type(2) .prose > p",
+        "render": "paragraphs",
+        "limit": 3
+      },
+      "about.principles.items": {
+        "selector": "main > section:nth-of-type(2) .prose > ul",
+        "render": "list"
+      },
+      "about.values.items": {
+        "selector": "main > section:nth-of-type(3) .grid.g4",
+        "render": "numberCards"
+      },
+      "about.working.items": {
+        "selector": "main > section:nth-of-type(4) .grid.g2 > div:first-child ul",
+        "render": "list"
+      },
+      "about.philosophy.items": {
+        "selector": "main > section:nth-of-type(4) .grid.g2 > div:last-child ul",
+        "render": "strongList"
+      }
+    },
+    "text": {
+      "about.hero.tag": "main > section:nth-of-type(1) .hero-tag",
+      "about.hero.sub": "main > section:nth-of-type(1) .sub",
+      "ui.startProject": "main > section:nth-of-type(1) .actions .btn-primary@first",
+      "about.story.eyebrow": "main > section:nth-of-type(2) .sticky .eyebrow",
+      "about.story.title": "main > section:nth-of-type(2) .sticky h2",
+      "about.principles.eyebrow": "main > section:nth-of-type(2) .prose > h2",
+      "about.values.eyebrow": "main > section:nth-of-type(3) .eyebrow",
+      "about.values.title": "main > section:nth-of-type(3) .h2",
+      "about.working.eyebrow": "main > section:nth-of-type(4) .grid.g2 > div:first-child .eyebrow",
+      "about.working.title": "main > section:nth-of-type(4) .grid.g2 > div:first-child h3",
+      "about.philosophy.eyebrow": "main > section:nth-of-type(4) .grid.g2 > div:last-child .eyebrow",
+      "about.philosophy.title": "main > section:nth-of-type(4) .grid.g2 > div:last-child h3"
+    },
+    "cta": {
+      "eyebrow": "cta.eyebrow",
+      "title": "about.ctaTitle",
+      "text": "about.ctaText"
+    },
+    "special": ["cta"]
+  },
+  "collaborations.html": {
+    "list": {
+      "collaborations.hero.titleWords": {
+        "selector": "main > section:nth-of-type(1) h1",
+        "render": "words"
+      },
+      "collaborations.items": {
+        "selector": ".collab-card",
+        "render": "collabCards",
+        "replaceWith": "after"
+      }
+    },
+    "text": {
+      "collaborations.hero.tag": "main > section:nth-of-type(1) .hero-tag",
+      "collaborations.hero.sub": "main > section:nth-of-type(1) .sub",
+      "ui.letsTalk": "main > section:nth-of-type(1) .actions .btn-primary@first",
+      "collaborations.intro.eyebrow": "main > section:nth-of-type(2) .eyebrow",
+      "collaborations.intro.title": "main > section:nth-of-type(2) .h2",
+      "collaborations.process.eyebrow": "main > section:nth-of-type(3) .sticky .eyebrow",
+      "collaborations.process.title": "main > section:nth-of-type(3) .sticky h2",
+      "collaborations.process.text": "main > section:nth-of-type(3) .prose p:first-child"
+    },
+    "cta": {
+      "eyebrow": "cta.eyebrow",
+      "title": "collaborations.ctaTitle",
+      "text": "collaborations.ctaText"
+    },
+    "special": ["cta"]
+  },
+  "contact.html": {
+    "list": {
+      "contact.hero.titleWords": {
+        "selector": "main > section:nth-of-type(1) h1",
+        "render": "words"
+      },
+      "contact.details": { "selector": ".info-list", "render": "infoList" },
+      "contact.next.steps": { "selector": ".steps", "render": "steps" }
+    },
+    "text": {
+      "contact.hero.tag": "main > section:nth-of-type(1) .hero-tag",
+      "contact.hero.sub": "main > section:nth-of-type(1) .sub",
+      "contact.intro.eyebrow": "main > section:nth-of-type(2) .eyebrow",
+      "contact.intro.title": "main > section:nth-of-type(2) .h2",
+      "contact.form.nameLabel": "label[for=name]",
+      "contact.form.emailLabel": "label[for=email]",
+      "contact.form.companyLabel": "label[for=company]",
+      "contact.form.typeLabel": "label[for=type]",
+      "contact.form.budgetLabel": "label[for=budget]",
+      "contact.form.messageLabel": "label[for=message]",
+      "contact.form.note": "#contact-form > .note",
+      "contact.next.eyebrow": "main > section:nth-of-type(3) .eyebrow",
+      "contact.next.title": "main > section:nth-of-type(3) .h2",
+      "contact.next.text": "main > section:nth-of-type(3) .lead",
+      "contact.newsletter.eyebrow": "main > section:nth-of-type(4) .eyebrow",
+      "contact.newsletter.title": "main > section:nth-of-type(4) .h2",
+      "contact.newsletter.lead": "main > section:nth-of-type(4) .lead",
+      "contact.newsletter.note": "main > section:nth-of-type(4) > .container > .card .note:last-of-type"
+    },
+    "attr": {
+      "contact.form.buttonLabel": "#contact-form button[type=submit]@textFirst",
+      "contact.form.budgetPlaceholder": "input#budget@placeholder",
+      "contact.form.messagePlaceholder": "textarea#message@placeholder"
+    },
+    "special": ["typeOptions"]
+  },
+  "insights.html": {
+    "list": {
+      "insights.hero.titleWords": {
+        "selector": "main > section:nth-of-type(1) h1",
+        "render": "words"
+      },
+      "articles": { "selector": ".alist", "render": "articleRows" }
+    },
+    "text": {
+      "insights.hero.tag": "main > section:nth-of-type(1) .hero-tag",
+      "insights.hero.sub": "main > section:nth-of-type(1) .sub",
+      "ui.startProject": "main > section:nth-of-type(1) .actions .btn-primary@first",
+      "insights.intro.eyebrow": "main > section:nth-of-type(2) .eyebrow",
+      "insights.intro.title": "main > section:nth-of-type(2) .h2",
+      "insights.intro.text": "main > section:nth-of-type(2) .prose p:last-child",
+      "insights.newsletter.eyebrow": "main > section:nth-of-type(3) .eyebrow",
+      "insights.newsletter.title": "main > section:nth-of-type(3) .h2",
+      "insights.newsletter.lead": "main > section:nth-of-type(3) .lead"
+    },
+    "cta": {
+      "eyebrow": "cta.eyebrow",
+      "title": "insights.ctaTitle",
+      "text": "insights.ctaText"
+    },
+    "special": ["cta"]
+  },
+  "case-studies/mediflow.html": {
+    "list": {
+      "caseStudies[slug=mediflow].title": {
+        "selector": "h1",
+        "render": "words"
+      },
+      "caseStudies[slug=mediflow].blocks": {
+        "selector": ".prose",
+        "render": "caseBlocks"
+      },
+      "caseStudies[slug=mediflow].ctaButton": {
+        "selector": [".actions .btn-primary", ".cta .btn-primary"],
+        "render": "ctaLabel"
+      }
+    },
+    "text": {
+      "caseStudies[slug=mediflow].tag": "main > section:nth-of-type(1) .hero-tag",
+      "caseStudies[slug=mediflow].sub": "main > section:nth-of-type(1) .sub",
+      "caseStudies[slug=mediflow].client": ".meta-grid > div:nth-child(1)",
+      "caseStudies[slug=mediflow].service": ".meta-grid > div:nth-child(2)",
+      "caseStudies[slug=mediflow].year": ".meta-grid > div:nth-child(3)"
+    },
+    "cta": {
+      "eyebrow": "cta.eyebrow",
+      "title": "cta.title",
+      "text": "cta.text",
+      "button": "caseStudies[slug=mediflow].ctaButton"
+    },
+    "special": ["caseNext", "cta"]
+  },
+  "case-studies/stockpilot.html": {
+    "list": {
+      "caseStudies[slug=stockpilot].title": {
+        "selector": "h1",
+        "render": "words"
+      },
+      "caseStudies[slug=stockpilot].blocks": {
+        "selector": ".prose",
+        "render": "caseBlocks"
+      },
+      "caseStudies[slug=stockpilot].ctaButton": {
+        "selector": [".actions .btn-primary", ".cta .btn-primary"],
+        "render": "ctaLabel"
+      }
+    },
+    "text": {
+      "caseStudies[slug=stockpilot].tag": "main > section:nth-of-type(1) .hero-tag",
+      "caseStudies[slug=stockpilot].sub": "main > section:nth-of-type(1) .sub",
+      "caseStudies[slug=stockpilot].client": ".meta-grid > div:nth-child(1)",
+      "caseStudies[slug=stockpilot].service": ".meta-grid > div:nth-child(2)",
+      "caseStudies[slug=stockpilot].year": ".meta-grid > div:nth-child(3)"
+    },
+    "cta": {
+      "eyebrow": "cta.eyebrow",
+      "title": "cta.title",
+      "text": "cta.text",
+      "button": "caseStudies[slug=stockpilot].ctaButton"
+    },
+    "special": ["caseNext", "cta"]
+  },
+  "case-studies/cobalt.html": {
+    "list": {
+      "caseStudies[slug=cobalt].title": { "selector": "h1", "render": "words" },
+      "caseStudies[slug=cobalt].blocks": {
+        "selector": ".prose",
+        "render": "caseBlocks"
+      },
+      "caseStudies[slug=cobalt].ctaButton": {
+        "selector": [".actions .btn-primary", ".cta .btn-primary"],
+        "render": "ctaLabel"
+      }
+    },
+    "text": {
+      "caseStudies[slug=cobalt].tag": "main > section:nth-of-type(1) .hero-tag",
+      "caseStudies[slug=cobalt].sub": "main > section:nth-of-type(1) .sub",
+      "caseStudies[slug=cobalt].client": ".meta-grid > div:nth-child(1)",
+      "caseStudies[slug=cobalt].service": ".meta-grid > div:nth-child(2)",
+      "caseStudies[slug=cobalt].year": ".meta-grid > div:nth-child(3)"
+    },
+    "cta": {
+      "eyebrow": "cta.eyebrow",
+      "title": "cta.title",
+      "text": "cta.text",
+      "button": "caseStudies[slug=cobalt].ctaButton"
+    },
+    "special": ["caseNext", "cta"]
+  },
+  "case-studies/pulse.html": {
+    "list": {
+      "caseStudies[slug=pulse].title": { "selector": "h1", "render": "words" },
+      "caseStudies[slug=pulse].blocks": {
+        "selector": ".prose",
+        "render": "caseBlocks"
+      },
+      "caseStudies[slug=pulse].ctaButton": {
+        "selector": [".actions .btn-primary", ".cta .btn-primary"],
+        "render": "ctaLabel"
+      }
+    },
+    "text": {
+      "caseStudies[slug=pulse].tag": "main > section:nth-of-type(1) .hero-tag",
+      "caseStudies[slug=pulse].sub": "main > section:nth-of-type(1) .sub",
+      "caseStudies[slug=pulse].client": ".meta-grid > div:nth-child(1)",
+      "caseStudies[slug=pulse].service": ".meta-grid > div:nth-child(2)",
+      "caseStudies[slug=pulse].year": ".meta-grid > div:nth-child(3)"
+    },
+    "cta": {
+      "eyebrow": "cta.eyebrow",
+      "title": "cta.title",
+      "text": "cta.text",
+      "button": "caseStudies[slug=pulse].ctaButton"
+    },
+    "special": ["caseNext", "cta"]
+  },
+  "insights/why-clinic-systems-fail.html": {
+    "list": {
+      "articles[slug=why-clinic-systems-fail].title": {
+        "selector": "h1",
+        "render": "words"
+      },
+      "articles[slug=why-clinic-systems-fail].blocks": {
+        "selector": ".article",
+        "render": "articleBlocks"
+      }
+    },
+    "text": {
+      "articles[slug=why-clinic-systems-fail].tag": "main > section:nth-of-type(1) .hero-tag",
+      "articles[slug=why-clinic-systems-fail].sub": "main > section:nth-of-type(1) .sub",
+      "articles[slug=why-clinic-systems-fail].date": ".ameta span:nth-child(1)",
+      "articles[slug=why-clinic-systems-fail].author": ".ameta span:nth-child(2)",
+      "articles[slug=why-clinic-systems-fail].readTime": ".ameta span:nth-child(3)",
+      "ui.startProject": "main > section:nth-of-type(1) .actions .btn-primary@first"
+    },
+    "cta": {
+      "eyebrow": "cta.eyebrow",
+      "title": "cta.title",
+      "text": "cta.text"
+    },
+    "special": ["articleNext", "cta"]
+  },
+  "insights/real-cost-of-a-slow-website.html": {
+    "list": {
+      "articles[slug=real-cost-of-a-slow-website].title": {
+        "selector": "h1",
+        "render": "words"
+      },
+      "articles[slug=real-cost-of-a-slow-website].blocks": {
+        "selector": ".article",
+        "render": "articleBlocks"
+      }
+    },
+    "text": {
+      "articles[slug=real-cost-of-a-slow-website].tag": "main > section:nth-of-type(1) .hero-tag",
+      "articles[slug=real-cost-of-a-slow-website].sub": "main > section:nth-of-type(1) .sub",
+      "articles[slug=real-cost-of-a-slow-website].date": ".ameta span:nth-child(1)",
+      "articles[slug=real-cost-of-a-slow-website].author": ".ameta span:nth-child(2)",
+      "articles[slug=real-cost-of-a-slow-website].readTime": ".ameta span:nth-child(3)",
+      "ui.startProject": "main > section:nth-of-type(1) .actions .btn-primary@first"
+    },
+    "cta": {
+      "eyebrow": "cta.eyebrow",
+      "title": "cta.title",
+      "text": "cta.text"
+    },
+    "special": ["articleNext", "cta"]
+  },
+  "insights/principles-inventory-design.html": {
+    "list": {
+      "articles[slug=principles-inventory-design].title": {
+        "selector": "h1",
+        "render": "words"
+      },
+      "articles[slug=principles-inventory-design].blocks": {
+        "selector": ".article",
+        "render": "articleBlocks"
+      }
+    },
+    "text": {
+      "articles[slug=principles-inventory-design].tag": "main > section:nth-of-type(1) .hero-tag",
+      "articles[slug=principles-inventory-design].sub": "main > section:nth-of-type(1) .sub",
+      "articles[slug=principles-inventory-design].date": ".ameta span:nth-child(1)",
+      "articles[slug=principles-inventory-design].author": ".ameta span:nth-child(2)",
+      "articles[slug=principles-inventory-design].readTime": ".ameta span:nth-child(3)",
+      "ui.startProject": "main > section:nth-of-type(1) .actions .btn-primary@first"
+    },
+    "cta": {
+      "eyebrow": "cta.eyebrow",
+      "title": "cta.title",
+      "text": "cta.text"
+    },
+    "special": ["articleNext", "cta"]
+  },
+  "insights/custom-vs-off-the-shelf.html": {
+    "list": {
+      "articles[slug=custom-vs-off-the-shelf].title": {
+        "selector": "h1",
+        "render": "words"
+      },
+      "articles[slug=custom-vs-off-the-shelf].blocks": {
+        "selector": ".article",
+        "render": "articleBlocks"
+      }
+    },
+    "text": {
+      "articles[slug=custom-vs-off-the-shelf].tag": "main > section:nth-of-type(1) .hero-tag",
+      "articles[slug=custom-vs-off-the-shelf].sub": "main > section:nth-of-type(1) .sub",
+      "articles[slug=custom-vs-off-the-shelf].date": ".ameta span:nth-child(1)",
+      "articles[slug=custom-vs-off-the-shelf].author": ".ameta span:nth-child(2)",
+      "articles[slug=custom-vs-off-the-shelf].readTime": ".ameta span:nth-child(3)",
+      "ui.startProject": "main > section:nth-of-type(1) .actions .btn-primary@first"
+    },
+    "cta": {
+      "eyebrow": "cta.eyebrow",
+      "title": "cta.title",
+      "text": "cta.text"
+    },
+    "special": ["articleNext", "cta"]
+  },
+  "insights/designing-for-non-technical-users.html": {
+    "list": {
+      "articles[slug=designing-for-non-technical-users].title": {
+        "selector": "h1",
+        "render": "words"
+      },
+      "articles[slug=designing-for-non-technical-users].blocks": {
+        "selector": ".article",
+        "render": "articleBlocks"
+      }
+    },
+    "text": {
+      "articles[slug=designing-for-non-technical-users].tag": "main > section:nth-of-type(1) .hero-tag",
+      "articles[slug=designing-for-non-technical-users].sub": "main > section:nth-of-type(1) .sub",
+      "articles[slug=designing-for-non-technical-users].date": ".ameta span:nth-child(1)",
+      "articles[slug=designing-for-non-technical-users].author": ".ameta span:nth-child(2)",
+      "articles[slug=designing-for-non-technical-users].readTime": ".ameta span:nth-child(3)",
+      "ui.startProject": "main > section:nth-of-type(1) .actions .btn-primary@first"
+    },
+    "cta": {
+      "eyebrow": "cta.eyebrow",
+      "title": "cta.title",
+      "text": "cta.text"
+    },
+    "special": ["articleNext", "cta"]
+  }
+}

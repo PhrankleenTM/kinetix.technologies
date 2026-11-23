@@ -127,6 +127,13 @@ CMS color settings map to CSS variable names without `--`.
 Section markers include:
 `NAV`, `BUTTONS`, `TYPE`, `HERO`, badges, code showcase, marquee, reveal, cards, tags, stat strip, project cards, work rows, split text sections, services page, process, quotes, CTA, forms, newsletter, case study, article, insights list, collab, footer.
 
+Mobile menu:
+- `.mobile-menu` uses compact link sizing/padding, safe centering, and `overflow-y:auto` so all links plus CTA fit on short screens.
+- `.mobile-menu a.ml` caps at `1.85rem` with `7px` vertical padding; `.mobile-menu .btn` uses reduced margin/padding.
+
+Admin visibility:
+- `assets/css/admin.css` defines `[hidden] { display: none !important; }` so author `display:grid` rules cannot override `#login` and `#app` hidden toggles.
+
 Key layout classes:
 - `.container` = `min(1200px, 100% - 48px)`.
 - `.section` = large vertical padding clamped by viewport width.

@@ -3,6 +3,10 @@
   min-height: 100vh;
 }
 
+[hidden] {
+  display: none !important;
+}
+
 .login-wrap {
   min-height: 100vh;
   display: grid;

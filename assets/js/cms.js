@@ -1,15 +1,21 @@
 (() => {
-  const data = window.__CMS__ && window.__CMS__ ? window.__CMS__ : null;
-  if (!data || !data.content) return;
-  const C = data.content;
+  let ready = false;
+  function init(data) {
+    if (ready || !data || !data.content) return;
+    ready = true;
+    const C = data.content;
   const B = data.bindings || {};
   const rawPath = decodeURIComponent(location.pathname || "/").replace(
     /^\/+/,
     "",
   );
-  const page =
-    data.page ||
-    (!rawPath || rawPath.endsWith("/") ? rawPath + "index.html" : rawPath);
+  const fallbackPage =
+    !rawPath || rawPath.endsWith("/")
+      ? rawPath + "index.html"
+      : /\.[a-z0-9]+$/i.test(rawPath)
+        ? rawPath
+        : rawPath + ".html";
+  const page = data.page || fallbackPage;
   const esc = (v) =>
     String(v == null ? "" : v).replace(
       /[&<>"']/g,
@@ -44,7 +50,11 @@
   }
 
   function findBySlug(list, slug) {
-    return (C[list] || []).find((x) => x.slug === slug);
+    const key = String(slug || "")
+      .split("/")
+      .pop()
+      .replace(/\.html$/, "");
+    return (C[list] || []).find((x) => x.slug === key);
   }
 
   function setText(el, value, mode = "") {
@@ -198,7 +208,7 @@
           const viz = x.image
             ? `<img src="${esc(x.image)}" alt="${esc(x.title)}">`
             : VIZ[x.viz] || VIZ.browser;
-          return `<a class="pcard rv" style="--d:${i % 2 ? 90 : 0}ms" data-cat="${esc((x.categories || []).join(" "))}" href="${esc(x.link || "contact.html")}"><div class="viz">${viz}</div><div class="pb"><div class="pmeta"><span>${esc(x.category)}</span><span>${esc(x.year)}</span></div><h3>${esc(x.title)}${arrow}</h3><p>${esc(x.description)}</p><div class="tags">${(x.tags || []).map((t) => `<span class="tag">${esc(t)}</span>`).join("")}</div></div></a>`;
+          return `<a class="pcard rv" style="--d:${i % 2 ? 90 : 0}ms" data-cat="${esc((x.categories || []).join(" "))}" href="${esc(x.link || "/contact")}"><div class="viz">${viz}</div><div class="pb"><div class="pmeta"><span>${esc(x.category)}</span><span>${esc(x.year)}</span></div><h3>${esc(x.title)}${arrow}</h3><p>${esc(x.description)}</p><div class="tags">${(x.tags || []).map((t) => `<span class="tag">${esc(t)}</span>`).join("")}</div></div></a>`;
         })
         .join("");
     },
@@ -237,7 +247,7 @@
       (items || [])
         .map(
           (x) =>
-            `<section class="svc-row" id="${esc(x.id)}"><div class="container split"><div class="sticky rv"><div class="big-num">${esc(x.number)} <span style="flex:0 0 40px;height:1px;background:var(--line-strong)"></span></div><div class="ico">${icon(x.icon)}</div><h2>${esc(x.title)}</h2></div><div class="rv" style="--d:100ms"><p class="desc">${esc(x.description)}</p><ul class="feat">${(x.features || []).map((f) => `<li>${esc(f)}</li>`).join("")}</ul><a class="btn btn-primary" href="contact.html">${esc(x.buttonLabel)} ${arrow}</a></div></div></section>`,
+            `<section class="svc-row" id="${esc(x.id)}"><div class="container split"><div class="sticky rv"><div class="big-num">${esc(x.number)} <span style="flex:0 0 40px;height:1px;background:var(--line-strong)"></span></div><div class="ico">${icon(x.icon)}</div><h2>${esc(x.title)}</h2></div><div class="rv" style="--d:100ms"><p class="desc">${esc(x.description)}</p><ul class="feat">${(x.features || []).map((f) => `<li>${esc(f)}</li>`).join("")}</ul><a class="btn btn-primary" href="/contact">${esc(x.buttonLabel)} ${arrow}</a></div></div></section>`,
         )
         .join(""),
     navLinks: (items, el) => {
@@ -282,7 +292,7 @@
       el.innerHTML = (items || [])
         .map(
           (x) =>
-            `<a class="rv" href="insights/${esc(x.slug)}.html"><time>${esc(x.date)}</time><div><h3>${esc(x.title)}</h3><p>${esc(x.excerpt)}</p><span class="rt">${esc(x.author)} &middot; ${esc(x.readTime)}</span></div>${arrow}</a>`,
+            `<a class="rv" href="/insights/${esc(x.slug)}"><time>${esc(x.date)}</time><div><h3>${esc(x.title)}</h3><p>${esc(x.excerpt)}</p><span class="rt">${esc(x.author)} &middot; ${esc(x.readTime)}</span></div>${arrow}</a>`,
         )
         .join("");
     },
@@ -497,7 +507,7 @@
           const a = q(".next .big");
           if (a) {
             a.innerHTML = esc(next.title) + " " + arrow;
-            a.setAttribute("href", next.slug + ".html");
+            a.setAttribute("href", "/case-studies/" + next.slug);
           }
         }
         setText(q(".next .eyebrow"), (C.ui || {}).nextProject);
@@ -511,7 +521,7 @@
           const a = q(".next .big");
           if (a) {
             a.innerHTML = esc(next.title) + " " + arrow;
-            a.setAttribute("href", next.slug + ".html");
+            a.setAttribute("href", "/insights/" + next.slug);
           }
         }
         setText(q(".next .eyebrow"), (C.ui || {}).keepReading);
@@ -548,4 +558,8 @@
   applyGlobal();
   applyPage();
   document.dispatchEvent(new CustomEvent("cms:ready", { detail: C }));
+  }
+
+  window.KinetixCMS = { init };
+  if (window.__CMS__) init(window.__CMS__);
 })();

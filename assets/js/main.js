@@ -2,9 +2,14 @@
 (() => {
   const $ = (s, c = document) => c.querySelector(s), $$ = (s, c = document) => [...c.querySelectorAll(s)];
   const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
-  const cms = (window.__CMS__ && window.__CMS__.content) || {};
-  const ui = cms.ui || {};
-  const siteEmail = (cms.settings || {}).email || 'kinetix.technologies.web@gmail.com';
+  let cms = (window.__CMS__ && window.__CMS__.content) || {};
+  let ui = cms.ui || {};
+  let siteEmail = (cms.settings || {}).email || 'kinetix.technologies.web@gmail.com';
+  document.addEventListener('cms:ready', e => {
+    cms = (e.detail && e.detail.content) || cms;
+    ui = cms.ui || {};
+    siteEmail = (cms.settings || {}).email || 'kinetix.technologies.web@gmail.com';
+  });
 
   // nav state
   const nav = $('.nav');

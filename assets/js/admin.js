@@ -135,7 +135,7 @@
       tags: [],
       image: "",
       viz: "browser",
-      link: "contact.html",
+      link: "/contact",
     },
     articles: {
       slug: "new-article",
@@ -176,7 +176,7 @@
       icon: "spark",
       title: "New service",
       text: "",
-      link: "services.html",
+      link: "/services",
     },
     "home.hero.badges": { value: "00", label: "New badge" },
     "home.hero.titleWords": { text: "Word", serif: false },
@@ -214,7 +214,7 @@
       );
     } catch (e) {
       throw new Error(
-        "Cannot reach CMS server. Run npm start and open http://localhost:3000/admin.html",
+        "Cannot reach CMS server. Open /admin on this site.",
       );
     }
     let body = {};
@@ -223,7 +223,7 @@
     } catch (e) {
       if (!res.ok)
         throw new Error(
-          "CMS server unavailable. Run npm start and open http://localhost:3000/admin.html",
+          "CMS server unavailable. Open /admin on this site.",
         );
     }
     if (!res.ok)

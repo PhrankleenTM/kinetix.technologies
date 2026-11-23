@@ -1,0 +1,14 @@
+{
+  "rewrites": [
+    { "source": "/admin", "destination": "/admin.html" },
+    { "source": "/index", "destination": "/index.html" },
+    { "source": "/services", "destination": "/services.html" },
+    { "source": "/work", "destination": "/work.html" },
+    { "source": "/about", "destination": "/about.html" },
+    { "source": "/insights", "destination": "/insights.html" },
+    { "source": "/collaborations", "destination": "/collaborations.html" },
+    { "source": "/contact", "destination": "/contact.html" },
+    { "source": "/case-studies/:slug", "destination": "/case-studies/:slug.html" },
+    { "source": "/insights/:slug", "destination": "/insights/:slug.html" }
+  ]
+}

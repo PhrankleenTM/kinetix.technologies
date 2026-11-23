@@ -203,37 +203,37 @@
           "icon": "website",
           "title": "Website Development",
           "text": "Fast, modern websites and landing pages built to turn visitors into customers.",
-          "link": "services.html#website"
+          "link": "/services#website"
         },
         {
           "icon": "cart",
           "title": "E-commerce Websites",
           "text": "Online stores with catalogs, secure payments and order management.",
-          "link": "services.html#ecom"
+          "link": "/services#ecom"
         },
         {
           "icon": "clinic",
           "title": "Clinic Management Systems",
           "text": "Appointments, patient records, billing and supplies on one platform.",
-          "link": "services.html#clinic"
+          "link": "/services#clinic"
         },
         {
           "icon": "cube",
           "title": "Inventory & ERP Modules",
           "text": "Track stock, purchases and sales with reports you can act on.",
-          "link": "services.html#inventory"
+          "link": "/services#inventory"
         },
         {
           "icon": "funnel",
           "title": "CRM & Business Tools",
           "text": "Keep leads, follow-ups and reporting in one clear place.",
-          "link": "services.html#crm"
+          "link": "/services#crm"
         },
         {
           "icon": "spark",
           "title": "Custom Digital Solutions",
           "text": "Purpose-built tools for workflows that ready-made software cannot match.",
-          "link": "services.html#custom"
+          "link": "/services#custom"
         }
       ]
     },
@@ -245,25 +245,25 @@
           "year": "2025",
           "title": "MediFlow",
           "category": "Clinic System",
-          "link": "case-studies/mediflow.html"
+          "link": "/case-studies/mediflow"
         },
         {
           "year": "2026",
           "title": "StockPilot",
           "category": "Inventory & ERP",
-          "link": "case-studies/stockpilot.html"
+          "link": "/case-studies/stockpilot"
         },
         {
           "year": "2026",
           "title": "Cobalt",
           "category": "E-Commerce Platform",
-          "link": "case-studies/cobalt.html"
+          "link": "/case-studies/cobalt"
         },
         {
           "year": "2026",
           "title": "Pulse",
           "category": "CRM Suite",
-          "link": "case-studies/pulse.html"
+          "link": "/case-studies/pulse"
         }
       ]
     },
@@ -538,7 +538,7 @@
           "Scheduling",
           "Billing"
         ],
-        "link": "case-studies/mediflow.html",
+        "link": "/case-studies/mediflow",
         "image": "",
         "viz": "timeline"
       },
@@ -556,7 +556,7 @@
           "Payments",
           "SEO"
         ],
-        "link": "contact.html",
+        "link": "/contact",
         "image": "",
         "viz": "browser"
       },
@@ -573,7 +573,7 @@
           "Reports",
           "Roles"
         ],
-        "link": "case-studies/stockpilot.html",
+        "link": "/case-studies/stockpilot",
         "image": "",
         "viz": "bars"
       },
@@ -590,7 +590,7 @@
           "Lead capture",
           "CMS"
         ],
-        "link": "contact.html",
+        "link": "/contact",
         "image": "",
         "viz": "layout"
       },
@@ -607,7 +607,7 @@
           "Subscriptions",
           "Orders"
         ],
-        "link": "case-studies/cobalt.html",
+        "link": "/case-studies/cobalt",
         "image": "",
         "viz": "grid"
       },
@@ -624,7 +624,7 @@
           "Reminders",
           "Reports"
         ],
-        "link": "case-studies/pulse.html",
+        "link": "/case-studies/pulse",
         "image": "",
         "viz": "funnel"
       },
@@ -641,7 +641,7 @@
           "A/B tests",
           "Analytics"
         ],
-        "link": "contact.html",
+        "link": "/contact",
         "image": "",
         "viz": "spotlight"
       }
@@ -649,7 +649,7 @@
     "empty": {
       "text": "No public projects in this category yet.",
       "linkText": "Tell us about yours",
-      "link": "contact.html",
+      "link": "/contact",
       "tail": "and we may build the first one."
     },
     "ctaTitle": "Want results like these?",

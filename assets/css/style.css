@@ -203,10 +203,10 @@ ul {
   pointer-events: auto;
 }
 .mobile-menu a.ml {
-  font-size: clamp(1.35rem, 6vw, 1.85rem);
-  line-height: 1.15;
+  font-size: clamp(1.65rem, 7vw, 2.25rem);
+  line-height: 1.2;
   letter-spacing: -0.03em;
-  padding: 7px 0;
+  padding: 10px 0;
   border-bottom: 1px solid var(--line);
   color: var(--muted);
   transform: translateY(16px);

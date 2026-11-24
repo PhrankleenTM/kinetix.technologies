@@ -180,6 +180,7 @@ Animations:
 - Logs in via `/api/login`, checks `/api/status`, loads `/api/content`, renders section buttons and recursive fields.
 - `SECTION_LABELS`, `KEY_LABELS`, `PATH_LABELS`, and `FIELD_LABELS` provide self-explanatory section, array, object, item, and field headings.
 - `ITEM_NOUNS` and `ITEM_NAME_KEYS` turn generic `Item 1` rows into labels like `Project 1: MediFlow` and `Project tag 1: Patient records`; nested arrays add parent context, e.g. `Project capability tags — MediFlow (3)`.
+- Work section uses a simple project manager: cover-image cards, “Add project”, click-to-edit form, and live preview; adding/editing projects no longer jumps to top.
 - `TEMPLATES` provides sensible new-item objects with clean link defaults.
 - Array items can be added, removed, and reordered.
 - Image fields show preview, text path input, and file upload.

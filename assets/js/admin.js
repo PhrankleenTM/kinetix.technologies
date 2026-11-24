@@ -3,6 +3,7 @@
   const $$ = (s, r = document) => [...r.querySelectorAll(s)];
   let state = null;
   let current = null;
+  let activeProjectIndex = null;
 
   const SECTION_LABELS = {
     settings: "Site settings",
@@ -892,9 +893,265 @@
     renderScalar(value, parts, container);
   }
 
+  function refreshWork() {
+    const y = window.scrollY;
+    renderSection("work");
+    window.scrollTo({ top: y });
+  }
+
+  function renderWorkSection(host) {
+    const section = state.work || {};
+    Object.keys(section).forEach((k) => {
+      if (k === "projects") return;
+      renderValue(section[k], ["work", k], host);
+    });
+    renderProjectManager(host);
+  }
+
+  function renderProjectManager(host) {
+    const projects = state.work.projects || [];
+    const group = make("section", "group project-manager");
+    group.appendChild(make("h2", "", `Project cards (${projects.length})`));
+    group.appendChild(
+      make("p", "field-hint", "Add a project or click a card to fill in its details."),
+    );
+    const add = make("button", "add-btn", "+ Add project");
+    add.type = "button";
+    add.addEventListener("click", () => {
+      projects.push(JSON.parse(JSON.stringify(TEMPLATES["work.projects"])));
+      activeProjectIndex = projects.length - 1;
+      refreshWork();
+    });
+    group.appendChild(add);
+    const grid = make("div", "project-manager-grid");
+    projects.forEach((project, i) => {
+      const tile = make("button", "project-tile");
+      tile.type = "button";
+      const cover = make("div", "project-tile-cover");
+      if (project.image) {
+        const img = make("img");
+        img.src = project.image;
+        img.alt = "";
+        cover.appendChild(img);
+      } else {
+        cover.appendChild(make("div", "project-tile-placeholder", "Cover image"));
+      }
+      tile.appendChild(cover);
+      const body = make("div", "project-tile-body");
+      const title = make("div", "project-tile-title");
+      title.textContent = project.title || "Untitled project";
+      const meta = make("div", "project-tile-meta");
+      meta.textContent = `${project.category || "Uncategorised"}${project.year ? " · " + project.year : ""}`;
+      body.appendChild(title);
+      body.appendChild(meta);
+      tile.appendChild(body);
+      tile.addEventListener("click", () => {
+        activeProjectIndex = i;
+        refreshWork();
+      });
+      grid.appendChild(tile);
+    });
+    group.appendChild(grid);
+    const editor = make("div", "project-editor-host");
+    group.appendChild(editor);
+    host.appendChild(group);
+    if (activeProjectIndex != null && projects[activeProjectIndex])
+      renderProjectForm(activeProjectIndex, editor);
+  }
+
+  function renderProjectPreview(project, host) {
+    host.innerHTML = "";
+    const card = make("div", "project-preview-card");
+    const cover = make("div", "project-preview-cover");
+    if (project.image) {
+      const img = make("img");
+      img.src = project.image;
+      img.alt = "";
+      cover.appendChild(img);
+    } else {
+      cover.appendChild(make("div", "project-preview-art", "Cover preview"));
+    }
+    card.appendChild(cover);
+    const body = make("div", "project-preview-body");
+    const meta = make("div", "project-preview-meta");
+    meta.textContent = `${project.category || ""}${project.year ? " · " + project.year : ""}`;
+    const title = make("h3", "");
+    title.textContent = project.title || "Project name";
+    const desc = make("p", "");
+    desc.textContent = project.description || "Project description will appear here.";
+    const tags = make("div", "project-preview-tags");
+    (project.tags || []).forEach((t) => {
+      const chip = make("span", "tag");
+      chip.textContent = t;
+      tags.appendChild(chip);
+    });
+    body.appendChild(meta);
+    body.appendChild(title);
+    body.appendChild(desc);
+    body.appendChild(tags);
+    card.appendChild(body);
+    host.appendChild(card);
+  }
+
+  function renderProjectForm(index, host) {
+    const projects = state.work.projects;
+    const project = projects[index];
+    host.innerHTML = "";
+    const editor = make("div", "project-editor");
+    const head = make("div", "project-editor-head");
+    const title = make("h3", "");
+    title.textContent = project.title || "New project";
+    head.appendChild(title);
+    const done = make("button", "btn btn-ghost", "Done editing");
+    done.type = "button";
+    done.addEventListener("click", () => {
+      activeProjectIndex = null;
+      refreshWork();
+    });
+    head.appendChild(done);
+    editor.appendChild(head);
+    const layout = make("div", "project-editor-grid");
+    const form = make("div", "project-form");
+    const previewWrap = make("div", "project-preview-wrap");
+    const updatePreview = () => renderProjectPreview(project, previewWrap);
+    const addField = (labelText, el, hint) => {
+      const field = make("div", "field");
+      field.appendChild(make("label", "", labelText));
+      field.appendChild(el);
+      if (hint) field.appendChild(make("p", "field-hint", hint));
+      form.appendChild(field);
+    };
+    const imageWrap = make("div", "field project-image-field");
+    imageWrap.appendChild(make("label", "", "Cover image"));
+    const imagePreview = make("div", "project-image-preview");
+    const setImagePreview = () => {
+      imagePreview.innerHTML = "";
+      if (project.image) {
+        const img = make("img");
+        img.src = project.image;
+        img.alt = "";
+        imagePreview.appendChild(img);
+      } else {
+        imagePreview.appendChild(
+          make("div", "project-image-placeholder", "Upload a cover image"),
+        );
+      }
+    };
+    const urlInput = document.createElement("input");
+    urlInput.type = "text";
+    urlInput.value = project.image || "";
+    urlInput.placeholder = "/assets/uploads/project-cover.jpg";
+    urlInput.addEventListener("input", () => {
+      project.image = urlInput.value;
+      setImagePreview();
+      updatePreview();
+    });
+    const fileInput = document.createElement("input");
+    fileInput.type = "file";
+    fileInput.accept = "image/png,image/jpeg,image/gif,image/webp";
+    fileInput.addEventListener("change", async () => {
+      const f = fileInput.files && fileInput.files[0];
+      if (!f) return;
+      status("Uploading image…");
+      try {
+        const dataUrl = await new Promise((resolve, reject) => {
+          const reader = new FileReader();
+          reader.onload = () => resolve(reader.result);
+          reader.onerror = reject;
+          reader.readAsDataURL(f);
+        });
+        const res = await api("/api/upload", {
+          method: "POST",
+          body: JSON.stringify({ name: f.name, dataUrl }),
+        });
+        project.image = res.path;
+        urlInput.value = res.path;
+        setImagePreview();
+        updatePreview();
+        status("Image uploaded. Click Save changes to publish.", "ok");
+      } catch (err) {
+        status(err.message, "err");
+      }
+    });
+    imageWrap.appendChild(imagePreview);
+    imageWrap.appendChild(urlInput);
+    imageWrap.appendChild(fileInput);
+    form.appendChild(imageWrap);
+    const text = (labelText, key, hint, area) => {
+      const input = document.createElement(area ? "textarea" : "input");
+      if (!area) input.type = "text";
+      input.value = project[key] || "";
+      input.addEventListener("input", () => {
+        project[key] = input.value;
+        updatePreview();
+      });
+      addField(labelText, input, hint);
+    };
+    text("Project name", "title");
+    text("Category", "category");
+    text("Year", "year");
+    text("Short description", "description", "", true);
+    text("Project link", "link", "Use /contact or /case-studies/your-slug.");
+    const tags = document.createElement("input");
+    tags.type = "text";
+    tags.value = (project.tags || []).join(", ");
+    tags.addEventListener("input", () => {
+      project.tags = tags.value
+        .split(",")
+        .map((s) => s.trim())
+        .filter(Boolean);
+      updatePreview();
+    });
+    addField("Tags", tags, "Separate tags with commas.");
+    const categories = document.createElement("input");
+    categories.type = "text";
+    categories.value = (project.categories || []).join(", ");
+    categories.addEventListener("input", () => {
+      project.categories = categories.value
+        .split(",")
+        .map((s) => s.trim())
+        .filter(Boolean);
+    });
+    addField(
+      "Filter categories",
+      categories,
+      "Examples: websites, ecommerce, clinic, erp, crm, custom.",
+    );
+    const viz = document.createElement("select");
+    VIZ_NAMES.forEach((name) => {
+      const opt = document.createElement("option");
+      opt.value = name;
+      opt.textContent = name;
+      viz.appendChild(opt);
+    });
+    viz.value = project.viz || "browser";
+    viz.addEventListener("change", () => {
+      project.viz = viz.value;
+      updatePreview();
+    });
+    addField("Fallback illustration", viz, "Used until a cover image is uploaded.");
+    const actions = make("div", "project-editor-actions");
+    const remove = make("button", "btn btn-ghost", "Remove project");
+    remove.type = "button";
+    remove.addEventListener("click", () => {
+      projects.splice(index, 1);
+      activeProjectIndex = null;
+      refreshWork();
+    });
+    actions.appendChild(remove);
+    form.appendChild(actions);
+    layout.appendChild(form);
+    layout.appendChild(previewWrap);
+    editor.appendChild(layout);
+    host.appendChild(editor);
+    setImagePreview();
+    updatePreview();
+  }
+
   function renderSection(key) {
     if (!state || (key !== "__json" && !(key in state))) return;
     current = key;
+    if (key !== "work") activeProjectIndex = null;
     if (key === "__json") {
       $$("#sections button").forEach((b) =>
         b.classList.toggle("active", b.dataset.key === key),
@@ -927,7 +1184,6 @@
       });
       group.appendChild(apply);
       host.appendChild(group);
-      window.scrollTo({ top: 0 });
       return;
     }
     $$("#sections button").forEach((b) =>
@@ -936,8 +1192,11 @@
     $("#section-title").textContent = SECTION_LABELS[key] || label(key);
     const host = $("#fields");
     host.innerHTML = "";
-    renderObject(state[key], [key], host, null);
-    window.scrollTo({ top: 0 });
+    if (key === "work") {
+      renderWorkSection(host);
+    } else {
+      renderObject(state[key], [key], host, null);
+    }
   }
 
   function renderSections() {

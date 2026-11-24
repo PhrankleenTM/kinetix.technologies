@@ -433,7 +433,7 @@
       }
       if (name === "colors") {
         Object.entries((C.settings || {}).colors || {}).forEach(([k, v]) =>
-          document.documentElement.style.setProperty("--" + k, v),
+          document.documentElement.style.setProperty("--cms-" + k, v),
         );
       }
       if (name === "logo") {

@@ -11,6 +11,54 @@
     siteEmail = (cms.settings || {}).email || 'kinetix.technologies.web@gmail.com';
   });
 
+  const THEME_KEY = 'kinetix-theme';
+  const SUN = '<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M2 12h2M20 12h2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M19.1 4.9l-1.4 1.4M6.3 17.7l-1.4 1.4"/></svg>';
+  const MOON = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 14.5A8.5 8.5 0 0 1 9.5 4 8.5 8.5 0 1 0 20 14.5Z"/></svg>';
+  const applyTheme = (value, persist) => {
+    const theme = value === 'light' ? 'light' : 'dark';
+    document.documentElement.dataset.theme = theme;
+    if (persist) { try { localStorage.setItem(THEME_KEY, theme); } catch (e) {} }
+    const next = theme === 'light' ? 'Dark mode' : 'Light mode';
+    $$('.theme-toggle').forEach(btn => {
+      const label = btn.classList.contains('mobile-theme') ? next : 'Switch to ' + next.toLowerCase();
+      btn.setAttribute('aria-label', label);
+      btn.setAttribute('title', label);
+      btn.setAttribute('aria-pressed', String(theme === 'light'));
+      const icon = $('.theme-icon', btn);
+      if (icon) icon.innerHTML = theme === 'light' ? MOON : SUN;
+      const text = $('.theme-label', btn);
+      if (text) text.textContent = next;
+    });
+  };
+  const toggleTheme = () => applyTheme(document.documentElement.dataset.theme === 'light' ? 'dark' : 'light', true);
+  const makeThemeButton = mobile => {
+    const btn = document.createElement('button');
+    btn.type = 'button';
+    btn.className = 'theme-toggle' + (mobile ? ' mobile-theme' : ' desktop-theme');
+    btn.innerHTML = mobile
+      ? '<span class="theme-icon"></span><span class="theme-label"></span>'
+      : '<span class="theme-icon"></span>';
+    btn.addEventListener('click', toggleTheme);
+    return btn;
+  };
+  let storedTheme = null;
+  try { storedTheme = localStorage.getItem(THEME_KEY); } catch (e) {}
+  const initialTheme = storedTheme || document.documentElement.dataset.theme || 'dark';
+  document.documentElement.dataset.theme = initialTheme === 'light' ? 'light' : 'dark';
+  const navIn = $('.nav-in');
+  if (navIn && !$('.desktop-theme')) {
+    const btn = makeThemeButton(false);
+    const burger = $('.burger');
+    if (burger) navIn.insertBefore(btn, burger); else navIn.appendChild(btn);
+  }
+  const mobileMenu = $('.mobile-menu');
+  if (mobileMenu && !$('.mobile-theme')) {
+    const btn = makeThemeButton(true);
+    const cta = $('.btn', mobileMenu);
+    if (cta) mobileMenu.insertBefore(btn, cta); else mobileMenu.appendChild(btn);
+  }
+  applyTheme(initialTheme);
+
   // nav state
   const nav = $('.nav');
   const onScroll = () => nav && nav.classList.toggle('scrolled', scrollY > 24);

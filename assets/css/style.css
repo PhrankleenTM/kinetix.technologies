@@ -1,16 +1,17 @@
 /* Kinetix Technologies | design system
    Brand colors: #18181B (base) and #A1A1AA (muted). Change tokens below to rebrand. */
 :root {
-  --bg: #18181b;
-  --bg-deep: #111113;
-  --surface: #1e1e22;
-  --surface-2: #27272a;
-  --muted: #a1a1aa;
-  --text: #f4f4f5;
-  --accent: #fafafa;
-  --accent-ink: #18181b;
-  --line: rgba(161, 161, 170, 0.16);
-  --line-strong: rgba(161, 161, 170, 0.34);
+  --bg: var(--cms-bg, #18181b);
+  --bg-deep: var(--cms-bg-deep, #111113);
+  --surface: var(--cms-surface, #1e1e22);
+  --surface-2: var(--cms-surface-2, #27272a);
+  --muted: var(--cms-muted, #a1a1aa);
+  --text: var(--cms-text, #f4f4f5);
+  --accent: var(--cms-accent, #fafafa);
+  --accent-ink: var(--cms-accent-ink, #18181b);
+  --line: var(--cms-line, rgba(161, 161, 170, 0.16));
+  --line-strong: var(--cms-line-strong, rgba(161, 161, 170, 0.34));
+  color-scheme: dark;
   --sans:
     "Geist", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto,
     sans-serif;
@@ -37,6 +38,9 @@ body {
   line-height: 1.6;
   -webkit-font-smoothing: antialiased;
   overflow-x: hidden;
+  transition:
+    background-color 0.3s,
+    color 0.3s;
 }
 img,
 svg,
@@ -180,6 +184,57 @@ ul {
 .menu-open .burger span:nth-child(2) {
   top: 21px;
   transform: rotate(-45deg);
+}
+.theme-toggle {
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: 1px solid var(--line-strong);
+  background: transparent;
+  color: var(--text);
+  cursor: pointer;
+  transition:
+    background 0.2s,
+    border-color 0.2s,
+    transform 0.2s;
+}
+.theme-toggle:hover {
+  background: rgba(161, 161, 170, 0.11);
+  border-color: var(--muted);
+  transform: translateY(-1px);
+}
+.theme-toggle svg {
+  width: 19px;
+  height: 19px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.mobile-menu .mobile-theme {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  border: 0;
+  border-radius: 12px;
+  background: transparent;
+  color: var(--text);
+  font-size: clamp(1.65rem, 7vw, 2.25rem);
+  line-height: 1.2;
+  padding: 10px 0;
+}
+.mobile-menu .mobile-theme:hover {
+  background: transparent;
+  transform: none;
+}
+.mobile-menu .mobile-theme svg {
+  width: 24px;
+  height: 24px;
 }
 .mobile-menu {
   position: fixed;
@@ -1839,6 +1894,128 @@ ul {
   padding-bottom: 0.06em;
 }
 
+html[data-theme="light"] {
+  --bg: #f4f4f5;
+  --bg-deep: #e4e4e7;
+  --surface: #ffffff;
+  --surface-2: #e4e4e7;
+  --muted: #52525b;
+  --text: #18181b;
+  --accent: #18181b;
+  --accent-ink: #fafafa;
+  --line: rgba(24, 24, 27, 0.14);
+  --line-strong: rgba(24, 24, 27, 0.3);
+  color-scheme: light;
+}
+html[data-theme="light"] .nav.scrolled {
+  background: rgba(244, 244, 245, 0.82);
+}
+html[data-theme="light"] .links a:hover,
+html[data-theme="light"] .links a.active,
+html[data-theme="light"] .theme-toggle:hover {
+  background: rgba(24, 24, 27, 0.08);
+}
+html[data-theme="light"] .mobile-menu {
+  background: rgba(244, 244, 245, 0.97);
+}
+html[data-theme="light"] .btn-primary:hover {
+  box-shadow: 0 14px 44px -12px rgba(24, 24, 27, 0.28);
+}
+html[data-theme="light"] .btn-ghost:hover {
+  background: rgba(24, 24, 27, 0.07);
+}
+html[data-theme="light"] .hero-tag,
+html[data-theme="light"] .badge,
+html[data-theme="light"] .meta-grid {
+  background: rgba(255, 255, 255, 0.72);
+}
+html[data-theme="light"] .hero .grid-bg {
+  background-image:
+    linear-gradient(rgba(24, 24, 27, 0.07) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(24, 24, 27, 0.07) 1px, transparent 1px);
+}
+html[data-theme="light"] .code {
+  background: rgba(255, 255, 255, 0.86);
+  box-shadow: 0 40px 90px -30px rgba(24, 24, 27, 0.16);
+}
+html[data-theme="light"] .code .k {
+  color: #3f3f46;
+}
+html[data-theme="light"] .marquee {
+  background: rgba(24, 24, 27, 0.04);
+}
+html[data-theme="light"] .card {
+  background: linear-gradient(
+    180deg,
+    rgba(24, 24, 27, 0.025),
+    rgba(24, 24, 27, 0)
+  );
+}
+html[data-theme="light"] .card::before {
+  background: radial-gradient(
+    420px circle at var(--mx, 50%) var(--my, 50%),
+    rgba(24, 24, 27, 0.08),
+    transparent 60%
+  );
+}
+html[data-theme="light"] .ico {
+  background: rgba(24, 24, 27, 0.05);
+}
+html[data-theme="light"] .pcard .viz {
+  background:
+    radial-gradient(
+      ellipse at 30% 0%,
+      rgba(24, 24, 27, 0.07),
+      transparent 60%
+    ),
+    var(--surface-2);
+}
+html[data-theme="light"] .rows a:hover,
+html[data-theme="light"] .alist a:hover {
+  background: rgba(24, 24, 27, 0.04);
+}
+html[data-theme="light"] .cta::before {
+  background: conic-gradient(
+    from 0deg,
+    transparent 0 68%,
+    rgba(24, 24, 27, 0.24) 84%,
+    transparent 100%
+  );
+}
+html[data-theme="light"] .cta::after {
+  background:
+    radial-gradient(
+      ellipse at 50% 0%,
+      rgba(24, 24, 27, 0.05),
+      transparent 62%
+    ),
+    var(--surface);
+}
+html[data-theme="light"] .field input,
+html[data-theme="light"] .field select,
+html[data-theme="light"] .field textarea {
+  background: rgba(255, 255, 255, 0.85);
+}
+html[data-theme="light"] .field input:focus,
+html[data-theme="light"] .field select:focus,
+html[data-theme="light"] .field textarea:focus {
+  background: #ffffff;
+}
+html[data-theme="light"] .prose p,
+html[data-theme="light"] .article p,
+html[data-theme="light"] .article ul li {
+  color: #3f3f46;
+}
+html[data-theme="light"] .wordmark {
+  background: linear-gradient(
+    180deg,
+    rgba(24, 24, 27, 0.14),
+    rgba(24, 24, 27, 0) 85%
+  );
+}
+html[data-theme="light"] .logo svg {
+  filter: invert(1);
+}
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,

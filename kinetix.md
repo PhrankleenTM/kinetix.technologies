@@ -79,7 +79,7 @@
 - `assets/js/admin.js` — Projects-only admin logic; add/edit/remove projects, slugs, details, uploads, save, backup, password.
 - `assets/js/cms-loader.js` — fetches `/api/bootstrap`, supports `window.__CMS_PAGE__`, dynamically loads `cms.js`, calls `init(data)`.
 - `assets/js/cms.js` — public CMS renderer; generic case-study binding; exposes `window.KinetixCMS.init`.
-- `assets/js/main.js` — nav/menu/reveal/counters/filters/forms/progress/year; updates on `cms:ready`.
+- `assets/js/main.js` — theme toggle, nav/menu/reveal/counters/filters/forms/progress/year; updates on `cms:ready`.
 - `assets/js/fx.js` — canvas hero animations.
 - `index.html`, `services.html`, `work.html`, `about.html`, `insights.html`, `collaborations.html`, `contact.html` — root public pages.
 - `case-studies/project.html` — generic CMS-driven detail page for every project slug.
@@ -96,14 +96,14 @@ Head:
 - Favicon + apple touch icon.
 - Google Fonts preconnect/stylesheet.
 - Stylesheet link.
-- Inline `<script>document.documentElement.classList.add('js')</script>`.
+- Inline script adds `.js` and sets `data-theme` from `kinetix-theme` or system preference before CSS paints.
 - `<noscript>` style that forces `.js .rv`, `.w>span`, `.fade` visible.
 - No server-side CMS injection in production.
 
 Body:
 - `<a class="skip" href="#main">Skip to content</a>`
-- `<header class="nav">` → `.container.nav-in` → logo inline SVG, desktop `nav.links`, CTA `.btn-nav`, `button.burger`.
-- `<div class="mobile-menu">` → 7 `.ml` links + CTA.
+- `<header class="nav">` → `.container.nav-in` → logo inline SVG, desktop `nav.links`, CTA `.btn-nav`, injected `.desktop-theme`, `button.burger`.
+- `<div class="mobile-menu">` → 7 `.ml` links + injected `.mobile-theme` + CTA.
 - `<main id="main">` → hero → content sections → CTA.
 - `<footer class="footer">` → `.f-grid` (logo/blurb/socials, Navigation, Company, Stay ahead with newsletter) → `.f-bottom` with `.yr-now` → `.wordmark`.
 - Company footer ends with `<li><a href="/admin">Admin</a></li>`.
@@ -124,9 +124,11 @@ Tokens in `:root`:
 - `--bg:#18181b`, `--bg-deep:#111113`, `--surface:#1e1e22`, `--surface-2:#27272a`
 - `--muted:#a1a1aa`, `--text:#f4f4f5`, `--accent:#fafafa`, `--accent-ink:#18181b`
 - `--line:rgba(161,161,170,0.16)`, `--line-strong:rgba(161,161,170,0.34)`
+- Base tokens read `--cms-*` overrides so CMS colors still control dark mode.
+- Light theme sets direct tokens under `html[data-theme="light"]` and overrides hardcoded dark surfaces.
 - `--sans` Geist stack, `--serif` Instrument Serif, `--mono` Geist Mono, `--ease:cubic-bezier(0.2,0.7,0.1,1)`
 
-CMS color settings map to CSS variable names without `--`.
+CMS color settings map to CSS variables named `--cms-<setting key>`; they do not override light mode.
 
 Section markers include:
 `NAV`, `BUTTONS`, `TYPE`, `HERO`, badges, code showcase, marquee, reveal, cards, tags, stat strip, project cards, work rows, split text sections, services page, process, quotes, CTA, forms, newsletter, case study, article, insights list, collab, footer.
@@ -134,6 +136,7 @@ Section markers include:
 Mobile menu:
 - `.mobile-menu` uses safe centering, scroll overflow, `84px 24px 28px` padding, and `2px` gaps so all links plus CTA fit on short screens.
 - `.mobile-menu a.ml` uses `clamp(1.65rem, 7vw, 2.25rem)` with `10px` vertical padding; `.mobile-menu .btn` uses reduced margin/padding.
+- Theme toggle: `.theme-toggle` in desktop nav and `.mobile-theme` in mobile menu; icons are injected by `main.js`.
 
 Admin visibility:
 - `assets/css/admin.css` defines `[hidden] { display: none !important; }` so author `display:grid` rules cannot override `#login` and `#app` hidden toggles.
@@ -172,6 +175,7 @@ Animations:
 - Renderers: `words`, `badges`, `marquee`, `iconCards`, `serviceCards`, `workRows`, `stats`, `steps`, `quotes`, `chips`, `projects`, `collabCards`, `paragraphs`, `list`, `strongList`, `numberCards`, `serviceRows`, `navLinks`, `ctaLabel`, `mailto`, `socials`, `infoList`, `articleRows`, `articleBlocks`, `caseBlocks`.
 - Generated links use clean URLs: `/contact`, `/services`, `/case-studies/<slug>`, `/insights/<slug>`.
 - Global specials: `seo`, `colors`, `logo`, `ui`, `siteName`, `companyFooter`.
+- `colors` writes `--cms-*` variables; light mode stays on its own palette.
 - Page specials: `cta`, `caseNext`, `articleNext`, `typeOptions`.
 - Emits `cms:ready` with the content object after rendering.
 
@@ -179,6 +183,7 @@ Animations:
 
 - `cms`, `ui`, and `siteEmail` are mutable.
 - Listens for `cms:ready` and refreshes CMS-derived strings.
+- Injects desktop/mobile theme buttons, applies stored or system theme, persists `kinetix-theme` in `localStorage`, and updates button labels/icons.
 - Handles nav scroll state, burger menu, reveals, counters, card spotlight, work filters, newsletter/contact forms, reading progress, and footer year.
 
 ### `assets/js/admin.js`
@@ -349,6 +354,13 @@ Always: update `kinetix.md` → make requested change → validate → report wh
 - Add file in `insights/`, add `.alist` entry via `articles`, include `.progress` and `.sub`, use absolute clean public links.
 - Add `insights/<slug>.html` to `data/bindings.json` with title/block/text paths and `articleNext`.
 
+### Change theme defaults
+
+- Dark is the CSS base; light mode lives under `html[data-theme="light"]` in `assets/css/style.css`.
+- `main.js` injects `.desktop-theme` and `.mobile-theme`; no per-page button markup is needed.
+- Head scripts set `data-theme` before paint so saved themes do not flash.
+- CMS `settings.colors` affects dark mode through `--cms-*`; update light overrides separately.
+
 ## 11. Validation checklist
 
 Run after CMS/binding/content edits:
@@ -375,6 +387,8 @@ npm start
 Smoke-test locally:
 - `/` loads CMS data via `/api/bootstrap?page=index.html`.
 - `/case-studies/mediflow` loads `page=case-studies/project.html` with `__CMS_SLUG__=mediflow`.
+- `/` shows a desktop theme button; clicking it toggles `html[data-theme]` and persists `kinetix-theme`.
+- Mobile menu shows `.mobile-theme` with the same toggle.
 - `/admin` opens the admin panel.
 - `/api/status` is `{ "authenticated": false }` when logged out.
 - Upload/save/password require auth; login uses current password; save reflects on public site.

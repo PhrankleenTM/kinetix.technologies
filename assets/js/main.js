@@ -27,10 +27,17 @@
 
   // reveal on scroll
   const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } }), { threshold: 0.14, rootMargin: '0px 0px -6% 0px' });
-  $$('.rv, .step').forEach(el => io.observe(el));
+  const bindReveals = () => $$('.rv:not(.in), .step:not(.in)').forEach(el => {
+    const r = el.getBoundingClientRect();
+    if (r.top < innerHeight * 0.95) { el.classList.add('in'); return; }
+    io.observe(el);
+  });
+  bindReveals();
 
   // count up
   const count = el => {
+    if (el.dataset.counted) return;
+    el.dataset.counted = '1';
     const end = parseFloat(el.dataset.count), dec = +(el.dataset.dec || 0), suf = el.dataset.suffix || '';
     if (reduce) { el.textContent = end.toFixed(dec) + suf; return; }
     const t0 = performance.now(), dur = 1600;
@@ -38,22 +45,37 @@
     requestAnimationFrame(tick);
   };
   const cio = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { count(e.target); cio.unobserve(e.target); } }), { threshold: 0.6 });
-  $$('[data-count]').forEach(el => cio.observe(el));
+  const bindCounts = () => $$('[data-count]:not([data-counted])').forEach(el => cio.observe(el));
+  bindCounts();
 
   // spotlight on cards
-  $$('.card').forEach(c => c.addEventListener('pointermove', e => { const r = c.getBoundingClientRect(); c.style.setProperty('--mx', (e.clientX - r.left) + 'px'); c.style.setProperty('--my', (e.clientY - r.top) + 'px'); }));
+  const bindSpotlight = () => $$('.card:not([data-spot])').forEach(c => {
+    c.dataset.spot = '1';
+    c.addEventListener('pointermove', e => { const r = c.getBoundingClientRect(); c.style.setProperty('--mx', (e.clientX - r.left) + 'px'); c.style.setProperty('--my', (e.clientY - r.top) + 'px'); });
+  });
+  bindSpotlight();
 
   // work filters
-  const chips = $$('.chip');
-  if (chips.length) {
+  const initWorkFilters = () => {
+    const chips = $$('.chip[data-filter]');
+    if (!chips.length) return;
     const cards = $$('.pcard[data-cat]'), empty = $('.empty');
-    chips.forEach(ch => ch.addEventListener('click', () => {
+    const active = chips.find(c => c.classList.contains('active')) || chips[0];
+    const apply = (ch) => {
       chips.forEach(c => { c.classList.toggle('active', c === ch); c.setAttribute('aria-pressed', c === ch); });
       const f = ch.dataset.filter; let n = 0;
-      cards.forEach(c => { const show = f === 'all' || c.dataset.cat.split(' ').includes(f); c.hidden = !show; if (show) n++; });
+      cards.forEach(c => { const show = f === 'all' || (c.dataset.cat || '').split(' ').includes(f); c.hidden = !show; if (show) n++; });
       if (empty) empty.classList.toggle('show', n === 0);
-    }));
-  }
+    };
+    chips.forEach(ch => {
+      if (ch.dataset.bound) return;
+      ch.dataset.bound = '1';
+      ch.addEventListener('click', () => apply(ch));
+    });
+    apply(active);
+  };
+  initWorkFilters();
+  document.addEventListener('cms:ready', () => { bindReveals(); bindCounts(); bindSpotlight(); initWorkFilters(); });
 
   // newsletter
   $$('form.nl-form').forEach(f => f.addEventListener('submit', e => {

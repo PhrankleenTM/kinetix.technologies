@@ -163,8 +163,10 @@ async function saveContent(value) {
   const blob = await writeBlob(CONTENT_BLOB, text, {
     contentType: "application/json",
   });
-  if (!blob) atomicWrite(CONTENT_FILE, text);
-  return { storage: blob ? "blob" : "local" };
+  if (blob) return { storage: "blob" };
+  if (process.env.VERCEL) throw new Error("Blob storage not connected. In Vercel: Storage > Create/Connect > Blob, connect to project, redeploy.");
+  atomicWrite(CONTENT_FILE, text);
+  return { storage: "local" };
 }
 
 async function getAdmin() {
@@ -191,8 +193,10 @@ async function saveAdmin(record) {
   const blob = await writeBlob(ADMIN_BLOB, text, {
     contentType: "application/json",
   });
-  if (!blob) atomicWrite(ADMIN_FILE, text);
-  return { storage: blob ? "blob" : "local" };
+  if (blob) return { storage: "blob" };
+  if (process.env.VERCEL) throw new Error("Blob storage not connected. In Vercel: Storage > Create/Connect > Blob, connect to project, redeploy.");
+  atomicWrite(ADMIN_FILE, text);
+  return { storage: "local" };
 }
 
 function getBindings() {
@@ -242,6 +246,7 @@ async function saveUpload(buffer, name, ext, contentType) {
       blob,
     };
   }
+  if (process.env.VERCEL) throw new Error("Blob storage not connected. In Vercel: Storage > Create/Connect > Blob, connect to project, redeploy.");
   const filename = path.basename(uploadPath(name, ext));
   atomicWrite(path.join(UPLOAD_DIR, filename), buffer);
   return {

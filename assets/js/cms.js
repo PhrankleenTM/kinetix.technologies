@@ -16,6 +16,10 @@
         ? rawPath
         : rawPath + ".html";
   const page = data.page || fallbackPage;
+  const caseSlug =
+    window.__CMS_SLUG__ ||
+    (page.match(/case-studies\/([^.]+)\.html/) || [])[1] ||
+    "";
   const esc = (v) =>
     String(v == null ? "" : v).replace(
       /[&<>"']/g,
@@ -401,7 +405,20 @@
           });
       }
       if (name === "seo") {
-        const seo = (C.seo || {})[page];
+        const seoKey =
+          page === "case-studies/project.html"
+            ? `case-studies/${caseSlug}.html`
+            : page;
+        let seo = (C.seo || {})[seoKey];
+        if (!seo && page === "case-studies/project.html" && caseSlug) {
+          const item = findBySlug("caseStudies", caseSlug);
+          if (item) {
+            seo = {
+              title: `${item.title} | Case Study | ${(C.settings || {}).siteName || "Kinetix Technologies"}`,
+              description: item.sub || "",
+            };
+          }
+        }
         if (!seo) return;
         document.title = seo.title || document.title;
         qa('meta[name=description],meta[property="og:description"]').forEach(
@@ -468,8 +485,40 @@
     qa(".cta .btn-primary").forEach((btn) => setText(btn, label, "first"));
   }
 
+  function caseStudyBinding(slug) {
+    const root = `caseStudies[slug=${slug}]`;
+    return {
+      list: {
+        [`${root}.title`]: { selector: "h1", render: "words" },
+        [`${root}.blocks`]: { selector: ".prose", render: "caseBlocks" },
+        [`${root}.ctaButton`]: {
+          selector: [".actions .btn-primary", ".cta .btn-primary"],
+          render: "ctaLabel",
+        },
+      },
+      text: {
+        [`${root}.tag`]: "main > section:nth-of-type(1) .hero-tag",
+        [`${root}.sub`]: "main > section:nth-of-type(1) .sub",
+        [`${root}.client`]: ".meta-grid > div:nth-child(1)",
+        [`${root}.service`]: ".meta-grid > div:nth-child(2)",
+        [`${root}.year`]: ".meta-grid > div:nth-child(3)",
+      },
+      cta: {
+        eyebrow: "cta.eyebrow",
+        title: "cta.title",
+        text: "cta.text",
+        button: `${root}.ctaButton`,
+      },
+      special: ["caseNext", "cta"],
+    };
+  }
+
   function applyPage() {
-    const p = B[page] || {};
+    const p =
+      B[page] ||
+      (page === "case-studies/project.html" && caseSlug
+        ? caseStudyBinding(caseSlug)
+        : {});
     Object.entries(p.list || {}).forEach(([path, cfg]) =>
       renderList(path, cfg),
     );
@@ -500,8 +549,7 @@
           },
         );
       if (name === "caseNext") {
-        const slug = (page.match(/case-studies\/([^.]+)\.html/) || [])[1];
-        const item = findBySlug("caseStudies", slug);
+        const item = findBySlug("caseStudies", caseSlug);
         const next = item && findBySlug("caseStudies", item.next);
         if (next) {
           const a = q(".next .big");

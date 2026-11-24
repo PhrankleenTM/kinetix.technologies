@@ -28,8 +28,9 @@
 
   async function load() {
     try {
+      const page = window.__CMS_PAGE__ || pageKey();
       const res = await fetch(
-        "/api/bootstrap?page=" + encodeURIComponent(pageKey()),
+        "/api/bootstrap?page=" + encodeURIComponent(page),
         { cache: "no-store", credentials: "same-origin" },
       );
       if (!res.ok) throw new Error("Bootstrap failed: " + res.status);

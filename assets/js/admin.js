@@ -10,8 +10,11 @@
     categories: ["websites"],
     year: String(new Date().getFullYear()),
     description: "",
+    details: "",
     tags: [],
-    link: "/contact",
+    slug: "",
+    slugAuto: true,
+    link: "",
     image: "",
     viz: "browser",
   };
@@ -27,12 +30,19 @@
     try {
       res = await fetch(url, {
         headers: { "Content-Type": "application/json" },
+        credentials: "same-origin",
         ...options,
       });
     } catch {
       throw new Error("Cannot reach the server. Open /admin on the site to manage content.");
     }
     const body = await res.json().catch(() => ({}));
+    if (res.status === 401 && url !== "/api/login") {
+      $("#login").hidden = false;
+      $("#app").hidden = true;
+      state = null;
+      throw new Error("Session expired. Sign in again.");
+    }
     if (!res.ok) throw new Error(body.error || `Request failed (${res.status})`);
     return body;
   }
@@ -44,10 +54,97 @@
     return el;
   }
 
+  function slugify(value) {
+    return String(value || "")
+      .toLowerCase()
+      .normalize("NFKD")
+      .replace(/[\u0300-\u036f]/g, "")
+      .replace(/[^a-z0-9]+/g, "-")
+      .replace(/^-|-$/g, "")
+      .slice(0, 64) || "project";
+  }
+
+  function normalizeProjects() {
+    const projects = state.work.projects || [];
+    const used = new Set();
+    projects.forEach((project, i) => {
+      if (!project || typeof project !== "object") return;
+      project.title = project.title || "Untitled project";
+      project.tags = Array.isArray(project.tags) ? project.tags : [];
+      project.categories = Array.isArray(project.categories) ? project.categories : [];
+      if (!project.slug) {
+        const match = String(project.link || "").match(/\/case-studies\/([^/?#]+)/);
+        project.slug = match ? slugify(decodeURIComponent(match[1])) : slugify(project.title);
+        project.slugAuto = true;
+      }
+      if (used.has(project.slug)) project.slug = `${project.slug}-${i + 1}`;
+      used.add(project.slug);
+      project.link = "/case-studies/" + project.slug;
+      if (typeof project.details !== "string") project.details = "";
+    });
+    state.work.projects = projects.filter((project) => project && typeof project === "object");
+    return state.work.projects;
+  }
+
+  function syncCaseStudies() {
+    const projects = normalizeProjects();
+    const existing = Array.isArray(state.caseStudies) ? state.caseStudies : [];
+    const cases = [];
+    projects.forEach((project, i) => {
+      const title = project.title || "Untitled project";
+      const tag = `${project.category || "Project"}${project.year ? " · " + project.year : ""}`;
+      const next = projects[(i + 1) % projects.length];
+      let item = existing.find((x) => x && x.slug === project.slug);
+      if (!item) {
+        item = {
+          slug: project.slug,
+          title,
+          tag,
+          sub: project.description || "",
+          client: title,
+          service: project.category || "Project",
+          year: project.year || "",
+          blocks: [],
+          next: next ? next.slug : project.slug,
+          ctaButton: "Discuss a similar project",
+        };
+      } else {
+        Object.assign(item, {
+          title,
+          tag,
+          sub: project.description || "",
+          client: title,
+          service: project.category || "Project",
+          year: project.year || "",
+          next: next ? next.slug : project.slug,
+        });
+      }
+      if (!Array.isArray(item.blocks) || !item.blocks.length) {
+        const blocks = [
+          {
+            eyebrow: "Overview",
+            lead:
+              String(project.details || "").trim() ||
+              String(project.description || "").trim() ||
+              `A ${project.category || "project"} built by Kinetix Technologies.`,
+          },
+        ];
+        const bullets = (project.tags || []).filter(Boolean);
+        if (bullets.length) blocks.push({ eyebrow: "Capabilities", bullets });
+        if (project.description && project.details) {
+          blocks.push({ eyebrow: "The brief", paragraphs: [project.description] });
+        }
+        item.blocks = blocks;
+      }
+      cases.push(item);
+    });
+    state.caseStudies = cases;
+  }
+
   function render() {
     const host = $("#fields");
     host.innerHTML = "";
-    const projects = state.work.projects || [];
+    const projects = normalizeProjects();
     const group = make("section", "group project-manager");
     group.appendChild(make("h2", "", `Projects (${projects.length})`));
     group.appendChild(make("p", "field-hint", "Add a project or click a card to edit its details."));
@@ -117,7 +214,8 @@
     host.innerHTML = "";
     const editor = make("div", "project-editor");
     const head = make("div", "project-editor-head");
-    head.appendChild(make("h3", "", project.title || "New project"));
+    const titleLabel = make("h3", "", project.title || "New project");
+    head.appendChild(titleLabel);
     const done = make("button", "btn btn-ghost", "Done editing");
     done.type = "button";
     done.addEventListener("click", () => { activeProjectIndex = null; render(); });
@@ -171,11 +269,35 @@
       input.addEventListener("input", () => { project[key] = input.value; updatePreview(); });
       field(label, input, hint);
     };
-    text("Project name", "title");
+    const title = document.createElement("input");
+    title.type = "text";
+    title.value = project.title || "";
+    title.addEventListener("input", () => {
+      project.title = title.value;
+      titleLabel.textContent = project.title || "New project";
+      if (project.slugAuto !== false) {
+        project.slug = slugify(project.title);
+        slug.value = project.slug;
+      }
+      project.link = "/case-studies/" + project.slug;
+      updatePreview();
+    });
+    field("Project name", title);
+
+    const slug = document.createElement("input");
+    slug.type = "text";
+    slug.value = project.slug || "";
+    slug.addEventListener("input", () => {
+      project.slug = slugify(slug.value);
+      project.slugAuto = false;
+      project.link = "/case-studies/" + project.slug;
+    });
+    field("Page slug", slug, "Creates /case-studies/" + (project.slug || "your-slug") + ".");
+
     text("Category", "category");
     text("Year", "year");
     text("Short description", "description", true);
-    text("Project link", "link", false, "Use /contact or /case-studies/your-slug.");
+    text("Full details", "details", true, "Shown on the project detail page.");
 
     const tags = document.createElement("input");
     tags.type = "text"; tags.value = (project.tags || []).join(", ");
@@ -227,6 +349,7 @@
   $("#save-btn").addEventListener("click", async () => {
     status("Saving…");
     try {
+      syncCaseStudies();
       const res = await api("/api/content", { method: "POST", body: JSON.stringify(state) });
       status(res.storage === "local" ? "Saved locally only. Connect Vercel Blob for live site." : "Saved. Site updated.", res.storage === "local" ? "err" : "ok");
     } catch (err) { status(err.message, "err"); }

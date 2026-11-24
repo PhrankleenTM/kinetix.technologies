@@ -8,7 +8,7 @@
     { "source": "/insights", "destination": "/insights.html" },
     { "source": "/collaborations", "destination": "/collaborations.html" },
     { "source": "/contact", "destination": "/contact.html" },
-    { "source": "/case-studies/:slug", "destination": "/case-studies/:slug.html" },
+    { "source": "/case-studies/:slug", "destination": "/case-studies/project.html" },
     { "source": "/insights/:slug", "destination": "/insights/:slug.html" }
   ]
 }

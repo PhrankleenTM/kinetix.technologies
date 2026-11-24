@@ -12,7 +12,12 @@ module.exports = async function handler(req, res) {
       store.sendJson(res, 401, { ok: false, error: "Incorrect password" });
       return;
     }
-    store.sendJson(res, 200, { ok: true }, { "Set-Cookie": store.sessionCookie() });
+    store.sendJson(
+      res,
+      200,
+      { ok: true },
+      { "Set-Cookie": await store.sessionCookie() },
+    );
   } catch (err) {
     store.sendJson(res, 500, { error: err.message || "Server error" });
   }

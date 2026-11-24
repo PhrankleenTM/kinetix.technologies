@@ -6,7 +6,7 @@ module.exports = async function handler(req, res) {
       store.sendJson(res, 405, { error: "Method not allowed" });
       return;
     }
-    if (!store.isAuthed(req)) {
+    if (!(await store.isAuthed(req))) {
       store.sendJson(res, 401, { error: "Unauthorized" });
       return;
     }

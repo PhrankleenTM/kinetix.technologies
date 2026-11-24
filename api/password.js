@@ -6,7 +6,7 @@ module.exports = async function handler(req, res) {
       store.sendJson(res, 405, { error: "Method not allowed" });
       return;
     }
-    if (!store.isAuthed(req)) {
+    if (!(await store.isAuthed(req))) {
       store.sendJson(res, 401, { error: "Unauthorized" });
       return;
     }
@@ -15,9 +15,15 @@ module.exports = async function handler(req, res) {
       store.sendJson(res, 400, { error: "Password must be at least 8 characters" });
       return;
     }
-    const record = store.hashPassword(body.password);
+    const current = await store.getAdmin();
+    const record = { ...current, ...store.hashPassword(body.password) };
     const result = await store.saveAdmin(record);
-    store.sendJson(res, 200, { ok: true, storage: result.storage });
+    store.sendJson(
+      res,
+      200,
+      { ok: true, storage: result.storage },
+      { "Set-Cookie": await store.sessionCookie() },
+    );
   } catch (err) {
     store.sendJson(res, 500, { error: err.message || "Server error" });
   }

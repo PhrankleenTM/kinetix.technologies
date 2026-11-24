@@ -170,26 +170,38 @@ async function saveContent(value) {
 }
 
 async function getAdmin() {
+  let stored = null;
   if (blobConfigured()) {
     const text = await readBlob(ADMIN_BLOB);
     if (text) {
       try {
         const value = JSON.parse(text);
-        if (value && value.hash && value.salt) return value;
+        if (value && value.hash && value.salt) stored = value;
       } catch (e) {}
     }
   }
-  const local = readJsonFile(ADMIN_FILE, null);
-  if (local && local.hash && local.salt) return local;
-  const record = hashPassword(DEFAULT_PASSWORD);
-  if (!process.env.VERCEL) {
-    atomicWrite(ADMIN_FILE, JSON.stringify(record, null, 2) + "\n");
+  if (!stored) {
+    const local = readJsonFile(ADMIN_FILE, null);
+    if (local && local.hash && local.salt) stored = local;
+  }
+  const record = stored || hashPassword(DEFAULT_PASSWORD);
+  let dirty = !stored;
+  if (!record.sessionKey) {
+    record.sessionKey = crypto.randomBytes(32).toString("hex");
+    dirty = true;
+  }
+  if (dirty) {
+    try {
+      await saveAdmin(record);
+    } catch (e) {}
   }
   return record;
 }
 
 async function saveAdmin(record) {
-  const text = JSON.stringify(record, null, 2) + "\n";
+  const value = { ...record };
+  if (!value.sessionKey) value.sessionKey = crypto.randomBytes(32).toString("hex");
+  const text = JSON.stringify(value, null, 2) + "\n";
   const blob = await writeBlob(ADMIN_BLOB, text, {
     contentType: "application/json",
   });
@@ -288,32 +300,32 @@ function fromBase64url(value) {
   return Buffer.from(String(value).replace(/-/g, "+").replace(/_/g, "/"), "base64");
 }
 
-function sessionSecret() {
+async function sessionSecret() {
+  const admin = await getAdmin();
   return (
+    admin.sessionKey ||
     process.env.CMS_SECRET ||
-    process.env.BLOB_READ_WRITE_TOKEN ||
-    process.env.BLOB_STORE_ID ||
     "kinetix-cms-secret"
   );
 }
 
-function createSession() {
+async function createSession() {
   const payload = base64url(
     JSON.stringify({ exp: Date.now() + SESSION_MAX_AGE * 1000 }),
   );
   const signature = crypto
-    .createHmac("sha256", sessionSecret())
+    .createHmac("sha256", await sessionSecret())
     .update(payload)
     .digest("base64url");
   return payload + "." + signature;
 }
 
-function validSession(token) {
+async function validSession(token) {
   if (!token || typeof token !== "string") return false;
   const parts = token.split(".");
   if (parts.length !== 2) return false;
   const expected = crypto
-    .createHmac("sha256", sessionSecret())
+    .createHmac("sha256", await sessionSecret())
     .update(parts[0])
     .digest();
   let actual;
@@ -343,12 +355,12 @@ function getToken(req) {
   }
 }
 
-function isAuthed(req) {
+async function isAuthed(req) {
   return validSession(getToken(req));
 }
 
-function sessionCookie() {
-  return `${COOKIE_NAME}=${createSession()}; HttpOnly; SameSite=Lax; Path=/; Max-Age=${SESSION_MAX_AGE}`;
+async function sessionCookie() {
+  return `${COOKIE_NAME}=${await createSession()}; HttpOnly; SameSite=Lax; Path=/; Max-Age=${SESSION_MAX_AGE}`;
 }
 
 function clearCookie() {

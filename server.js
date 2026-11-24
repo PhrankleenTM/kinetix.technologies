@@ -91,6 +91,13 @@ const server = http.createServer(async (req, res) => {
       store.sendJson(res, 405, { error: "Method not allowed" });
       return;
     }
+    if (
+      /^\/case-studies\/[^/]+\/?$/.test(route) ||
+      /^\/case-studies\/[^/]+\.html$/.test(route)
+    ) {
+      serveFile(res, path.join(ROOT, "case-studies", "project.html"));
+      return;
+    }
     const file = staticPath(route);
     if (!file || isBlocked(file)) {
       res.writeHead(403, { "Content-Type": "text/plain; charset=utf-8" });

@@ -183,7 +183,7 @@ Animations:
 
 - `cms`, `ui`, and `siteEmail` are mutable.
 - Listens for `cms:ready` and refreshes CMS-derived strings.
-- Injects desktop/mobile theme buttons, applies stored or system theme, persists `kinetix-theme` in `localStorage`, and updates button labels/icons.
+- Injects desktop/mobile theme buttons, applies stored or system theme, persists `kinetix-theme` in `localStorage`, updates button labels/icons, and emits `themechange`.
 - Handles nav scroll state, burger menu, reveals, counters, card spotlight, work filters, newsletter/contact forms, reading progress, and footer year.
 
 ### `assets/js/admin.js`
@@ -199,6 +199,8 @@ Animations:
 
 - Picks `document.querySelector('canvas.fx')`, mode from `data-fx`, defaults to `flow`.
 - Modes: `flow`, `rings`, `streaks`, `wave`, `scan`, `venn`, `ripple`, `mesh`.
+- Reads `--bg`, `--text`, and `--muted` from computed CSS, so theme and CMS colors drive canvas colors.
+- Redraws on `themechange` and `cms:ready`; `flow` reinitializes to repaint its background and trails.
 - Uses IntersectionObserver to pause off-screen animation.
 - Respects `prefers-reduced-motion`.
 
@@ -388,6 +390,7 @@ Smoke-test locally:
 - `/` loads CMS data via `/api/bootstrap?page=index.html`.
 - `/case-studies/mediflow` loads `page=case-studies/project.html` with `__CMS_SLUG__=mediflow`.
 - `/` shows a desktop theme button; clicking it toggles `html[data-theme]` and persists `kinetix-theme`.
+- Canvas FX follows the theme; light mode uses light canvas background and dark particles/lines.
 - Mobile menu shows `.mobile-theme` with the same toggle.
 - `/admin` opens the admin panel.
 - `/api/status` is `{ "authenticated": false }` when logged out.

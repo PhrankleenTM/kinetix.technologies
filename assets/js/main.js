@@ -29,6 +29,7 @@
       const text = $('.theme-label', btn);
       if (text) text.textContent = next;
     });
+    window.dispatchEvent(new CustomEvent('themechange', { detail: { theme } }));
   };
   const toggleTheme = () => applyTheme(document.documentElement.dataset.theme === 'light' ? 'dark' : 'light', true);
   const makeThemeButton = mobile => {

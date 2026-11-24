@@ -5,7 +5,30 @@
   const ctx = canvas.getContext('2d');
   const mode = canvas.dataset.fx || 'flow';
   const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
-  const BG = '#18181B', INK = '244,244,245', MUTE = '161,161,170';
+  let BG = '#18181B', BG_RGB = '24,24,27', INK = '244,244,245', MUTE = '161,161,170';
+  const rgbTriplet = (value, fallback) => {
+    const raw = (value || '').trim();
+    const hex = raw.match(/^#([0-9a-f]{3}|[0-9a-f]{6})$/i);
+    if (hex) {
+      const h = hex[1].length === 3 ? hex[1].replace(/./g, c => c + c) : hex[1];
+      return `${parseInt(h.slice(0, 2), 16)},${parseInt(h.slice(2, 4), 16)},${parseInt(h.slice(4, 6), 16)}`;
+    }
+    const rgb = raw.match(/^rgba?\(\s*([\d.]+)[,\s]+([\d.]+)[,\s]+([\d.]+)/i);
+    if (rgb) return `${Math.round(rgb[1])},${Math.round(rgb[2])},${Math.round(rgb[3])}`;
+    return fallback;
+  };
+  const cssValue = (style, name, fallback) => {
+    const value = style.getPropertyValue(name).trim();
+    return value && !value.includes('var(') ? value : fallback;
+  };
+  const readPalette = () => {
+    const style = getComputedStyle(document.documentElement);
+    BG = cssValue(style, '--bg', cssValue(style, '--cms-bg', '#18181B'));
+    BG_RGB = rgbTriplet(BG, '24,24,27');
+    INK = rgbTriplet(cssValue(style, '--text', cssValue(style, '--cms-text', '#F4F4F5')), '244,244,245');
+    MUTE = rgbTriplet(cssValue(style, '--muted', cssValue(style, '--cms-muted', '#A1A1AA')), '161,161,170');
+  };
+  readPalette();
   let W = 0, H = 0, DPR = 1, t = 0, last = 0, visible = true, raf = 0;
   const mouse = { x: 0, y: 0, sx: 0, sy: 0, on: false };
   let S = {};
@@ -32,7 +55,7 @@
         if (reduce) for (let i = 0; i < 160; i++) this.frame(0.016, i * 0.016);
       },
       frame(dt, tt) {
-        ctx.fillStyle = 'rgba(24,24,27,0.075)'; ctx.fillRect(0, 0, W, H);
+        ctx.fillStyle = `rgba(${BG_RGB},0.075)`; ctx.fillRect(0, 0, W, H);
         const bright = new Path2D(), dim = new Path2D();
         for (const p of S.p) {
           const a = (Math.sin(p.x * 0.0034 + tt * 0.16) + Math.cos(p.y * 0.0042 - tt * 0.13) + Math.sin((p.x + p.y) * 0.002 + tt * 0.1)) * 1.35 - 0.25;
@@ -57,7 +80,7 @@
         const mob = W < 900, cx = (mob ? W * 0.5 : W * 0.72) + (mouse.sx - W / 2) * 0.03, cy = (mob ? H * 0.78 : H * 0.5) + (mouse.sy - H / 2) * 0.03;
         const base = Math.min(W, H) * (mob ? 0.55 : 0.66);
         const g = ctx.createRadialGradient(cx, cy, 0, cx, cy, base * 0.5);
-        g.addColorStop(0, `rgba(${INK},.12)`); g.addColorStop(1, 'rgba(244,244,245,0)');
+        g.addColorStop(0, `rgba(${INK},.12)`); g.addColorStop(1, `rgba(${INK},0)`);
         ctx.fillStyle = g; ctx.beginPath(); ctx.arc(cx, cy, base * 0.5, 0, 6.283); ctx.fill();
         for (const r of S.rings) {
           const rad = base * (0.14 + r.k * 0.13);
@@ -86,7 +109,7 @@
         for (const s of S.s) {
           s.x += s.sp * dt; if (s.x - s.len > W) { s.x = -rand(0, 200); s.y = rand(0, H); }
           const y = s.y + py * (s.sp / 300), g = ctx.createLinearGradient(s.x - s.len, 0, s.x, 0);
-          g.addColorStop(0, 'rgba(244,244,245,0)'); g.addColorStop(1, `rgba(${INK},${s.a})`);
+          g.addColorStop(0, `rgba(${INK},0)`); g.addColorStop(1, `rgba(${INK},${s.a})`);
           ctx.strokeStyle = g; ctx.lineWidth = s.w; ctx.beginPath(); ctx.moveTo(s.x - s.len, y); ctx.lineTo(s.x, y); ctx.stroke();
           ctx.fillStyle = `rgba(${INK},${Math.min(1, s.a + 0.3)})`; ctx.fillRect(s.x - 1, y - s.w / 2, 2, s.w);
         }
@@ -167,7 +190,7 @@
         ctx.clearRect(0, 0, W, H);
         for (const b of S.b) {
           const x = W * (0.5 + Math.sin(tt * b.fx + b.ph) * 0.42) + (mouse.sx - W / 2) * 0.05, y = H * (0.45 + Math.cos(tt * b.fy + b.ph) * 0.35), r = Math.max(W, H) * b.r;
-          const g = ctx.createRadialGradient(x, y, 0, x, y, r); g.addColorStop(0, `rgba(${INK},.10)`); g.addColorStop(1, 'rgba(244,244,245,0)');
+          const g = ctx.createRadialGradient(x, y, 0, x, y, r); g.addColorStop(0, `rgba(${INK},.10)`); g.addColorStop(1, `rgba(${INK},0)`);
           ctx.fillStyle = g; ctx.fillRect(0, 0, W, H);
         }
       }
@@ -186,6 +209,12 @@
   hero.addEventListener('pointerleave', () => { mouse.on = false; });
   new IntersectionObserver(([e]) => { visible = e.isIntersecting; }, { threshold: 0 }).observe(hero);
   let rt; addEventListener('resize', () => { clearTimeout(rt); rt = setTimeout(size, 150); });
+  const redraw = () => {
+    readPalette();
+    if (mode === 'flow') size(); else modes[mode].frame(0.016, t || 3);
+  };
+  addEventListener('themechange', redraw);
+  document.addEventListener('cms:ready', redraw);
 
   size();
   if (reduce) { modes[mode].frame(0.016, 3); } else { last = performance.now(); raf = requestAnimationFrame(loop); }

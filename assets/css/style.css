@@ -450,8 +450,8 @@ ul {
   inset: 0;
   z-index: -2;
   background-image:
-    linear-gradient(rgba(161, 161, 170, 0.07) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(161, 161, 170, 0.07) 1px, transparent 1px);
+    linear-gradient(rgba(161, 161, 170, 0.045) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(161, 161, 170, 0.045) 1px, transparent 1px);
   background-size: 64px 64px;
   -webkit-mask-image: radial-gradient(
     ellipse 70% 60% at 50% 35%,
@@ -1931,8 +1931,8 @@ html[data-theme="light"] .meta-grid {
 }
 html[data-theme="light"] .hero .grid-bg {
   background-image:
-    linear-gradient(rgba(24, 24, 27, 0.07) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(24, 24, 27, 0.07) 1px, transparent 1px);
+    linear-gradient(rgba(24, 24, 27, 0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(24, 24, 27, 0.04) 1px, transparent 1px);
 }
 html[data-theme="light"] .code {
   background: rgba(255, 255, 255, 0.86);

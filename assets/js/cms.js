@@ -427,9 +427,6 @@
         qa('meta[property="og:title"]').forEach((m) =>
           m.setAttribute("content", seo.title || ""),
         );
-        qa("meta[name=theme-color]").forEach((m) =>
-          m.setAttribute("content", (C.settings || {}).themeColor || ""),
-        );
       }
       if (name === "colors") {
         Object.entries((C.settings || {}).colors || {}).forEach(([k, v]) =>

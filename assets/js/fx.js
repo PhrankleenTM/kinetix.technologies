@@ -49,49 +49,49 @@
     /* HOME: particles riding a flow field, pushed by the cursor */
     flow: {
       init() {
-        const n = Math.max(260, Math.min(900, Math.floor(W * H / 2600)));
-        S.p = Array.from({ length: n }, () => ({ x: rand(0, W), y: rand(0, H), life: rand(40, 220), bright: Math.random() < 0.28, sp: rand(0.7, 1.6) }));
+        const n = Math.max(120, Math.min(360, Math.floor(W * H / 6500)));
+        S.p = Array.from({ length: n }, () => ({ x: rand(0, W), y: rand(0, H), life: rand(80, 300), bright: Math.random() < 0.18, sp: rand(0.35, 0.85) }));
         ctx.fillStyle = BG; ctx.fillRect(0, 0, W, H);
-        if (reduce) for (let i = 0; i < 160; i++) this.frame(0.016, i * 0.016);
+        if (reduce) for (let i = 0; i < 100; i++) this.frame(0.016, i * 0.016);
       },
       frame(dt, tt) {
-        ctx.fillStyle = `rgba(${BG_RGB},0.075)`; ctx.fillRect(0, 0, W, H);
+        ctx.fillStyle = `rgba(${BG_RGB},0.14)`; ctx.fillRect(0, 0, W, H);
         const bright = new Path2D(), dim = new Path2D();
         for (const p of S.p) {
           const a = (Math.sin(p.x * 0.0034 + tt * 0.16) + Math.cos(p.y * 0.0042 - tt * 0.13) + Math.sin((p.x + p.y) * 0.002 + tt * 0.1)) * 1.35 - 0.25;
-          let vx = Math.cos(a) * p.sp * 1.5, vy = Math.sin(a) * p.sp * 1.5;
+          let vx = Math.cos(a) * p.sp * 1.1, vy = Math.sin(a) * p.sp * 1.1;
           const dx = p.x - mouse.sx, dy = p.y - mouse.sy, d = Math.hypot(dx, dy);
-          if (mouse.on && d < 180 && d > 0.1) { const f = (1 - d / 180) * 3.2; vx += dx / d * f; vy += dy / d * f; }
+          if (mouse.on && d < 180 && d > 0.1) { const f = (1 - d / 180) * 2.2; vx += dx / d * f; vy += dy / d * f; }
           const nx = p.x + vx, ny = p.y + vy, path = p.bright ? bright : dim;
           path.moveTo(p.x, p.y); path.lineTo(nx, ny);
           p.x = nx; p.y = ny; p.life--;
-          if (p.life <= 0 || nx < -10 || nx > W + 10 || ny < -10 || ny > H + 10) { p.x = rand(0, W); p.y = rand(0, H); p.life = rand(60, 240); }
+          if (p.life <= 0 || nx < -10 || nx > W + 10 || ny < -10 || ny > H + 10) { p.x = rand(0, W); p.y = rand(0, H); p.life = rand(100, 360); }
         }
-        ctx.lineWidth = 1; ctx.strokeStyle = `rgba(${MUTE},.55)`; ctx.stroke(dim);
-        ctx.lineWidth = 1.2; ctx.strokeStyle = `rgba(${INK},.85)`; ctx.stroke(bright);
+        ctx.lineWidth = 1; ctx.strokeStyle = `rgba(${MUTE},.28)`; ctx.stroke(dim);
+        ctx.lineWidth = 1.2; ctx.strokeStyle = `rgba(${INK},.55)`; ctx.stroke(bright);
       }
     },
 
     /* SERVICES: orbiting rings with travelling nodes */
     rings: {
-      init() { S.rings = Array.from({ length: 7 }, (_, k) => ({ k, sp: (k % 2 ? -1 : 1) * rand(0.12, 0.32), ph: rand(0, 6.28), dots: 1 + (k % 3) })); },
+      init() { S.rings = Array.from({ length: 5 }, (_, k) => ({ k, sp: (k % 2 ? -1 : 1) * rand(0.08, 0.2), ph: rand(0, 6.28), dots: 1 + (k % 2) })); },
       frame(dt, tt) {
         ctx.clearRect(0, 0, W, H);
         const mob = W < 900, cx = (mob ? W * 0.5 : W * 0.72) + (mouse.sx - W / 2) * 0.03, cy = (mob ? H * 0.78 : H * 0.5) + (mouse.sy - H / 2) * 0.03;
         const base = Math.min(W, H) * (mob ? 0.55 : 0.66);
         const g = ctx.createRadialGradient(cx, cy, 0, cx, cy, base * 0.5);
-        g.addColorStop(0, `rgba(${INK},.12)`); g.addColorStop(1, `rgba(${INK},0)`);
+        g.addColorStop(0, `rgba(${INK},.06)`); g.addColorStop(1, `rgba(${INK},0)`);
         ctx.fillStyle = g; ctx.beginPath(); ctx.arc(cx, cy, base * 0.5, 0, 6.283); ctx.fill();
         for (const r of S.rings) {
           const rad = base * (0.14 + r.k * 0.13);
           ctx.beginPath(); ctx.arc(cx, cy, rad, 0, 6.283);
           ctx.setLineDash(r.k % 2 ? [3, 9] : []); ctx.lineDashOffset = -tt * 14 * r.sp;
-          ctx.strokeStyle = `rgba(${MUTE},${0.34 - r.k * 0.03})`; ctx.lineWidth = 1; ctx.stroke(); ctx.setLineDash([]);
+          ctx.strokeStyle = `rgba(${MUTE},${0.18 - r.k * 0.02})`; ctx.lineWidth = 1; ctx.stroke(); ctx.setLineDash([]);
           for (let d = 0; d < r.dots; d++) {
             const a = tt * r.sp + r.ph + d * (6.283 / r.dots);
             const x = cx + Math.cos(a) * rad, y = cy + Math.sin(a) * rad;
-            ctx.beginPath(); ctx.arc(x, y, 2.6 + (r.k % 3), 0, 6.283);
-            ctx.fillStyle = `rgba(${INK},.95)`; ctx.shadowColor = `rgba(${INK},.8)`; ctx.shadowBlur = 14; ctx.fill(); ctx.shadowBlur = 0;
+            ctx.beginPath(); ctx.arc(x, y, 2 + (r.k % 2), 0, 6.283);
+            ctx.fillStyle = `rgba(${INK},.65)`; ctx.shadowColor = `rgba(${INK},.5)`; ctx.shadowBlur = 8; ctx.fill(); ctx.shadowBlur = 0;
           }
         }
       }
@@ -100,32 +100,32 @@
     /* WORK: speed streaks, kinetic motion */
     streaks: {
       init() {
-        S.s = Array.from({ length: Math.floor(W / 14) + 24 }, () => ({ x: rand(-300, W), y: rand(0, H), len: rand(80, 360), sp: rand(90, 520), a: rand(0.12, 0.6), w: Math.random() < 0.2 ? 2 : 1 }));
+        S.s = Array.from({ length: Math.floor(W / 28) + 10 }, () => ({ x: rand(-300, W), y: rand(0, H), len: rand(50, 220), sp: rand(50, 240), a: rand(0.05, 0.26), w: 1 }));
         if (reduce) this.frame(0.016, 2);
       },
       frame(dt) {
         ctx.clearRect(0, 0, W, H);
-        const py = (mouse.sy - H / 2) * 0.02;
+        const py = (mouse.sy - H / 2) * 0.012;
         for (const s of S.s) {
           s.x += s.sp * dt; if (s.x - s.len > W) { s.x = -rand(0, 200); s.y = rand(0, H); }
           const y = s.y + py * (s.sp / 300), g = ctx.createLinearGradient(s.x - s.len, 0, s.x, 0);
           g.addColorStop(0, `rgba(${INK},0)`); g.addColorStop(1, `rgba(${INK},${s.a})`);
           ctx.strokeStyle = g; ctx.lineWidth = s.w; ctx.beginPath(); ctx.moveTo(s.x - s.len, y); ctx.lineTo(s.x, y); ctx.stroke();
-          ctx.fillStyle = `rgba(${INK},${Math.min(1, s.a + 0.3)})`; ctx.fillRect(s.x - 1, y - s.w / 2, 2, s.w);
+          ctx.fillStyle = `rgba(${INK},${Math.min(1, s.a + 0.16)})`; ctx.fillRect(s.x - 1, y - s.w / 2, 2, s.w);
         }
       }
     },
 
     /* ABOUT: dot grid with a travelling wave around the cursor */
     wave: {
-      init() { S.gap = W < 700 ? 24 : 30; },
+      init() { S.gap = W < 700 ? 36 : 44; },
       frame(dt, tt) {
         ctx.clearRect(0, 0, W, H);
         const gap = S.gap, cx = mouse.on ? mouse.sx : W * 0.7, cy = mouse.on ? mouse.sy : H * 0.5;
         for (let y = gap / 2; y < H; y += gap) for (let x = gap / 2; x < W; x += gap) {
           const d = Math.hypot(x - cx, y - cy), v = Math.sin(d * 0.022 - tt * 1.8) * Math.exp(-d / 620);
-          const k = (v + 1) / 2, r = 0.7 + k * 2.1;
-          ctx.fillStyle = `rgba(${INK},${0.07 + k * 0.5 * Math.exp(-d / 800)})`;
+          const k = (v + 1) / 2, r = 0.6 + k * 1.4;
+          ctx.fillStyle = `rgba(${INK},${0.04 + k * 0.22 * Math.exp(-d / 800)})`;
           ctx.beginPath(); ctx.arc(x, y, r, 0, 6.283); ctx.fill();
         }
       }
@@ -136,17 +136,17 @@
       init() {
         const x0 = W < 900 ? 24 : W * 0.56, w = W - x0 - 24; S.x0 = x0; S.rows = []; let y = 110, para = 0;
         while (y < H - 60) {
-          if (Math.random() < 0.14) { y += 28; para++; continue; }
+          if (Math.random() < 0.1) { y += 34; para++; continue; }
           const segs = []; let x = 0; while (x < w * 0.9) { const sw = rand(26, 110); segs.push([x, Math.min(sw, w - x)]); x += sw + rand(8, 14); }
-          S.rows.push({ y, segs, w }); y += 22;
+          S.rows.push({ y, segs, w }); y += 30;
         }
       },
       frame(dt, tt) {
         ctx.clearRect(0, 0, W, H);
-        const sweep = ((tt * 70) % (H + 260)) - 130, mob = W < 900;
+        const sweep = ((tt * 45) % (H + 260)) - 130, mob = W < 900;
         for (const r of S.rows) {
           const d = Math.abs(r.y - sweep), md = mouse.on ? Math.abs(r.y - mouse.sy) : 999;
-          const a = (mob ? 0.05 : 0.09) + Math.exp(-(d * d) / 5200) * 0.55 + Math.exp(-(md * md) / 3000) * 0.18;
+          const a = (mob ? 0.025 : 0.04) + Math.exp(-(d * d) / 5200) * 0.28 + Math.exp(-(md * md) / 3000) * 0.1;
           ctx.fillStyle = `rgba(${INK},${a})`;
           for (const [sx, sw] of r.segs) { ctx.beginPath(); ctx.roundRect ? ctx.roundRect(S.x0 + sx, r.y, sw, 6, 3) : ctx.rect(S.x0 + sx, r.y, sw, 6); ctx.fill(); }
         }
@@ -162,10 +162,10 @@
         const off = R * (0.62 + Math.sin(tt * 0.7) * 0.42), ax = cx - off, bx = cx + off;
         ctx.save(); ctx.beginPath(); ctx.arc(ax, cy, R, 0, 6.283); ctx.clip();
         ctx.beginPath(); ctx.arc(bx, cy, R, 0, 6.283);
-        const g = ctx.createRadialGradient(cx, cy, 0, cx, cy, R); g.addColorStop(0, `rgba(${INK},.30)`); g.addColorStop(1, `rgba(${INK},.06)`);
+        const g = ctx.createRadialGradient(cx, cy, 0, cx, cy, R); g.addColorStop(0, `rgba(${INK},.16)`); g.addColorStop(1, `rgba(${INK},.03)`);
         ctx.fillStyle = g; ctx.fill(); ctx.restore();
-        for (const [x, a] of [[ax, 0.55], [bx, 0.8]]) { ctx.beginPath(); ctx.arc(x, cy, R, 0, 6.283); ctx.strokeStyle = `rgba(${a > 0.7 ? INK : MUTE},${a})`; ctx.lineWidth = 1.2; ctx.stroke(); }
-        for (let i = 0; i < 14; i++) { const a = tt * (0.2 + i * 0.03) + i, rr = R * (1.25 + (i % 4) * 0.17), x = cx + Math.cos(a) * rr * 1.3, y = cy + Math.sin(a) * rr * 0.75; ctx.beginPath(); ctx.arc(x, y, 1.6 + (i % 3), 0, 6.283); ctx.fillStyle = `rgba(${INK},${0.25 + (i % 4) * 0.15})`; ctx.fill(); }
+        for (const [x, a] of [[ax, 0.3], [bx, 0.45]]) { ctx.beginPath(); ctx.arc(x, cy, R, 0, 6.283); ctx.strokeStyle = `rgba(${a > 0.35 ? INK : MUTE},${a})`; ctx.lineWidth = 1.2; ctx.stroke(); }
+        for (let i = 0; i < 8; i++) { const a = tt * (0.2 + i * 0.03) + i, rr = R * (1.25 + (i % 4) * 0.17), x = cx + Math.cos(a) * rr * 1.3, y = cy + Math.sin(a) * rr * 0.75; ctx.beginPath(); ctx.arc(x, y, 1.6 + (i % 3), 0, 6.283); ctx.fillStyle = `rgba(${INK},${0.12 + (i % 4) * 0.08})`; ctx.fill(); }
       }
     },
 
@@ -175,22 +175,22 @@
       frame(dt, tt) {
         ctx.clearRect(0, 0, W, H);
         const mob = W < 900, cx = mob ? W * 0.5 : W * 0.74, cy = mob ? H * 0.78 : H * 0.5, max = Math.min(W, 900) * (mob ? 0.7 : 0.5);
-        if (tt > S.next) { S.r.push({ x: cx, y: cy, t: 0 }); S.next = tt + 1.5; }
+        if (tt > S.next) { S.r.push({ x: cx, y: cy, t: 0 }); S.next = tt + 2.4; }
         S.r = S.r.filter(r => r.t < 1);
-        for (const r of S.r) { r.t += dt * 0.28; const rad = r.t * max, a = (1 - r.t) * 0.55; ctx.beginPath(); ctx.arc(r.x, r.y, rad, 0, 6.283); ctx.strokeStyle = `rgba(${INK},${a})`; ctx.lineWidth = 1.2; ctx.stroke(); }
-        ctx.beginPath(); ctx.arc(cx, cy, 4 + Math.sin(tt * 3) * 1.2, 0, 6.283); ctx.fillStyle = `rgb(${INK})`; ctx.shadowColor = `rgb(${INK})`; ctx.shadowBlur = 20; ctx.fill(); ctx.shadowBlur = 0;
-        ctx.strokeStyle = `rgba(${MUTE},.16)`; ctx.lineWidth = 1; ctx.beginPath(); ctx.moveTo(cx - max, cy); ctx.lineTo(cx + max, cy); ctx.moveTo(cx, cy - max); ctx.lineTo(cx, cy + max); ctx.stroke();
+        for (const r of S.r) { r.t += dt * 0.18; const rad = r.t * max, a = (1 - r.t) * 0.28; ctx.beginPath(); ctx.arc(r.x, r.y, rad, 0, 6.283); ctx.strokeStyle = `rgba(${INK},${a})`; ctx.lineWidth = 1.2; ctx.stroke(); }
+        ctx.beginPath(); ctx.arc(cx, cy, 3 + Math.sin(tt * 3) * 0.8, 0, 6.283); ctx.fillStyle = `rgb(${INK})`; ctx.shadowColor = `rgb(${INK})`; ctx.shadowBlur = 10; ctx.fill(); ctx.shadowBlur = 0;
+        ctx.strokeStyle = `rgba(${MUTE},.08)`; ctx.lineWidth = 1; ctx.beginPath(); ctx.moveTo(cx - max, cy); ctx.lineTo(cx + max, cy); ctx.moveTo(cx, cy - max); ctx.lineTo(cx, cy + max); ctx.stroke();
       }
     },
 
     /* CASE STUDIES + ARTICLES: slow drifting light */
     mesh: {
-      init() { S.b = Array.from({ length: 4 }, (_, i) => ({ fx: rand(0.1, 0.25), fy: rand(0.08, 0.2), ph: i * 1.7, r: rand(0.25, 0.45) })); },
+      init() { S.b = Array.from({ length: 3 }, (_, i) => ({ fx: rand(0.06, 0.16), fy: rand(0.05, 0.12), ph: i * 1.7, r: rand(0.2, 0.35) })); },
       frame(dt, tt) {
         ctx.clearRect(0, 0, W, H);
         for (const b of S.b) {
           const x = W * (0.5 + Math.sin(tt * b.fx + b.ph) * 0.42) + (mouse.sx - W / 2) * 0.05, y = H * (0.45 + Math.cos(tt * b.fy + b.ph) * 0.35), r = Math.max(W, H) * b.r;
-          const g = ctx.createRadialGradient(x, y, 0, x, y, r); g.addColorStop(0, `rgba(${INK},.10)`); g.addColorStop(1, `rgba(${INK},0)`);
+          const g = ctx.createRadialGradient(x, y, 0, x, y, r); g.addColorStop(0, `rgba(${INK},.05)`); g.addColorStop(1, `rgba(${INK},0)`);
           ctx.fillStyle = g; ctx.fillRect(0, 0, W, H);
         }
       }

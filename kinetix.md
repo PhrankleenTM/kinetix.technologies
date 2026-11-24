@@ -96,7 +96,7 @@ Head:
 - Favicon + apple touch icon.
 - Google Fonts preconnect/stylesheet.
 - Stylesheet link.
-- Inline script adds `.js` and sets `data-theme` from `kinetix-theme` or system preference before CSS paints.
+- Inline script adds `.js`, sets `data-theme` from `kinetix-theme` (default light), and syncs `theme-color` before CSS paints.
 - `<noscript>` style that forces `.js .rv`, `.w>span`, `.fade` visible.
 - No server-side CMS injection in production.
 
@@ -176,6 +176,7 @@ Animations:
 - Generated links use clean URLs: `/contact`, `/services`, `/case-studies/<slug>`, `/insights/<slug>`.
 - Global specials: `seo`, `colors`, `logo`, `ui`, `siteName`, `companyFooter`.
 - `colors` writes `--cms-*` variables; light mode stays on its own palette.
+- `seo` does not write `theme-color`; the active theme controls it.
 - Page specials: `cta`, `caseNext`, `articleNext`, `typeOptions`.
 - Emits `cms:ready` with the content object after rendering.
 
@@ -183,7 +184,7 @@ Animations:
 
 - `cms`, `ui`, and `siteEmail` are mutable.
 - Listens for `cms:ready` and refreshes CMS-derived strings.
-- Injects desktop/mobile theme buttons, applies stored or system theme, persists `kinetix-theme` in `localStorage`, updates button labels/icons, and emits `themechange`.
+- Injects desktop/mobile theme buttons, applies stored theme or light default, persists `kinetix-theme` in `localStorage`, syncs `theme-color`, updates button labels/icons, and emits `themechange`.
 - Handles nav scroll state, burger menu, reveals, counters, card spotlight, work filters, newsletter/contact forms, reading progress, and footer year.
 
 ### `assets/js/admin.js`
@@ -199,6 +200,7 @@ Animations:
 
 - Picks `document.querySelector('canvas.fx')`, mode from `data-fx`, defaults to `flow`.
 - Modes: `flow`, `rings`, `streaks`, `wave`, `scan`, `venn`, `ripple`, `mesh`.
+- Animation density, speed, glow, and alpha are intentionally subtle; avoid restoring heavy particle counts.
 - Reads `--bg`, `--text`, and `--muted` from computed CSS, so theme and CMS colors drive canvas colors.
 - Redraws on `themechange` and `cms:ready`; `flow` reinitializes to repaint its background and trails.
 - Uses IntersectionObserver to pause off-screen animation.
@@ -358,7 +360,8 @@ Always: update `kinetix.md` → make requested change → validate → report wh
 
 ### Change theme defaults
 
-- Dark is the CSS base; light mode lives under `html[data-theme="light"]` in `assets/css/style.css`.
+- Dark remains the CSS base, but light is the user-facing default via `data-theme="light"` in head scripts and `main.js`.
+- Saved `kinetix-theme` values override the light default; dark remains opt-in.
 - `main.js` injects `.desktop-theme` and `.mobile-theme`; no per-page button markup is needed.
 - Head scripts set `data-theme` before paint so saved themes do not flash.
 - CMS `settings.colors` affects dark mode through `--cms-*`; update light overrides separately.
@@ -389,8 +392,9 @@ npm start
 Smoke-test locally:
 - `/` loads CMS data via `/api/bootstrap?page=index.html`.
 - `/case-studies/mediflow` loads `page=case-studies/project.html` with `__CMS_SLUG__=mediflow`.
+- With no saved theme, `/` loads in light mode; saved `dark` still loads dark.
 - `/` shows a desktop theme button; clicking it toggles `html[data-theme]` and persists `kinetix-theme`.
-- Canvas FX follows the theme; light mode uses light canvas background and dark particles/lines.
+- Canvas FX follows the theme and stays subtle; light mode uses light canvas background and dark particles/lines.
 - Mobile menu shows `.mobile-theme` with the same toggle.
 - `/admin` opens the admin panel.
 - `/api/status` is `{ "authenticated": false }` when logged out.

@@ -77,7 +77,7 @@
       tile.appendChild(cover);
       const body = make("div", "project-tile-body");
       body.appendChild(make("div", "project-tile-title", project.title || "Untitled project"));
-      body.appendChild(make("div", "project-tile-meta", `${project.category || "Uncategorised"}${project.year ? " · " + project.year : ""}`));
+      body.appendChild(make("div", "project-tile-meta", `${project.category || "Uncategorised"}${project.year ? " ï¿½ " + project.year : ""}`));
       tile.appendChild(body);
       tile.addEventListener("click", () => { activeProjectIndex = i; render(); });
       grid.appendChild(tile);
@@ -101,7 +101,7 @@
     }
     card.appendChild(cover);
     const body = make("div", "project-preview-body");
-    body.appendChild(make("div", "project-preview-meta", `${project.category || ""}${project.year ? " · " + project.year : ""}`));
+    body.appendChild(make("div", "project-preview-meta", `${project.category || ""}${project.year ? " ï¿½ " + project.year : ""}`));
     body.appendChild(make("h3", "", project.title || "Project name"));
     body.appendChild(make("p", "", project.description || "Project description will appear here."));
     const tags = make("div", "project-preview-tags");
@@ -153,7 +153,7 @@
     file.addEventListener("change", async () => {
       const f = file.files && file.files[0];
       if (!f) return;
-      status("Uploading image…");
+      status("Uploading imageï¿½");
       try {
         const dataUrl = await new Promise((resolve, reject) => { const r = new FileReader(); r.onload = () => resolve(r.result); r.onerror = reject; r.readAsDataURL(f); });
         const res = await api("/api/upload", { method: "POST", body: JSON.stringify({ name: f.name, dataUrl }) });
@@ -225,10 +225,10 @@
   });
 
   $("#save-btn").addEventListener("click", async () => {
-    status("Saving…");
+    status("Savingâ€¦");
     try {
-      await api("/api/content", { method: "POST", body: JSON.stringify(state) });
-      status("Saved. Site updated.", "ok");
+      const res = await api("/api/content", { method: "POST", body: JSON.stringify(state) });
+      status(res.storage === "local" ? "Saved locally only. Connect Vercel Blob for live site." : "Saved. Site updated.", res.storage === "local" ? "err" : "ok");
     } catch (err) { status(err.message, "err"); }
   });
 

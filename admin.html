@@ -3,15 +3,12 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1" />
-    <title>Kinetix CMS — Admin</title>
+    <title>Kinetix CMS � Projects</title>
     <meta name="theme-color" content="#18181B" />
     <link rel="icon" type="image/svg+xml" href="/assets/img/favicon.svg" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Geist:wght@300..700&family=Geist+Mono:wght@400;500&display=swap"
-      rel="stylesheet"
-    />
+    <link href="https://fonts.googleapis.com/css2?family=Geist:wght@300..700&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="/assets/css/style.css" />
     <link rel="stylesheet" href="/assets/css/admin.css" />
   </head>
@@ -20,17 +17,9 @@
       <form class="login-card" id="login-form">
         <div class="brand">KINETIX <span>CMS</span></div>
         <h1>Welcome back.</h1>
-        <p class="muted">Sign in to manage site content.</p>
-        <p class="login-hint">Open <code>/admin</code> on this site to manage content.</p>
+        <p class="muted">Sign in to manage projects.</p>
         <label for="password">Admin password</label>
-        <input
-          id="password"
-          name="password"
-          type="password"
-          required
-          autocomplete="current-password"
-          placeholder="Admin password"
-        />
+        <input id="password" name="password" type="password" required autocomplete="current-password" placeholder="Admin password" />
         <button class="btn btn-primary" type="submit">Sign in</button>
         <p class="error" id="login-error"></p>
       </form>
@@ -39,16 +28,12 @@
     <div id="app" class="admin-app" hidden>
       <aside class="admin-side">
         <div class="brand">KINETIX <span>CMS</span></div>
-        <nav id="sections" class="sections" aria-label="Content sections"></nav>
+        <nav class="sections" aria-label="Content sections">
+          <button type="button" class="active">Projects</button>
+        </nav>
         <div class="side-tools">
           <button type="button" id="export-btn">Export backup</button>
-          <label class="import-label"
-            >Import backup<input
-              type="file"
-              id="import-file"
-              accept="application/json"
-              hidden
-          /></label>
+          <label class="import-label">Import backup<input type="file" id="import-file" accept="application/json" hidden /></label>
           <button type="button" id="password-btn">Change password</button>
           <a href="/" target="_blank" rel="noopener">View site</a>
           <button type="button" id="logout-btn">Sign out</button>
@@ -58,19 +43,15 @@
         <header class="admin-top">
           <div>
             <span class="eyebrow">Content management</span>
-            <h1 id="section-title">Loading…</h1>
+            <h1 id="section-title">Projects</h1>
           </div>
           <div class="top-actions">
             <span id="status" class="status" role="status"></span>
-            <button class="btn btn-primary" id="save-btn" type="button">
-              Save changes
-            </button>
+            <button class="btn btn-primary" id="save-btn" type="button">Save changes</button>
           </div>
         </header>
         <div id="fields" class="fields"></div>
-        <footer class="admin-foot">
-          Changes go live on the public pages as soon as you save.
-        </footer>
+        <footer class="admin-foot">Changes go live on the public pages as soon as you save.</footer>
       </main>
     </div>
 
@@ -83,11 +64,8 @@
         <input id="confirm-password" type="password" minlength="8" required />
         <p class="error" id="password-error"></p>
         <div class="modal-actions">
-          <button type="button" class="btn btn-ghost" id="password-cancel">
-            Cancel</button
-          ><button type="submit" class="btn btn-primary">
-            Update password
-          </button>
+          <button type="button" class="btn btn-ghost" id="password-cancel">Cancel</button>
+          <button type="submit" class="btn btn-primary">Update password</button>
         </div>
       </form>
     </div>

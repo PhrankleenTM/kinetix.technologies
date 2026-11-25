@@ -52,7 +52,7 @@
 - Fonts load from Google Fonts: `Geist` (300–700), `Geist Mono` (400,500), `Instrument Serif` (ital 0,1).
 - Contact form builds a `mailto:` link. Email address, subject, opening message, labels, placeholders and project types are CMS-controlled.
 - Newsletter forms are local-only simulations; validation/success messages are CMS-controlled.
-- Heroes use the static `.grid-bg` overlay only; there is no canvas background animation.
+- Heroes use a blurred CSS gradient image plus the static `.grid-bg` overlay; there is no canvas background animation.
 
 ## 3. File map
 
@@ -84,7 +84,7 @@
 - `case-studies/project.html` — generic CMS-driven detail page for every project slug.
 - `case-studies/*.html` — 4 original case-study pages kept as static fallbacks.
 - `insights/*.html` — 5 article pages.
-- `assets/css/style.css` — full design system, layout, responsive rules, animations, and page fade.
+- `assets/css/style.css` — full design system, layout, responsive rules, blurred hero gradients, animations, and page fade.
 - `assets/img/favicon.svg`, `assets/img/apple-touch-icon.png` — used by every page.
 - `assets/img/logo/` — logo variants; header/footer use inline SVG by default, replaceable via CMS `settings.logoImage`.
 
@@ -351,6 +351,7 @@ Always: update `kinetix.md` → make requested change → validate → report wh
 - Saved `kinetix-theme` values override the light default; dark remains opt-in.
 - `main.js` injects `.desktop-theme`; no per-page button markup is needed.
 - Head scripts set `data-theme` before paint so saved themes do not flash.
+- Hero gradient uses `--hero-glow-*`; light theme overrides use softer values.
 - CMS `settings.colors` affects dark mode through `--cms-*`; update light overrides separately.
 
 ## 11. Validation checklist
@@ -381,7 +382,7 @@ Smoke-test locally:
 - `/case-studies/mediflow` loads `page=case-studies/project.html` with `__CMS_SLUG__=mediflow`.
 - With no saved theme, `/` loads in light mode; saved `dark` still loads dark.
 - `/` shows a desktop theme button; clicking it toggles `html[data-theme]` and persists `kinetix-theme`.
-- No `canvas.fx` elements or `fx.js` references remain; hero text, marquee, reveals, and page fade still animate.
+- No `canvas.fx` elements or `fx.js` references remain; hero gradient, text, marquee, reveals, and page fade still render/animate.
 - Mobile menu has no theme toggle; navbar toggle remains available.
 - `/admin` opens the admin panel.
 - `/api/status` is `{ "authenticated": false }` when logged out.

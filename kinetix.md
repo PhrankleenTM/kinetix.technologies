@@ -54,6 +54,7 @@
 - Newsletter forms post to `POST /api/newsletter`; each signup is emailed via Gmail SMTP to the same address.
 - Form status/labels are CMS-controlled through `ui`; fallback email is `settings.email`.
 - Heroes use locally stored blurred stock photos plus the static `.grid-bg` overlay; there is no canvas background animation.
+- Hero headings use one font family: `--sans` Geist, the font used in "We build digital systems that"; mono labels/code and serif text outside hero headings are unchanged.
 
 ## 3. File map
 
@@ -130,6 +131,7 @@ Tokens in `:root`:
 - Base tokens read `--cms-*` overrides so CMS colors still control dark mode.
 - Light theme sets direct tokens under `html[data-theme="light"]` and overrides hardcoded dark surfaces.
 - `--sans` Geist stack, `--serif` Instrument Serif, `--mono` Geist Mono, `--ease:cubic-bezier(0.2,0.7,0.1,1)`
+- `.hero h1 .serif` overrides `--serif` with `--sans`; other `.serif` elements keep Instrument Serif.
 
 CMS color settings map to CSS variables named `--cms-<setting key>`; they do not override light mode.
 

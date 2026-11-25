@@ -135,7 +135,7 @@ Tokens in `:root`:
 - Light theme sets direct tokens under `html[data-theme="light"]` and overrides hardcoded dark surfaces.
 - `--sans` Geist stack, `--serif` Instrument Serif, `--mono` Geist Mono, `--ease:cubic-bezier(0.2,0.7,0.1,1)`
 - `.hero h1 .serif` overrides `--serif` with `--sans`; other `.serif` elements keep Instrument Serif.
-- `.logo::before` and `.wordmark` hide legacy inline text/SVG and display theme-aware logo background images.
+- `.logo::before` and `.wordmark` hide legacy inline text/SVG and display theme-aware logo background images; the header logo renders at `156px × 56px` so "Technologies" stays visible.
 
 CMS color settings map to CSS variables named `--cms-<setting key>`; they do not override light mode.
 

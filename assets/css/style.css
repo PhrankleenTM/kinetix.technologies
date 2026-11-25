@@ -142,8 +142,8 @@ ul {
 }
 .logo::before {
   content: "";
-  width: 112px;
-  height: 40px;
+  width: 156px;
+  height: 56px;
   flex: 0 0 auto;
   background: url("/assets/img/logo/kinetix-full-dark.svg") center / contain no-repeat;
 }

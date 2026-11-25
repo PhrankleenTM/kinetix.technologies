@@ -55,6 +55,8 @@
 - Form status/labels are CMS-controlled through `ui`; fallback email is `settings.email`.
 - Heroes use locally stored blurred stock photos plus the static `.grid-bg` overlay; there is no canvas background animation.
 - Hero headings use one font family: `--sans` Geist, the font used in "We build digital systems that"; mono labels/code and serif text outside hero headings are unchanged.
+- Branding uses the supplied Kinetix logo set: transparent full logos for header/footer, background favicons for browser tabs, and background PNGs for Apple touch icons.
+- Light mode uses `kinetix-full-light.svg`, `favicon.svg`, and `apple-touch-icon.png`; dark mode uses `kinetix-full-dark.svg`, `favicon-dark.svg`, and `apple-touch-icon-dark.png`.
 
 ## 3. File map
 
@@ -90,9 +92,10 @@
 - `case-studies/*.html` — 4 original case-study pages kept as static fallbacks.
 - `insights/*.html` — 5 article pages.
 - `assets/css/style.css` — full design system, layout, responsive rules, blurred hero photos, animations, and page fade.
-- `assets/img/favicon.svg`, `assets/img/apple-touch-icon.png` — used by every page.
+- `assets/img/favicon.svg`, `assets/img/favicon-dark.svg` — light/dark browser tab icons linked by every page and swapped by `main.js`.
+- `assets/img/apple-touch-icon.png`, `assets/img/apple-touch-icon-dark.png` — light/dark Apple touch icons swapped by `main.js`.
 - `assets/img/hero/` — locally stored Pexels hero photos (Pexels License); each page sets `--hero-img` on its `.hero`.
-- `assets/img/logo/` — logo variants; header/footer use inline SVG by default, replaceable via CMS `settings.logoImage`.
+- `assets/img/logo/kinetix-full-light.svg`, `assets/img/logo/kinetix-full-dark.svg` — transparent full logos used by header and footer; `kinetix-full-light-background.svg` and `kinetix-full-dark-background.svg` are source background variants.
 
 ## 4. Shared page anatomy
 
@@ -107,10 +110,10 @@ Head:
 
 Body:
 - `<a class="skip" href="#main">Skip to content</a>`
-- `<header class="nav">` → `.container.nav-in` → logo inline SVG, desktop `nav.links`, CTA `.btn-nav`, injected `.desktop-theme`, `button.burger`.
+- `<header class="nav">` → `.container.nav-in` → legacy logo inline SVG hidden by CSS and replaced with a theme-aware background image, desktop `nav.links`, CTA `.btn-nav`, injected `.desktop-theme`, `button.burger`.
 - `<div class="mobile-menu">` → 7 `.ml` links + CTA.
 - `<main id="main">` → hero → content sections → CTA.
-- `<footer class="footer">` → `.f-grid` (logo/blurb/socials, Navigation, Company, Stay ahead with newsletter) → `.f-bottom` with `.yr-now` → `.wordmark`.
+- `<footer class="footer">` → `.f-grid` (logo/blurb/socials, Navigation, Company, Stay ahead with newsletter) → `.f-bottom` with `.yr-now` → `.wordmark` rendered as the supplied theme-aware full logo.
 - Company footer ends with `<li><a href="/admin">Admin</a></li>`.
 
 Scripts at the end:
@@ -132,6 +135,7 @@ Tokens in `:root`:
 - Light theme sets direct tokens under `html[data-theme="light"]` and overrides hardcoded dark surfaces.
 - `--sans` Geist stack, `--serif` Instrument Serif, `--mono` Geist Mono, `--ease:cubic-bezier(0.2,0.7,0.1,1)`
 - `.hero h1 .serif` overrides `--serif` with `--sans`; other `.serif` elements keep Instrument Serif.
+- `.logo::before` and `.wordmark` hide legacy inline text/SVG and display theme-aware logo background images.
 
 CMS color settings map to CSS variables named `--cms-<setting key>`; they do not override light mode.
 
@@ -179,7 +183,7 @@ Animations:
 - `findBySlug` strips URL/path and `.html` so clean links and old values both work.
 - Renderers: `words`, `badges`, `marquee`, `iconCards`, `serviceCards`, `workRows`, `stats`, `steps`, `quotes`, `chips`, `projects`, `collabCards`, `paragraphs`, `list`, `strongList`, `numberCards`, `serviceRows`, `navLinks`, `ctaLabel`, `mailto`, `socials`, `infoList`, `articleRows`, `articleBlocks`, `caseBlocks`.
 - Generated links use clean URLs: `/contact`, `/services`, `/case-studies/<slug>`, `/insights/<slug>`.
-- Global specials: `seo`, `colors`, `logo`, `ui`, `siteName`, `companyFooter`.
+- Global specials: `seo`, `colors`, `logo`, `ui`, `siteName`, `companyFooter`; `logoImage` may inject an `<img>`, but CSS hides header logos so the supplied theme-aware asset stays authoritative.
 - `colors` writes `--cms-*` variables; light mode stays on its own palette.
 - `seo` does not write `theme-color`; the active theme controls it.
 - Page specials: `cta`, `caseNext`, `articleNext`, `typeOptions`.
@@ -189,7 +193,7 @@ Animations:
 
 - `cms`, `ui`, and `siteEmail` are mutable.
 - Listens for `cms:ready` and refreshes CMS-derived strings.
-- Injects the desktop theme button, applies stored theme or light default, persists `kinetix-theme` in `localStorage`, syncs `theme-color`, and updates button icons.
+- Injects the desktop theme button, applies stored theme or light default, persists `kinetix-theme` in `localStorage`, syncs `theme-color`, swaps favicon/Apple touch icon, and updates button icons.
 - Handles nav scroll state, burger menu, same-origin page fade, reveals, counters, card spotlight, work filters, newsletter/contact form POSTs, reading progress, and footer year.
 
 ### `assets/js/admin.js`

@@ -135,9 +135,20 @@ ul {
   letter-spacing: -0.02em;
   font-size: 1.08rem;
 }
-.logo svg {
-  height: 30px;
-  width: auto;
+.logo svg,
+.logo img,
+.logo .wordmark {
+  display: none;
+}
+.logo::before {
+  content: "";
+  width: 112px;
+  height: 40px;
+  flex: 0 0 auto;
+  background: url("/assets/img/logo/kinetix-full-dark.svg") center / contain no-repeat;
+}
+html[data-theme="light"] .logo::before {
+  background-image: url("/assets/img/logo/kinetix-full-light.svg");
 }
 .logo small {
   font-family: var(--mono);
@@ -1887,22 +1898,16 @@ ul {
   font-size: 0.88rem;
 }
 .wordmark {
-  font-size: clamp(4.5rem, 21vw, 19rem);
-  font-weight: 600;
-  letter-spacing: -0.07em;
-  line-height: 0.8;
-  text-align: center;
-  background: linear-gradient(
-    180deg,
-    rgba(244, 244, 245, 0.14),
-    rgba(244, 244, 245, 0) 85%
-  );
-  -webkit-background-clip: text;
-  background-clip: text;
+  width: min(74vw, 760px);
+  aspect-ratio: 1340 / 480;
+  margin: 10px auto 0;
+  background: url("/assets/img/logo/kinetix-full-dark.svg") center / contain no-repeat;
+  font-size: 0;
   color: transparent;
   user-select: none;
-  margin-top: 10px;
-  padding-bottom: 0.06em;
+}
+html[data-theme="light"] .wordmark {
+  background-image: url("/assets/img/logo/kinetix-full-light.svg");
 }
 
 html[data-theme="light"] {
@@ -2019,13 +2024,6 @@ html[data-theme="light"] .article p,
 html[data-theme="light"] .article ul li {
   color: #3f3f46;
 }
-html[data-theme="light"] .wordmark {
-  background: linear-gradient(
-    180deg,
-    rgba(24, 24, 27, 0.14),
-    rgba(24, 24, 27, 0) 85%
-  );
-}
-html[data-theme="light"] .logo svg {
-  filter: invert(1);
+html[data-theme="light"] .logo::before {
+  background-image: url("/assets/img/logo/kinetix-full-light.svg");
 }

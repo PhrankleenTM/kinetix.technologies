@@ -2,7 +2,7 @@
   "settings": {
     "siteName": "Kinetix Technologies",
     "logoText": "KINETIX",
-    "logoImage": "",
+    "logoImage": "/assets/img/logo/kinetix-full-light.svg",
     "email": "kinetix.technologies.web@gmail.com",
     "footerBlurb": "Kinetix builds websites, clinic systems and inventory and ERP modules that move businesses forward.",
     "footerTagline": "Built for Momentum.",

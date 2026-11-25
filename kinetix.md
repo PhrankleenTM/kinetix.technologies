@@ -102,7 +102,7 @@ Head:
 Body:
 - `<a class="skip" href="#main">Skip to content</a>`
 - `<header class="nav">` → `.container.nav-in` → logo inline SVG, desktop `nav.links`, CTA `.btn-nav`, injected `.desktop-theme`, `button.burger`.
-- `<div class="mobile-menu">` → 7 `.ml` links + injected `.mobile-theme` + CTA.
+- `<div class="mobile-menu">` → 7 `.ml` links + CTA.
 - `<main id="main">` → hero → content sections → CTA.
 - `<footer class="footer">` → `.f-grid` (logo/blurb/socials, Navigation, Company, Stay ahead with newsletter) → `.f-bottom` with `.yr-now` → `.wordmark`.
 - Company footer ends with `<li><a href="/admin">Admin</a></li>`.
@@ -134,7 +134,7 @@ Section markers include:
 Mobile menu:
 - `.mobile-menu` uses safe centering, scroll overflow, `84px 24px 28px` padding, and `2px` gaps so all links plus CTA fit on short screens.
 - `.mobile-menu a.ml` uses `clamp(1.65rem, 7vw, 2.25rem)` with `10px` vertical padding; `.mobile-menu .btn` uses reduced margin/padding.
-- Theme toggle: `.theme-toggle` in desktop nav and `.mobile-theme` in mobile menu; icons are injected by `main.js`.
+- Theme toggle: `.theme-toggle.desktop-theme` only in the navbar; icons are injected by `main.js`.
 
 Admin visibility:
 - `assets/css/admin.css` defines `[hidden] { display: none !important; }` so author `display:grid` rules cannot override `#login` and `#app` hidden toggles.
@@ -182,7 +182,7 @@ Animations:
 
 - `cms`, `ui`, and `siteEmail` are mutable.
 - Listens for `cms:ready` and refreshes CMS-derived strings.
-- Injects desktop/mobile theme buttons, applies stored theme or light default, persists `kinetix-theme` in `localStorage`, syncs `theme-color`, and updates button labels/icons.
+- Injects the desktop theme button, applies stored theme or light default, persists `kinetix-theme` in `localStorage`, syncs `theme-color`, and updates button icons.
 - Handles nav scroll state, burger menu, same-origin page fade, reveals, counters, card spotlight, work filters, newsletter/contact forms, reading progress, and footer year.
 
 ### `assets/js/admin.js`
@@ -349,7 +349,7 @@ Always: update `kinetix.md` → make requested change → validate → report wh
 
 - Dark remains the CSS base, but light is the user-facing default via `data-theme="light"` in head scripts and `main.js`.
 - Saved `kinetix-theme` values override the light default; dark remains opt-in.
-- `main.js` injects `.desktop-theme` and `.mobile-theme`; no per-page button markup is needed.
+- `main.js` injects `.desktop-theme`; no per-page button markup is needed.
 - Head scripts set `data-theme` before paint so saved themes do not flash.
 - CMS `settings.colors` affects dark mode through `--cms-*`; update light overrides separately.
 
@@ -382,7 +382,7 @@ Smoke-test locally:
 - With no saved theme, `/` loads in light mode; saved `dark` still loads dark.
 - `/` shows a desktop theme button; clicking it toggles `html[data-theme]` and persists `kinetix-theme`.
 - No `canvas.fx` elements or `fx.js` references remain; hero text, marquee, reveals, and page fade still animate.
-- Mobile menu shows `.mobile-theme` with the same toggle.
+- Mobile menu has no theme toggle; navbar toggle remains available.
 - `/admin` opens the admin panel.
 - `/api/status` is `{ "authenticated": false }` when logged out.
 - Upload/save/password require auth; login uses current password; save reflects on public site.

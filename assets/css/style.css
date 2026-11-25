@@ -227,28 +227,6 @@ ul {
   stroke-linecap: round;
   stroke-linejoin: round;
 }
-.mobile-menu .mobile-theme {
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
-  gap: 12px;
-  width: 100%;
-  border: 0;
-  border-radius: 12px;
-  background: transparent;
-  color: var(--text);
-  font-size: clamp(1.65rem, 7vw, 2.25rem);
-  line-height: 1.2;
-  padding: 10px 0;
-}
-.mobile-menu .mobile-theme:hover {
-  background: transparent;
-  transform: none;
-}
-.mobile-menu .mobile-theme svg {
-  width: 24px;
-  height: 24px;
-}
 .mobile-menu {
   position: fixed;
   inset: 0;

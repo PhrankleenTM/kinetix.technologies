@@ -21,24 +21,20 @@
     if (persist) { try { localStorage.setItem(THEME_KEY, theme); } catch (e) {} }
     const next = theme === 'light' ? 'Dark mode' : 'Light mode';
     $$('.theme-toggle').forEach(btn => {
-      const label = btn.classList.contains('mobile-theme') ? next : 'Switch to ' + next.toLowerCase();
+      const label = 'Switch to ' + next.toLowerCase();
       btn.setAttribute('aria-label', label);
       btn.setAttribute('title', label);
       btn.setAttribute('aria-pressed', String(theme === 'light'));
       const icon = $('.theme-icon', btn);
       if (icon) icon.innerHTML = theme === 'light' ? MOON : SUN;
-      const text = $('.theme-label', btn);
-      if (text) text.textContent = next;
     });
   };
   const toggleTheme = () => applyTheme(document.documentElement.dataset.theme === 'light' ? 'dark' : 'light', true);
-  const makeThemeButton = mobile => {
+  const makeThemeButton = () => {
     const btn = document.createElement('button');
     btn.type = 'button';
-    btn.className = 'theme-toggle' + (mobile ? ' mobile-theme' : ' desktop-theme');
-    btn.innerHTML = mobile
-      ? '<span class="theme-icon"></span><span class="theme-label"></span>'
-      : '<span class="theme-icon"></span>';
+    btn.className = 'theme-toggle desktop-theme';
+    btn.innerHTML = '<span class="theme-icon"></span>';
     btn.addEventListener('click', toggleTheme);
     return btn;
   };
@@ -48,15 +44,9 @@
   document.documentElement.dataset.theme = initialTheme === 'light' ? 'light' : 'dark';
   const navIn = $('.nav-in');
   if (navIn && !$('.desktop-theme')) {
-    const btn = makeThemeButton(false);
+    const btn = makeThemeButton();
     const burger = $('.burger');
     if (burger) navIn.insertBefore(btn, burger); else navIn.appendChild(btn);
-  }
-  const mobileMenu = $('.mobile-menu');
-  if (mobileMenu && !$('.mobile-theme')) {
-    const btn = makeThemeButton(true);
-    const cta = $('.btn', mobileMenu);
-    if (cta) mobileMenu.insertBefore(btn, cta); else mobileMenu.appendChild(btn);
   }
   applyTheme(initialTheme);
 

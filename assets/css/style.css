@@ -1458,6 +1458,10 @@ ul {
 .form-msg.show {
   display: block;
 }
+.form-msg.error {
+  border-color: #ef4444;
+  color: #ef4444;
+}
 .info-list li {
   padding: 22px 0;
   border-bottom: 1px solid var(--line);
@@ -1509,6 +1513,9 @@ ul {
   color: var(--muted);
   margin-top: 10px;
   min-height: 1.4em;
+}
+.nl-msg.error {
+  color: #ef4444;
 }
 
 /* case study */

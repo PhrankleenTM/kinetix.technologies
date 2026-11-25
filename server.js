@@ -30,6 +30,8 @@ const API_HANDLERS = {
   "/api/upload": require("./api/upload"),
   "/api/media": require("./api/media"),
   "/api/password": require("./api/password"),
+  "/api/contact": require("./api/contact"),
+  "/api/newsletter": require("./api/newsletter"),
 };
 
 function staticPath(pathname) {

@@ -131,24 +131,74 @@
   initWorkFilters();
   document.addEventListener('cms:ready', () => { bindReveals(); bindCounts(); bindSpotlight(); initWorkFilters(); });
 
-  // newsletter
-  $$('form.nl-form').forEach(f => f.addEventListener('submit', e => {
+  const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  const postJson = async (url, payload) => {
+    const res = await fetch(url, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) });
+    const data = await res.json().catch(() => ({}));
+    if (!res.ok || !data.ok) throw new Error(data.error || 'Request failed.');
+    return data;
+  };
+  const honeypot = f => {
+    let h = $('input[name="website"]', f);
+    if (!h) {
+      h = document.createElement('input');
+      h.type = 'text';
+      h.name = 'website';
+      h.tabIndex = -1;
+      h.autocomplete = 'off';
+      h.setAttribute('aria-hidden', 'true');
+      h.style.position = 'absolute';
+      h.style.left = '-9999px';
+      f.appendChild(h);
+    }
+    return h;
+  };
+
+  $$('form.nl-form').forEach(f => f.addEventListener('submit', async e => {
     e.preventDefault();
-    const i = $('input', f), m = $('.nl-msg', f.parentElement), v = i.value.trim();
-    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v)) { m.textContent = ui.newsletterInvalid || 'Please enter a valid email address.'; return; }
-    m.textContent = ui.newsletterSuccess || 'You are on the list. Thank you.'; i.value = '';
+    const i = $('input[type="email"]', f) || $('input', f), m = $('.nl-msg', f.parentElement), btn = $('button[type="submit"]', f), v = i.value.trim();
+    if (!emailPattern.test(v)) { m.textContent = ui.newsletterInvalid || 'Please enter a valid email address.'; m.classList.add('error'); return; }
+    if (!i.name) i.name = 'email';
+    const hp = honeypot(f);
+    m.classList.remove('error');
+    m.textContent = ui.newsletterSending || 'Sending...';
+    if (btn) btn.disabled = true;
+    try {
+      await postJson('/api/newsletter', { email: v, website: hp.value, page: location.pathname });
+      m.textContent = ui.newsletterSuccess || 'You are on the list. Thank you.';
+      i.value = '';
+    } catch (err) {
+      m.textContent = err.message || ui.newsletterError || 'Could not complete signup right now.';
+      m.classList.add('error');
+    } finally {
+      if (btn) btn.disabled = false;
+    }
   }));
 
-  // contact form: opens the visitor's email app with the message filled in
   const cf = $('#contact-form');
-  if (cf) cf.addEventListener('submit', e => {
+  if (cf) cf.addEventListener('submit', async e => {
     e.preventDefault();
-    const d = Object.fromEntries(new FormData(cf)), msg = $('#form-msg');
-    const body = `Name: ${d.name}\nEmail: ${d.email}\nCompany: ${d.company || '-'}\nProject type: ${d.type}\nBudget: ${d.budget || '-'}\n\n${d.message || ''}`;
-    const subject = ui.contactSubject || 'New project enquiry';
-    location.href = `mailto:${siteEmail}?subject=${encodeURIComponent(subject + ': ' + d.type)}&body=${encodeURIComponent(body)}`;
-    msg.textContent = (ui.contactOpening || 'Opening your email app with your message ready to send.') + ` If nothing opens, write to ${siteEmail}.`;
+    const d = Object.fromEntries(new FormData(cf)), msg = $('#form-msg'), btn = $('button[type="submit"]', cf);
+    if (!String(d.name || '').trim() || !emailPattern.test(String(d.email || '').trim()) || !String(d.message || '').trim()) {
+      msg.textContent = ui.contactInvalid || 'Please complete all required fields.';
+      msg.classList.add('show', 'error');
+      return;
+    }
+    const hp = honeypot(cf);
+    msg.classList.remove('error');
     msg.classList.add('show');
+    msg.textContent = ui.contactSending || 'Sending your message...';
+    if (btn) btn.disabled = true;
+    try {
+      await postJson('/api/contact', { ...d, website: hp.value, page: location.pathname });
+      msg.textContent = ui.contactSuccess || 'Thank you — your message has been sent.';
+      cf.reset();
+    } catch (err) {
+      msg.textContent = (err.message || ui.contactError || 'Could not send your message right now.') + ` If you prefer, email ${siteEmail}.`;
+      msg.classList.add('error');
+    } finally {
+      if (btn) btn.disabled = false;
+    }
   });
 
   // reading progress

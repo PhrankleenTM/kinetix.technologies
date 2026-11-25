@@ -1,12 +1,17 @@
 /* Kinetix Technologies | design system
    Brand colors: #18181B (base) and #A1A1AA (muted). Change tokens below to rebrand. */
-@view-transition {
-  navigation: auto;
+@keyframes pageIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
 }
-::view-transition-old(root),
-::view-transition-new(root) {
-  animation-duration: 180ms;
-  animation-timing-function: var(--ease);
+.js body {
+  animation: pageIn 220ms var(--ease) both;
+}
+.js body.is-leaving {
+  animation: none;
+  opacity: 0;
+  transition: opacity 160ms var(--ease);
+  pointer-events: none;
 }
 :root {
   --bg: var(--cms-bg, #18181b);
@@ -2024,10 +2029,6 @@ html[data-theme="light"] .logo svg {
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
     scroll-behavior: auto !important;
-  }
-  ::view-transition-old(root),
-  ::view-transition-new(root) {
-    animation-duration: 0.01ms !important;
   }
   .w > span {
     transform: none;

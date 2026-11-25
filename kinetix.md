@@ -84,7 +84,7 @@
 - `case-studies/project.html` — generic CMS-driven detail page for every project slug.
 - `case-studies/*.html` — 4 original case-study pages kept as static fallbacks.
 - `insights/*.html` — 5 article pages.
-- `assets/css/style.css` — full design system, layout, responsive rules, animations, and same-origin view-transition crossfade.
+- `assets/css/style.css` — full design system, layout, responsive rules, animations, and page fade.
 - `assets/img/favicon.svg`, `assets/img/apple-touch-icon.png` — used by every page.
 - `assets/img/logo/` — logo variants; header/footer use inline SVG by default, replaceable via CMS `settings.logoImage`.
 
@@ -147,9 +147,9 @@ Key layout classes:
 - Components: `.card`, `.svc-card`, `.pcard`, `.chip`, `.empty`, `.badge`, `.stat`, `.res`, `.meta-grid`, `.quote`, `.cta`, `.nl`, `.nl-msg`, `.form-msg`, `.progress`, `.next`, `.collab-card`.
 
 Animations:
-- `ping`, `rise`, `fadeUp`, `blink`, `marq`, `float`, `float2`, `spin`.
+- `pageIn`, `ping`, `rise`, `fadeUp`, `blink`, `marq`, `float`, `float2`, `spin`.
 - `.rv`/`.step` start hidden and get `.in` from JS.
-- Same-origin page navigation uses a short CSS View Transition crossfade in supported browsers.
+- Same-origin page navigation fades out then fades in; reduced motion skips the fade.
 - Reduced motion shows final states immediately.
 
 ## 6. JavaScript behavior
@@ -184,7 +184,7 @@ Animations:
 - `cms`, `ui`, and `siteEmail` are mutable.
 - Listens for `cms:ready` and refreshes CMS-derived strings.
 - Injects desktop/mobile theme buttons, applies stored theme or light default, persists `kinetix-theme` in `localStorage`, syncs `theme-color`, and updates button labels/icons.
-- Handles nav scroll state, burger menu, reveals, counters, card spotlight, work filters, newsletter/contact forms, reading progress, and footer year.
+- Handles nav scroll state, burger menu, same-origin page fade, reveals, counters, card spotlight, work filters, newsletter/contact forms, reading progress, and footer year.
 
 ### `assets/js/admin.js`
 
@@ -382,7 +382,7 @@ Smoke-test locally:
 - `/case-studies/mediflow` loads `page=case-studies/project.html` with `__CMS_SLUG__=mediflow`.
 - With no saved theme, `/` loads in light mode; saved `dark` still loads dark.
 - `/` shows a desktop theme button; clicking it toggles `html[data-theme]` and persists `kinetix-theme`.
-- No `canvas.fx` elements or `fx.js` references remain; same-origin navigation crossfades in supported browsers.
+- No `canvas.fx` elements or `fx.js` references remain; hero text, marquee, reveals, and page fade still animate.
 - Mobile menu shows `.mobile-theme` with the same toggle.
 - `/admin` opens the admin panel.
 - `/api/status` is `{ "authenticated": false }` when logged out.

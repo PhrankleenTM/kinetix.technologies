@@ -75,6 +75,22 @@
     addEventListener('keydown', e => { if (e.key === 'Escape') set(false); });
   }
 
+  // page transition
+  if (!reduce) document.addEventListener('click', e => {
+    if (e.defaultPrevented || e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+    const a = e.target.closest('a[href]');
+    if (!a || a.target === '_blank' || a.hasAttribute('download') || 'noTransition' in a.dataset) return;
+    const href = a.getAttribute('href');
+    if (!href || href.startsWith('#') || /^(mailto:|tel:|javascript:)/i.test(href)) return;
+    const url = new URL(a.href, location.href);
+    if (url.origin !== location.origin) return;
+    if (url.pathname === location.pathname && url.search === location.search && url.hash) return;
+    if (document.body.classList.contains('is-leaving')) { e.preventDefault(); return; }
+    e.preventDefault();
+    document.body.classList.add('is-leaving');
+    setTimeout(() => { location.href = url.href; }, 160);
+  });
+
   // reveal on scroll
   const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } }), { threshold: 0.14, rootMargin: '0px 0px -6% 0px' });
   const bindReveals = () => $$('.rv:not(.in), .step:not(.in)').forEach(el => {

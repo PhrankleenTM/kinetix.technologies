@@ -52,7 +52,7 @@
 - Fonts load from Google Fonts: `Geist` (300–700), `Geist Mono` (400,500), `Instrument Serif` (ital 0,1).
 - Contact form builds a `mailto:` link. Email address, subject, opening message, labels, placeholders and project types are CMS-controlled.
 - Newsletter forms are local-only simulations; validation/success messages are CMS-controlled.
-- Each hero has one `<canvas class="fx" data-fx="...">`; `assets/js/fx.js` reads only the first one found.
+- Heroes use the static `.grid-bg` overlay only; there is no canvas background animation.
 
 ## 3. File map
 
@@ -80,19 +80,18 @@
 - `assets/js/cms-loader.js` — fetches `/api/bootstrap`, supports `window.__CMS_PAGE__`, dynamically loads `cms.js`, calls `init(data)`.
 - `assets/js/cms.js` — public CMS renderer; generic case-study binding; exposes `window.KinetixCMS.init`.
 - `assets/js/main.js` — theme toggle, nav/menu/reveal/counters/filters/forms/progress/year; updates on `cms:ready`.
-- `assets/js/fx.js` — canvas hero animations.
 - `index.html`, `services.html`, `work.html`, `about.html`, `insights.html`, `collaborations.html`, `contact.html` — root public pages.
 - `case-studies/project.html` — generic CMS-driven detail page for every project slug.
 - `case-studies/*.html` — 4 original case-study pages kept as static fallbacks.
 - `insights/*.html` — 5 article pages.
-- `assets/css/style.css` — full design system, layout, responsive rules, animations.
+- `assets/css/style.css` — full design system, layout, responsive rules, animations, and same-origin view-transition crossfade.
 - `assets/img/favicon.svg`, `assets/img/apple-touch-icon.png` — used by every page.
 - `assets/img/logo/` — logo variants; header/footer use inline SVG by default, replaceable via CMS `settings.logoImage`.
 
 ## 4. Shared page anatomy
 
 Head:
-- `<meta charset="utf-8">`, viewport, title, description, `theme-color #18181B`, OG tags.
+- `<meta charset="utf-8">`, viewport, title, description, `theme-color`, OG tags.
 - Favicon + apple touch icon.
 - Google Fonts preconnect/stylesheet.
 - Stylesheet link.
@@ -111,7 +110,6 @@ Body:
 Scripts at the end:
 - `<script src="/assets/js/cms-loader.js" defer></script>`
 - `assets/js/main.js` or `../assets/js/main.js`, `defer`
-- `assets/js/fx.js` or `../assets/js/fx.js`, `defer`
 - `cms.js` is loaded dynamically by `cms-loader.js`.
 
 Active nav:
@@ -151,6 +149,7 @@ Key layout classes:
 Animations:
 - `ping`, `rise`, `fadeUp`, `blink`, `marq`, `float`, `float2`, `spin`.
 - `.rv`/`.step` start hidden and get `.in` from JS.
+- Same-origin page navigation uses a short CSS View Transition crossfade in supported browsers.
 - Reduced motion shows final states immediately.
 
 ## 6. JavaScript behavior
@@ -184,7 +183,7 @@ Animations:
 
 - `cms`, `ui`, and `siteEmail` are mutable.
 - Listens for `cms:ready` and refreshes CMS-derived strings.
-- Injects desktop/mobile theme buttons, applies stored theme or light default, persists `kinetix-theme` in `localStorage`, syncs `theme-color`, updates button labels/icons, and emits `themechange`.
+- Injects desktop/mobile theme buttons, applies stored theme or light default, persists `kinetix-theme` in `localStorage`, syncs `theme-color`, and updates button labels/icons.
 - Handles nav scroll state, burger menu, reveals, counters, card spotlight, work filters, newsletter/contact forms, reading progress, and footer year.
 
 ### `assets/js/admin.js`
@@ -195,16 +194,6 @@ Animations:
 - Existing rich case-study blocks are preserved; new projects get generated Overview/Capabilities/The brief blocks.
 - Handles `401` by showing the login screen and asking the user to sign in again.
 - No section navigation, no raw JSON editor, no generic field editor.
-
-### `assets/js/fx.js`
-
-- Picks `document.querySelector('canvas.fx')`, mode from `data-fx`, defaults to `flow`.
-- Modes: `flow`, `rings`, `streaks`, `wave`, `scan`, `venn`, `ripple`, `mesh`.
-- Animation density, speed, glow, and alpha are intentionally subtle; avoid restoring heavy particle counts.
-- Reads `--bg`, `--text`, and `--muted` from computed CSS, so theme and CMS colors drive canvas colors.
-- Redraws on `themechange` and `cms:ready`; `flow` reinitializes to repaint its background and trails.
-- Uses IntersectionObserver to pause off-screen animation.
-- Respects `prefers-reduced-motion`.
 
 ## 7. Serverless/storage architecture
 
@@ -306,7 +295,6 @@ Animations:
 - Every page repeats the inline logo SVG twice. Duplicate `clipPath` IDs are harmless but note if adding SVG defs.
 - CTA headings may contain literal asterisks, e.g. `*performs?*`; check content before changing.
 - `.progress` only exists on article pages.
-- `fx.js` uses first `canvas.fx` only.
 - Newsletter success is fake; no backend, no opt-in record.
 - Contact form's required fields: `name`, `email`, `type`.
 - Keep comments minimal (2–3 words).
@@ -394,7 +382,7 @@ Smoke-test locally:
 - `/case-studies/mediflow` loads `page=case-studies/project.html` with `__CMS_SLUG__=mediflow`.
 - With no saved theme, `/` loads in light mode; saved `dark` still loads dark.
 - `/` shows a desktop theme button; clicking it toggles `html[data-theme]` and persists `kinetix-theme`.
-- Canvas FX follows the theme and stays subtle; light mode uses light canvas background and dark particles/lines.
+- No `canvas.fx` elements or `fx.js` references remain; same-origin navigation crossfades in supported browsers.
 - Mobile menu shows `.mobile-theme` with the same toggle.
 - `/admin` opens the admin panel.
 - `/api/status` is `{ "authenticated": false }` when logged out.

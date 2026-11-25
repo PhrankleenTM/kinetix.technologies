@@ -31,11 +31,8 @@
   --serif: "Instrument Serif", Georgia, serif;
   --mono: "Geist Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
   --ease: cubic-bezier(0.2, 0.7, 0.1, 1);
-  --hero-glow-1: rgba(113, 92, 255, 0.55);
-  --hero-glow-2: rgba(31, 201, 190, 0.34);
-  --hero-glow-3: rgba(255, 122, 89, 0.28);
-  --hero-glow-4: rgba(72, 116, 255, 0.26);
-  --hero-glow-opacity: 0.72;
+  --hero-img-opacity: 0.72;
+  --hero-overlay: rgba(24, 24, 27, 0.58);
 }
 *,
 *::before,
@@ -432,16 +429,18 @@ ul {
 .hero::before {
   content: "";
   position: absolute;
-  inset: -25%;
+  inset: -10%;
   z-index: -3;
   background-image:
-    radial-gradient(circle at 19% 28%, var(--hero-glow-1), transparent 26%),
-    radial-gradient(circle at 78% 20%, var(--hero-glow-2), transparent 24%),
-    radial-gradient(circle at 68% 78%, var(--hero-glow-3), transparent 28%),
-    radial-gradient(circle at 34% 88%, var(--hero-glow-4), transparent 30%);
-  filter: blur(90px) saturate(120%);
-  opacity: var(--hero-glow-opacity);
+    linear-gradient(var(--hero-overlay), var(--hero-overlay)),
+    var(--hero-img, url("/assets/img/hero/home.jpg"));
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  filter: blur(18px) saturate(120%);
+  opacity: var(--hero-img-opacity);
   pointer-events: none;
+  transform: scale(1.08);
 }
 .hero.short {
   min-height: 80svh;
@@ -1907,11 +1906,8 @@ html[data-theme="light"] {
   --accent-ink: #fafafa;
   --line: rgba(24, 24, 27, 0.14);
   --line-strong: rgba(24, 24, 27, 0.3);
-  --hero-glow-1: rgba(113, 92, 255, 0.24);
-  --hero-glow-2: rgba(31, 160, 150, 0.16);
-  --hero-glow-3: rgba(255, 122, 89, 0.13);
-  --hero-glow-4: rgba(72, 116, 255, 0.12);
-  --hero-glow-opacity: 0.66;
+  --hero-img-opacity: 0.56;
+  --hero-overlay: rgba(244, 244, 245, 0.62);
   color-scheme: light;
 }
 html[data-theme="light"] .nav.scrolled {

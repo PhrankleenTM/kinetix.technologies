@@ -1,7 +1,6 @@
 /* Kinetix site behaviour */
 (() => {
   const $ = (s, c = document) => c.querySelector(s), $$ = (s, c = document) => [...c.querySelectorAll(s)];
-  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
   let cms = (window.__CMS__ && window.__CMS__.content) || {};
   let ui = cms.ui || {};
   let siteEmail = (cms.settings || {}).email || 'kinetix.technologies.web@gmail.com';
@@ -76,7 +75,7 @@
   }
 
   // page transition
-  if (!reduce) document.addEventListener('click', e => {
+  document.addEventListener('click', e => {
     if (e.defaultPrevented || e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
     const a = e.target.closest('a[href]');
     if (!a || a.target === '_blank' || a.hasAttribute('download') || 'noTransition' in a.dataset) return;
@@ -105,7 +104,6 @@
     if (el.dataset.counted) return;
     el.dataset.counted = '1';
     const end = parseFloat(el.dataset.count), dec = +(el.dataset.dec || 0), suf = el.dataset.suffix || '';
-    if (reduce) { el.textContent = end.toFixed(dec) + suf; return; }
     const t0 = performance.now(), dur = 1600;
     const tick = n => { const p = Math.min((n - t0) / dur, 1), e = 1 - Math.pow(1 - p, 3); el.textContent = (end * e).toFixed(dec) + suf; if (p < 1) requestAnimationFrame(tick); };
     requestAnimationFrame(tick);

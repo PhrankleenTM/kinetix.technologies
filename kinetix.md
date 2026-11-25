@@ -149,8 +149,7 @@ Key layout classes:
 Animations:
 - `pageIn`, `ping`, `rise`, `fadeUp`, `blink`, `marq`, `float`, `float2`, `spin`.
 - `.rv`/`.step` start hidden and get `.in` from JS.
-- Same-origin page navigation fades out then fades in; reduced motion skips the fade.
-- Reduced motion shows final states immediately.
+- Same-origin page navigation fades out then fades in; CSS animations stay enabled even if the OS requests reduced motion.
 
 ## 6. JavaScript behavior
 

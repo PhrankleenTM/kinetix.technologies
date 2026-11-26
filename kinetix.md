@@ -459,7 +459,14 @@ Hosted smoke-test:
 - Confirm uploaded images load through `/api/media?path=...` with DB metadata and Blob binaries.
 - Set `DATABASE_URL`, `BLOB_*`, and `GMAIL_APP_PASSWORD` in Vercel, redeploy, submit a test contact message, and confirm it arrives in the Gmail inbox and is stored in `cms_submissions`.
 - Submit a test newsletter signup and confirm the notification arrives in the Gmail inbox and is stored in `cms_submissions`.
-- Change the default admin password.
+- Admin password is seeded from `ADMIN_PASSWORD`; rotate that Vercel secret if needed.
+
+Live validation completed:
+- `/api/status` reports `database: "postgres"` and `blob: "connected"`.
+- Login with `ADMIN_PASSWORD` returned `200`, and status then reported `authenticated: true`.
+- Test contact and newsletter submissions returned `200`; `cms_submissions` showed 2 rows.
+- Authenticated upload returned `storage: "db+blob"`; `/api/media?path=...` returned the PNG with `image/png`.
+- DB tables present: `cms_admin`, `cms_kv`, `cms_submissions`, `cms_uploads`.
 
 ## 12. Open questions / optional follow-ups
 

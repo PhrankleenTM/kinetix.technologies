@@ -277,7 +277,8 @@ Animations:
 
 - `DATABASE_URL` — required in production; Neon pooled Postgres connection string.
 - Vercel CLI is linked to `phrankleentms-projects/kinetix.technologies`; `.vercel/` and `.env*` are ignored.
-- Hosted env check found Gmail and Blob vars; `DATABASE_URL` is still missing.
+- Hosted env check found Gmail, Blob, and `DATABASE_URL` (Secret, Production/Preview/Development).
+- Neon project `flat-pond-91807634` (`kinetix-technologies`) is in `aws-us-east-1`, matching Vercel's `iad1` functions.
 - `DB_POOL_MAX` — optional; defaults to `1`.
 - Blob connection uses `BLOB_READ_WRITE_TOKEN` or `BLOB_STORE_ID` + `VERCEL_OIDC_TOKEN`.
 - `BLOB_ACCESS` — optional `public` or `private`; default tries both.

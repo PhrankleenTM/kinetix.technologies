@@ -57,6 +57,7 @@
 - Hero headings use one font family: `--sans` Geist, the font used in "We build digital systems that"; mono labels/code and serif text outside hero headings are unchanged.
 - Branding uses the supplied Kinetix logo set: transparent full logos for header/footer, background favicons for browser tabs, and background PNGs for Apple touch icons.
 - Light mode uses `kinetix-full-light.svg`, `favicon.svg`, and `apple-touch-icon.png`; dark mode uses `kinetix-full-dark.svg`, `favicon-dark.svg`, and `apple-touch-icon-dark.png`.
+- Browser favicons are square, enlarged crops of the new logo's `K` glyph so they remain visible at tab sizes.
 
 ## 3. File map
 
@@ -92,7 +93,7 @@
 - `case-studies/*.html` — 4 original case-study pages kept as static fallbacks.
 - `insights/*.html` — 5 article pages.
 - `assets/css/style.css` — full design system, layout, responsive rules, blurred hero photos, animations, and page fade.
-- `assets/img/favicon.svg`, `assets/img/favicon-dark.svg` — light/dark browser tab icons linked by every page and swapped by `main.js`.
+- `assets/img/favicon.svg`, `assets/img/favicon-dark.svg` — light/dark square `K` browser tab icons linked by every page and swapped by `main.js`.
 - `assets/img/apple-touch-icon.png`, `assets/img/apple-touch-icon-dark.png` — light/dark Apple touch icons swapped by `main.js`.
 - `assets/img/hero/` — locally stored Pexels hero photos (Pexels License); each page sets `--hero-img` on its `.hero`.
 - `assets/img/logo/kinetix-full-light.svg`, `assets/img/logo/kinetix-full-dark.svg` — transparent full logos used by header and footer; `kinetix-full-light-background.svg` and `kinetix-full-dark-background.svg` are source background variants.

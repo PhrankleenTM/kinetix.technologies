@@ -13,7 +13,7 @@ const CONTENT_BLOB = "cms/content.json";
 const ADMIN_BLOB = "cms/admin.json";
 const CONTENT_KEY = "content";
 const UPLOAD_PREFIX = "cms/uploads/";
-const DEFAULT_PASSWORD = "admin123";
+const DEFAULT_PASSWORD = process.env.ADMIN_PASSWORD || "admin123";
 const COOKIE_NAME = "cms_token";
 const SESSION_MAX_AGE = 60 * 60 * 12;
 

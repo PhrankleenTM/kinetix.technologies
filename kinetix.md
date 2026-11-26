@@ -19,7 +19,7 @@
   - `/case-studies/<slug>` (generic template rendered from CMS; covers existing and new projects)
   - `/insights/<slug>`
   - `/admin`
-- Default admin password: `admin123`.
+- Admin seed password: `ADMIN_PASSWORD` if set, otherwise `admin123`; set `ADMIN_PASSWORD` in production.
 
 ## 1. Current state / where work stopped
 
@@ -32,11 +32,11 @@
   - `cms_uploads` — uploaded image metadata
   - `cms_submissions` — contact and newsletter submissions
 - Vercel Blob stores uploaded image binaries; Postgres stores upload metadata and the `/api/media?path=...` public URLs.
-- First DB-backed request creates tables and seeds content from `data/content.json`; admin seeds with `admin123` and a generated `sessionKey`.
+- First DB-backed request creates tables and seeds content from `data/content.json`; admin seeds with `ADMIN_PASSWORD` or `admin123` and a generated `sessionKey`.
 - When no DB or Blob configuration exists, legacy local JSON/file fallback remains only for local development.
 - `data/bindings.json` stays repo-static and is returned by `/api/bootstrap`.
 - Auth uses a stateless signed `cms_token` cookie; restarting or redeploying no longer logs users out.
-- The signing key is stored as `sessionKey` in `cms/admin.json`; changing Blob vars or password does not invalidate active sessions.
+- The signing key is stored as `sessionKey` in `cms_admin` when DB is configured; changing Blob vars does not invalidate active sessions.
 - Admin is Projects-only and auto-creates/updates matching `caseStudies` entries on save.
 - Every Work project has a detail page at `/case-studies/<slug>`; no hardcoded HTML page is needed for new projects.
 - Blob store access mode cannot be changed after store creation. Code supports both public and private stores by trying both access modes unless `BLOB_ACCESS` is set.
@@ -228,7 +228,7 @@ Animations:
 - Detects DB configuration from `DATABASE_URL`; production should always set it.
 - Detects Blob configuration from `BLOB_READ_WRITE_TOKEN` or `BLOB_STORE_ID` + `VERCEL_OIDC_TOKEN`.
 - With DB configured, `getContent`/`saveContent` read/write `cms_kv` and seed from `data/content.json` once.
-- With DB configured, `getAdmin`/`saveAdmin` read/write `cms_admin`; first admin seeds with `admin123` and a generated `sessionKey`.
+- With DB configured, `getAdmin`/`saveAdmin` read/write `cms_admin`; first admin seeds with `ADMIN_PASSWORD` or `admin123` and a generated `sessionKey`.
 - With DB configured, `saveUpload` writes binaries to Blob, records metadata in `cms_uploads`, and returns `/api/media?path=...`.
 - With DB configured, `getMedia` validates the path, checks `cms_uploads`, then streams the Blob object; old Blob paths are backfilled into DB metadata.
 - Without DB, legacy Blob/local JSON/file fallback remains for local-only development.
@@ -280,6 +280,7 @@ Animations:
 - Hosted env check found Gmail, Blob, and `DATABASE_URL` (Secret, Production/Preview/Development).
 - Neon project `flat-pond-91807634` (`kinetix-technologies`) is in `aws-us-east-1`, matching Vercel's `iad1` functions.
 - `DB_POOL_MAX` — optional; defaults to `1`.
+- `ADMIN_PASSWORD` — admin seed password; use a strong secret in production.
 - Blob connection uses `BLOB_READ_WRITE_TOKEN` or `BLOB_STORE_ID` + `VERCEL_OIDC_TOKEN`.
 - `BLOB_ACCESS` — optional `public` or `private`; default tries both.
 - Forms return `503` with `Database storage is not configured yet.` if `DATABASE_URL` is missing.

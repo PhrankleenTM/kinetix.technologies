@@ -173,6 +173,60 @@ async function getContent() {
   return readJsonFile(CONTENT_FILE, {});
 }
 
+function syncCaseStudies(content) {
+  const projects = (content.work && content.work.projects) || [];
+  const cases = Array.isArray(content.caseStudies) ? content.caseStudies : [];
+  projects.forEach((project) => {
+    if (!project || !project.slug) return;
+    let item = cases.find((entry) => entry && entry.slug === project.slug);
+    if (!item) {
+      item = { slug: project.slug };
+      cases.push(item);
+    }
+    item.title = project.title || "Untitled project";
+    item.tag = `${project.category || "Project"}${project.year ? " · " + project.year : ""}`;
+    item.sub = project.description || "";
+    item.client = item.title;
+    item.service = project.category || "Project";
+    item.year = project.year || "";
+    item.image = project.image || "";
+    const blocks = Array.isArray(item.blocks) && item.blocks.length ? item.blocks.slice() : [];
+    const lead =
+      String(project.details || "").trim() ||
+      String(project.description || "").trim() ||
+      `A ${project.category || "project"} built by Kinetix Technologies.`;
+    const overviewIndex = blocks.findIndex((block) => block && block.eyebrow === "Overview");
+    if (overviewIndex >= 0) blocks[overviewIndex] = { eyebrow: "Overview", lead };
+    else blocks.unshift({ eyebrow: "Overview", lead });
+    const bullets = (project.bullets || []).filter(Boolean);
+    const fallbackBullets = bullets.length ? bullets : (project.tags || []).filter(Boolean);
+    const bulletEyebrow = bullets.length ? "Key points" : "Capabilities";
+    const bulletIndex = blocks.findIndex(
+      (block) =>
+        block &&
+        (block.eyebrow === "Key points" || block.eyebrow === "Capabilities"),
+    );
+    if (fallbackBullets.length) {
+      const block = { eyebrow: bulletEyebrow, bullets: fallbackBullets };
+      if (bulletIndex >= 0) blocks[bulletIndex] = block;
+      else blocks.push(block);
+    } else if (bulletIndex >= 0) {
+      blocks.splice(bulletIndex, 1);
+    }
+    const briefIndex = blocks.findIndex((block) => block && block.eyebrow === "The brief");
+    if (project.description && project.details) {
+      const block = { eyebrow: "The brief", paragraphs: [project.description] };
+      if (briefIndex >= 0) blocks[briefIndex] = block;
+      else blocks.push(block);
+    } else if (briefIndex >= 0) {
+      blocks.splice(briefIndex, 1);
+    }
+    item.blocks = blocks;
+  });
+  content.caseStudies = cases;
+  return content;
+}
+
 async function saveContent(value) {
   if (dbConfigured()) {
     await db.setKV(CONTENT_KEY, value);
@@ -496,6 +550,7 @@ module.exports = {
   saveAdmin,
   saveContent,
   saveUpload,
+  syncCaseStudies,
   sendJson,
   sessionCookie,
   validSession,

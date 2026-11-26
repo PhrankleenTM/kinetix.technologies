@@ -49,7 +49,7 @@ module.exports = async function handler(req, res) {
     }
     res.writeHead(200, {
       "Content-Type": media.contentType,
-      "Cache-Control": "public, max-age=31536000, immutable",
+      "Cache-Control": "public, max-age=300",
     });
     await pipeMedia(media.stream, res);
   } catch (err) {

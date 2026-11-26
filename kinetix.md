@@ -81,7 +81,7 @@
 - `api/login.js` — `POST /api/login`.
 - `api/logout.js` — `POST /api/logout`.
 - `api/upload.js` — `POST /api/upload`.
-- `api/media.js` — `GET /api/media?path=...`; serves Blob uploads, including private stores and web `ReadableStream` bodies.
+- `api/media.js` — `GET /api/media?path=...`; serves Blob uploads, including private stores and web `ReadableStream` bodies; uses a 5-minute cache instead of immutable caching.
 - `api/password.js` — `POST /api/password`.
 - `data/content.json` — default/local editable content; top-level keys: `settings`, `seo`, `nav`, `home`, `services`, `work`, `about`, `insights`, `articles`, `collaborations`, `contact`, `ui`, `cta`, `caseStudies`.
 - `data/bindings.json` — content-to-DOM binding map; 17 binding entries: `_global`, 7 root pages, 4 case studies, 5 articles.

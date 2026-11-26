@@ -11,6 +11,7 @@
     year: String(new Date().getFullYear()),
     description: "",
     details: "",
+    bullets: [],
     tags: [],
     slug: "",
     slugAuto: true,
@@ -72,6 +73,12 @@
       project.title = project.title || "Untitled project";
       project.tags = Array.isArray(project.tags) ? project.tags : [];
       project.categories = Array.isArray(project.categories) ? project.categories : [];
+      project.bullets = Array.isArray(project.bullets)
+        ? project.bullets
+        : String(project.bullets || "")
+            .split(/\r?\n/)
+            .map((s) => s.trim())
+            .filter(Boolean);
       if (!project.slug) {
         const match = String(project.link || "").match(/\/case-studies\/([^/?#]+)/);
         project.slug = match ? slugify(decodeURIComponent(match[1])) : slugify(project.title);
@@ -121,23 +128,38 @@
           next: next ? next.slug : project.slug,
         });
       }
-      if (!Array.isArray(item.blocks) || !item.blocks.length) {
-        const blocks = [
-          {
-            eyebrow: "Overview",
-            lead:
-              String(project.details || "").trim() ||
-              String(project.description || "").trim() ||
-              `A ${project.category || "project"} built by Kinetix Technologies.`,
-          },
-        ];
-        const bullets = (project.tags || []).filter(Boolean);
-        if (bullets.length) blocks.push({ eyebrow: "Capabilities", bullets });
+      const bullets = (project.bullets || []).filter(Boolean);
+      const fallbackBullets = bullets.length
+        ? bullets
+        : (project.tags || []).filter(Boolean);
+      const bulletEyebrow = bullets.length ? "Key points" : "Capabilities";
+      const blocks =
+        Array.isArray(item.blocks) && item.blocks.length ? item.blocks.slice() : [];
+      const bulletIndex = blocks.findIndex(
+        (block) =>
+          block &&
+          (block.eyebrow === "Key points" || block.eyebrow === "Capabilities"),
+      );
+      if (fallbackBullets.length) {
+        const block = { eyebrow: bulletEyebrow, bullets: fallbackBullets };
+        if (bulletIndex >= 0) blocks[bulletIndex] = block;
+        else blocks.push(block);
+      } else if (bulletIndex >= 0) {
+        blocks.splice(bulletIndex, 1);
+      }
+      if (!blocks.length) {
+        blocks.push({
+          eyebrow: "Overview",
+          lead:
+            String(project.details || "").trim() ||
+            String(project.description || "").trim() ||
+            `A ${project.category || "project"} built by Kinetix Technologies.`,
+        });
         if (project.description && project.details) {
           blocks.push({ eyebrow: "The brief", paragraphs: [project.description] });
         }
-        item.blocks = blocks;
       }
+      item.blocks = blocks;
       cases.push(item);
     });
     state.caseStudies = cases;
@@ -300,6 +322,17 @@
     text("Year", "year");
     text("Short description", "description", true);
     text("Full details", "details", true, "Shown on the project detail page.");
+
+    const bullets = document.createElement("textarea");
+    bullets.value = (project.bullets || []).join("\n");
+    bullets.addEventListener("input", () => {
+      project.bullets = bullets.value
+        .split(/\r?\n/)
+        .map((s) => s.trim())
+        .filter(Boolean);
+      updatePreview();
+    });
+    field("Case-study bullets", bullets, "One bullet per line. Shown on the project detail page.");
 
     const tags = document.createElement("input");
     tags.type = "text"; tags.value = (project.tags || []).join(", ");

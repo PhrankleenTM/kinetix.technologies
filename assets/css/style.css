@@ -454,14 +454,17 @@ html[data-theme="light"] .logo::before {
   transform: scale(1.08);
 }
 .hero.has-cms-cover {
-  --hero-img-opacity: 0.9;
-  --hero-overlay: rgba(24, 24, 27, 0.42);
+  --hero-img-opacity: 0.86;
+  --hero-overlay: rgba(24, 24, 27, 0.5);
 }
 html[data-theme="light"] .hero.has-cms-cover {
-  --hero-overlay: rgba(244, 244, 245, 0.42);
+  --hero-overlay: rgba(244, 244, 245, 0.5);
 }
 .hero.has-cms-cover::before {
-  filter: saturate(115%);
+  inset: -6%;
+  background-position: 50% 50%;
+  filter: blur(14px) saturate(115%);
+  transform: scale(1.02);
 }
 .hero.short {
   min-height: 80svh;

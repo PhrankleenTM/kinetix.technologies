@@ -371,9 +371,10 @@ Always: update `kinetix.md` → make requested change → validate → report wh
 - Local: run `npm start`, open `http://localhost:3000/admin`.
 - Hosted: open `/admin` on the deployed domain.
 - Manage only **Projects**: click **+ Add project** or click a project card.
-- Set project name, page slug, category, year, short description, full details, tags, filters, and cover image.
+- Set project name, page slug, category, year, short description, full details, case-study bullets, tags, filters, and cover image.
 - Click **Save changes**; the public Work card and `/case-studies/<slug>` page update together.
 - Matching `caseStudies` entries are generated/updated automatically; rich existing blocks are preserved.
+- Case-study bullets become a `Key points` block; without bullets, tags remain the fallback `Capabilities` block.
 - Upload cover images; saved path becomes `/api/media?path=...` on Blob-backed deployments and is copied to the matching case-study hero.
 - Use **Export** before risky edits; use **Import** to load a backup, then **Save**.
 - Change password from the admin panel after first login.
@@ -408,7 +409,7 @@ Always: update `kinetix.md` → make requested change → validate → report wh
 - `main.js` injects `.desktop-theme`; no per-page button markup is needed.
 - Head scripts set `data-theme` before paint so saved themes do not flash.
 - Hero photo uses `--hero-img` per page; `--hero-img-opacity` and `--hero-overlay` keep light/dark readable.
-- CMS case-study covers add `.has-cms-cover`, which removes the blur and raises opacity so the uploaded image is clearly visible.
+- CMS case-study covers add `.has-cms-cover`, which center-crops the image and adds blur/overlay so detail-page text stays readable.
 - CMS `settings.colors` affects dark mode through `--cms-*`; update light overrides separately.
 
 ## 11. Validation checklist

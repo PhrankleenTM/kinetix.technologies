@@ -184,7 +184,7 @@ Animations:
 - Guards against double initialization.
 - Resolves page from `data.page` with normalized `location.pathname` fallback.
 - Reads `window.__CMS_SLUG__` for generic case-study routes.
-- Builds a dynamic case-study binding for `case-studies/project.html` from the requested slug.
+- Builds a dynamic case-study binding for `case-studies/project.html` from the requested slug, including the cover image as the hero background.
 - `get(path)` supports dot paths and `caseStudies[slug=mediflow].title` style selectors.
 - `findBySlug` strips URL/path and `.html` so clean links and old values both work.
 - Renderers: `words`, `badges`, `marquee`, `iconCards`, `serviceCards`, `workRows`, `stats`, `steps`, `quotes`, `chips`, `projects`, `collabCards`, `paragraphs`, `list`, `strongList`, `numberCards`, `serviceRows`, `navLinks`, `ctaLabel`, `mailto`, `socials`, `infoList`, `articleRows`, `articleBlocks`, `caseBlocks`.
@@ -374,7 +374,7 @@ Always: update `kinetix.md` → make requested change → validate → report wh
 - Set project name, page slug, category, year, short description, full details, tags, filters, and cover image.
 - Click **Save changes**; the public Work card and `/case-studies/<slug>` page update together.
 - Matching `caseStudies` entries are generated/updated automatically; rich existing blocks are preserved.
-- Upload cover images; saved path becomes `/api/media?path=...` on Blob-backed deployments.
+- Upload cover images; saved path becomes `/api/media?path=...` on Blob-backed deployments and is copied to the matching case-study hero.
 - Use **Export** before risky edits; use **Import** to load a backup, then **Save**.
 - Change password from the admin panel after first login.
 

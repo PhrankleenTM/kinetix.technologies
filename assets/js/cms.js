@@ -506,7 +506,7 @@
         text: "cta.text",
         button: `${root}.ctaButton`,
       },
-      special: ["caseNext", "cta"],
+      special: ["caseHero", "caseNext", "cta"],
     };
   }
 
@@ -545,6 +545,14 @@
             eyebrow: "cta.eyebrow",
           },
         );
+      if (name === "caseHero") {
+        const item = findBySlug("caseStudies", caseSlug);
+        const hero = q("main > section:nth-of-type(1)");
+        if (item && item.image && hero) {
+          const src = String(item.image).replace(/["'()\\]/g, "");
+          hero.style.setProperty("--hero-img", `url("${src}")`);
+        }
+      }
       if (name === "caseNext") {
         const item = findBySlug("caseStudies", caseSlug);
         const next = item && findBySlug("caseStudies", item.next);

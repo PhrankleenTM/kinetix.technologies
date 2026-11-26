@@ -6,3 +6,6 @@ data/admin.json
 data/*.tmp
 assets/uploads/*
 !assets/uploads/.gitkeep
+
+.vercel
+.env*

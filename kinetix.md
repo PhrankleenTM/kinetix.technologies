@@ -276,6 +276,8 @@ Animations:
 ### Database and storage env
 
 - `DATABASE_URL` — required in production; Neon pooled Postgres connection string.
+- Vercel CLI is linked to `phrankleentms-projects/kinetix.technologies`; `.vercel/` and `.env*` are ignored.
+- Hosted env check found Gmail and Blob vars; `DATABASE_URL` is still missing.
 - `DB_POOL_MAX` — optional; defaults to `1`.
 - Blob connection uses `BLOB_READ_WRITE_TOKEN` or `BLOB_STORE_ID` + `VERCEL_OIDC_TOKEN`.
 - `BLOB_ACCESS` — optional `public` or `private`; default tries both.

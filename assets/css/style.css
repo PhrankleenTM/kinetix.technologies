@@ -453,6 +453,16 @@ html[data-theme="light"] .logo::before {
   pointer-events: none;
   transform: scale(1.08);
 }
+.hero.has-cms-cover {
+  --hero-img-opacity: 0.9;
+  --hero-overlay: rgba(24, 24, 27, 0.42);
+}
+html[data-theme="light"] .hero.has-cms-cover {
+  --hero-overlay: rgba(244, 244, 245, 0.42);
+}
+.hero.has-cms-cover::before {
+  filter: saturate(115%);
+}
 .hero.short {
   min-height: 80svh;
   padding: 150px 0 90px;

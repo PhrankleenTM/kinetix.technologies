@@ -551,6 +551,7 @@
         if (item && item.image && hero) {
           const src = String(item.image).replace(/["'()\\]/g, "");
           hero.style.setProperty("--hero-img", `url("${src}")`);
+          hero.classList.add("has-cms-cover");
         }
       }
       if (name === "caseNext") {

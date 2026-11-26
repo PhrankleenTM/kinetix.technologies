@@ -408,6 +408,7 @@ Always: update `kinetix.md` → make requested change → validate → report wh
 - `main.js` injects `.desktop-theme`; no per-page button markup is needed.
 - Head scripts set `data-theme` before paint so saved themes do not flash.
 - Hero photo uses `--hero-img` per page; `--hero-img-opacity` and `--hero-overlay` keep light/dark readable.
+- CMS case-study covers add `.has-cms-cover`, which removes the blur and raises opacity so the uploaded image is clearly visible.
 - CMS `settings.colors` affects dark mode through `--cms-*`; update light overrides separately.
 
 ## 11. Validation checklist

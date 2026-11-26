@@ -467,6 +467,7 @@ Live validation completed:
 - Test contact and newsletter submissions returned `200`; `cms_submissions` showed 2 rows.
 - Authenticated upload returned `storage: "db+blob"`; `/api/media?path=...` returned the PNG with `image/png`.
 - DB tables present: `cms_admin`, `cms_kv`, `cms_submissions`, `cms_uploads`.
+- CMS cover images sync from Work projects to matching case-study heroes; `escrohomes` verified with `--hero-img` pointing to `/api/media?path=...` and media status `200`.
 
 ## 12. Open questions / optional follow-ups
 

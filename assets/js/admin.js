@@ -128,13 +128,23 @@
           next: next ? next.slug : project.slug,
         });
       }
+      const blocks =
+        Array.isArray(item.blocks) && item.blocks.length ? item.blocks.slice() : [];
+      const lead =
+        String(project.details || "").trim() ||
+        String(project.description || "").trim() ||
+        `A ${project.category || "project"} built by Kinetix Technologies.`;
+      const overviewIndex = blocks.findIndex(
+        (block) => block && block.eyebrow === "Overview",
+      );
+      if (overviewIndex >= 0) blocks[overviewIndex] = { eyebrow: "Overview", lead };
+      else blocks.unshift({ eyebrow: "Overview", lead });
+
       const bullets = (project.bullets || []).filter(Boolean);
       const fallbackBullets = bullets.length
         ? bullets
         : (project.tags || []).filter(Boolean);
       const bulletEyebrow = bullets.length ? "Key points" : "Capabilities";
-      const blocks =
-        Array.isArray(item.blocks) && item.blocks.length ? item.blocks.slice() : [];
       const bulletIndex = blocks.findIndex(
         (block) =>
           block &&
@@ -147,17 +157,16 @@
       } else if (bulletIndex >= 0) {
         blocks.splice(bulletIndex, 1);
       }
-      if (!blocks.length) {
-        blocks.push({
-          eyebrow: "Overview",
-          lead:
-            String(project.details || "").trim() ||
-            String(project.description || "").trim() ||
-            `A ${project.category || "project"} built by Kinetix Technologies.`,
-        });
-        if (project.description && project.details) {
-          blocks.push({ eyebrow: "The brief", paragraphs: [project.description] });
-        }
+
+      const briefIndex = blocks.findIndex(
+        (block) => block && block.eyebrow === "The brief",
+      );
+      if (project.description && project.details) {
+        const block = { eyebrow: "The brief", paragraphs: [project.description] };
+        if (briefIndex >= 0) blocks[briefIndex] = block;
+        else blocks.push(block);
+      } else if (briefIndex >= 0) {
+        blocks.splice(briefIndex, 1);
       }
       item.blocks = blocks;
       cases.push(item);

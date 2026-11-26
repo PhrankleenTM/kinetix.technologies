@@ -375,6 +375,7 @@ Always: update `kinetix.md` → make requested change → validate → report wh
 - Click **Save changes**; the public Work card and `/case-studies/<slug>` page update together.
 - Matching `caseStudies` entries are generated/updated automatically; rich existing blocks are preserved.
 - Case-study bullets become a `Key points` block; without bullets, tags remain the fallback `Capabilities` block.
+- Full details and short description refresh the `Overview` / `The brief` blocks on every save.
 - Upload cover images; saved path becomes `/api/media?path=...` on Blob-backed deployments and is copied to the matching case-study hero.
 - Use **Export** before risky edits; use **Import** to load a backup, then **Save**.
 - Change password from the admin panel after first login.

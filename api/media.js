@@ -1,5 +1,38 @@
 const store = require("./_lib/store");
 
+async function pipeMedia(stream, res) {
+  if (typeof stream.pipe === "function") {
+    stream.on("error", () => res.end());
+    stream.pipe(res);
+    return;
+  }
+
+  const reader = typeof stream.getReader === "function" ? stream.getReader() : null;
+  try {
+    if (reader) {
+      while (true) {
+        const { done, value } = await reader.read();
+        if (done) break;
+        if (!res.write(Buffer.from(value))) {
+          await new Promise((resolve) => res.once("drain", resolve));
+        }
+      }
+    } else {
+      for await (const chunk of stream) {
+        if (!res.write(Buffer.from(chunk))) {
+          await new Promise((resolve) => res.once("drain", resolve));
+        }
+      }
+    }
+  } catch {
+    res.end();
+    return;
+  } finally {
+    if (reader) reader.releaseLock();
+  }
+  res.end();
+}
+
 module.exports = async function handler(req, res) {
   try {
     if (req.method !== "GET") {
@@ -18,8 +51,7 @@ module.exports = async function handler(req, res) {
       "Content-Type": media.contentType,
       "Cache-Control": "public, max-age=31536000, immutable",
     });
-    media.stream.on("error", () => res.end());
-    media.stream.pipe(res);
+    await pipeMedia(media.stream, res);
   } catch (err) {
     store.sendJson(res, 500, { error: err.message || "Server error" });
   }

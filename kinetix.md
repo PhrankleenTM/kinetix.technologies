@@ -81,7 +81,7 @@
 - `api/login.js` — `POST /api/login`.
 - `api/logout.js` — `POST /api/logout`.
 - `api/upload.js` — `POST /api/upload`.
-- `api/media.js` — `GET /api/media?path=...`; serves Blob uploads, including private stores.
+- `api/media.js` — `GET /api/media?path=...`; serves Blob uploads, including private stores and web `ReadableStream` bodies.
 - `api/password.js` — `POST /api/password`.
 - `data/content.json` — default/local editable content; top-level keys: `settings`, `seo`, `nav`, `home`, `services`, `work`, `about`, `insights`, `articles`, `collaborations`, `contact`, `ui`, `cta`, `caseStudies`.
 - `data/bindings.json` — content-to-DOM binding map; 17 binding entries: `_global`, 7 root pages, 4 case studies, 5 articles.
@@ -268,7 +268,7 @@ Animations:
 - `POST /api/login` — password → signed cookie.
 - `POST /api/logout` — clears cookie.
 - `POST /api/upload` — authenticated; PNG/JPEG/GIF/WebP data URL up to 5 MB; binary to Blob, metadata to Postgres.
-- `GET /api/media?path=...` — validates DB upload metadata, then streams Blob.
+- `GET /api/media?path=...` — validates DB upload metadata, then streams Blob from Node or web streams.
 - `POST /api/password` — authenticated; min 8 characters; rehashes admin record in Postgres and refreshes cookie.
 - `POST /api/contact` — public; name/email/message required; saves to `cms_submissions`, then emails the enquiry to `MAIL_TO`.
 - `POST /api/newsletter` — public; email required; saves to `cms_submissions`, then emails each signup to `MAIL_TO`.
@@ -465,9 +465,9 @@ Live validation completed:
 - `/api/status` reports `database: "postgres"` and `blob: "connected"`.
 - Login with `ADMIN_PASSWORD` returned `200`, and status then reported `authenticated: true`.
 - Test contact and newsletter submissions returned `200`; `cms_submissions` showed 2 rows.
-- Authenticated upload returned `storage: "db+blob"`; `/api/media?path=...` returned the PNG with `image/png`.
+- Authenticated upload returned `storage: "db+blob"`; `/api/media?path=...` returned full PNG bytes with `image/png`.
 - DB tables present: `cms_admin`, `cms_kv`, `cms_submissions`, `cms_uploads`.
-- CMS cover images sync from Work projects to matching case-study heroes; `escrohomes` verified with `--hero-img` pointing to `/api/media?path=...` and media status `200`.
+- CMS cover images sync from Work projects to matching case-study heroes; `escrohomes` verified with `--hero-img` pointing to `/api/media?path=...`, media status `200`, and browser `naturalWidth > 0`.
 
 ## 12. Open questions / optional follow-ups
 

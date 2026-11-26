@@ -1,6 +1,7 @@
 const fs = require("fs");
 const path = require("path");
 const crypto = require("crypto");
+const db = require("./db");
 
 const ROOT = path.join(__dirname, "..", "..");
 const DATA_DIR = path.join(ROOT, "data");
@@ -10,6 +11,7 @@ const ADMIN_FILE = path.join(DATA_DIR, "admin.json");
 const BINDINGS = require("../../data/bindings.json");
 const CONTENT_BLOB = "cms/content.json";
 const ADMIN_BLOB = "cms/admin.json";
+const CONTENT_KEY = "content";
 const UPLOAD_PREFIX = "cms/uploads/";
 const DEFAULT_PASSWORD = "admin123";
 const COOKIE_NAME = "cms_token";
@@ -23,6 +25,10 @@ function blobConfigured() {
     process.env.BLOB_READ_WRITE_TOKEN ||
     (process.env.BLOB_STORE_ID && process.env.VERCEL_OIDC_TOKEN)
   );
+}
+
+function dbConfigured() {
+  return db.configured();
 }
 
 async function blobSdk() {
@@ -144,6 +150,15 @@ function verifyPassword(record, password) {
 }
 
 async function getContent() {
+  if (dbConfigured()) {
+    const stored = await db.getKV(CONTENT_KEY);
+    if (stored && typeof stored === "object" && !Array.isArray(stored)) {
+      return stored;
+    }
+    const seed = readJsonFile(CONTENT_FILE, {});
+    await db.setKV(CONTENT_KEY, seed);
+    return seed;
+  }
   if (blobConfigured()) {
     const text = await readBlob(CONTENT_BLOB);
     if (text) {
@@ -159,6 +174,10 @@ async function getContent() {
 }
 
 async function saveContent(value) {
+  if (dbConfigured()) {
+    await db.setKV(CONTENT_KEY, value);
+    return { storage: "db" };
+  }
   const text = JSON.stringify(value, null, 2) + "\n";
   const blob = await writeBlob(CONTENT_BLOB, text, {
     contentType: "application/json",
@@ -170,6 +189,21 @@ async function saveContent(value) {
 }
 
 async function getAdmin() {
+  if (dbConfigured()) {
+    let stored = await db.getAdmin();
+    if (!stored) {
+      stored = {
+        ...hashPassword(DEFAULT_PASSWORD),
+        sessionKey: crypto.randomBytes(32).toString("hex"),
+      };
+      await db.setAdmin(stored);
+    }
+    if (!stored.sessionKey) {
+      stored.sessionKey = crypto.randomBytes(32).toString("hex");
+      await db.setAdmin(stored);
+    }
+    return stored;
+  }
   let stored = null;
   if (blobConfigured()) {
     const text = await readBlob(ADMIN_BLOB);
@@ -201,6 +235,10 @@ async function getAdmin() {
 async function saveAdmin(record) {
   const value = { ...record };
   if (!value.sessionKey) value.sessionKey = crypto.randomBytes(32).toString("hex");
+  if (dbConfigured()) {
+    await db.setAdmin(value);
+    return { storage: "db" };
+  }
   const text = JSON.stringify(value, null, 2) + "\n";
   const blob = await writeBlob(ADMIN_BLOB, text, {
     contentType: "application/json",
@@ -246,6 +284,27 @@ function uploadPath(name, ext) {
 }
 
 async function saveUpload(buffer, name, ext, contentType) {
+  if (dbConfigured()) {
+    if (!blobConfigured()) {
+      throw new Error("Blob storage not connected. In Vercel: Storage > Create/Connect > Blob, connect to project, redeploy.");
+    }
+    const blob = await writeBlob(uploadPath(name, ext), buffer, {
+      contentType,
+      addRandomSuffix: true,
+      allowOverwrite: false,
+    });
+    await db.addUpload(
+      blob.pathname,
+      blob.url,
+      contentType,
+      buffer.length,
+    );
+    return {
+      path: "/api/media?path=" + encodeURIComponent(blob.pathname),
+      storage: "db+blob",
+      blob,
+    };
+  }
   if (blobConfigured()) {
     const blob = await writeBlob(uploadPath(name, ext), buffer, {
       contentType,
@@ -272,6 +331,17 @@ async function getMedia(pathname) {
   if (blobConfigured() && blobPath) {
     const result = await readBlobStream(blobPath);
     if (!result) return null;
+    if (dbConfigured()) {
+      const row = await db.getUpload(blobPath);
+      if (!row) {
+        await db.addUpload(
+          blobPath,
+          result.blob.url || "",
+          result.blob.contentType || "application/octet-stream",
+          0,
+        );
+      }
+    }
     return {
       stream: result.stream,
       contentType: result.blob.contentType || "application/octet-stream",
@@ -410,6 +480,7 @@ module.exports = {
   DEFAULT_PASSWORD,
   UPLOAD_DIR,
   blobConfigured,
+  dbConfigured,
   clearCookie,
   createSession,
   getAdmin,

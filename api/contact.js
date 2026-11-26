@@ -1,5 +1,6 @@
 const store = require("./_lib/store");
 const mail = require("./_lib/mail");
+const db = require("./_lib/db");
 
 const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const text = (value, max = 200) => String(value || "").trim().slice(0, max);
@@ -25,6 +26,15 @@ module.exports = async function handler(req, res) {
       store.sendJson(res, 400, { ok: false, error: "Please complete all required fields." });
       return;
     }
+    await db.addSubmission("contact", {
+      name,
+      email,
+      company,
+      type,
+      budget,
+      page: text(body.page, 200) || null,
+      message,
+    });
     const subject = `New project enquiry: ${mail.header(type)}`;
     const content = [
       `Name: ${name}`,
@@ -39,13 +49,14 @@ module.exports = async function handler(req, res) {
     await mail.sendMail({ subject, text: content, replyTo: `"${mail.header(name)}" <${email}>` });
     store.sendJson(res, 200, { ok: true });
   } catch (err) {
-    const status = err.code === "MAIL_NOT_CONFIGURED" ? 503 : 500;
-    store.sendJson(res, status, {
-      ok: false,
-      error:
-        status === 503
-          ? "Email delivery is not configured yet."
-          : "Could not send your message right now.",
-    });
+    const dbMissing = err.code === "DB_NOT_CONFIGURED";
+    const mailMissing = err.code === "MAIL_NOT_CONFIGURED";
+    const status = dbMissing || mailMissing ? 503 : 500;
+    const error = dbMissing
+      ? "Database storage is not configured yet."
+      : mailMissing
+        ? "Email delivery is not configured yet."
+        : "Could not send your message right now.";
+    store.sendJson(res, status, { ok: false, error });
   }
 };

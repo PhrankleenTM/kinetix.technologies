@@ -263,7 +263,7 @@ Animations:
 
 ### `vercel.json`
 
-- Enables `cleanUrls` and `trailingSlash: false`, redirecting `/index` to `/`.
+- Uses `trailingSlash: false` and explicit `.html` redirects to clean URLs; `cleanUrls` is avoided because it broke dynamic case-study rewrites.
 - Rewrites `/sitemap.xml` → `/api/sitemap`.
 - Rewrites admin/root pages to their `.html` files.
 - `/admin` → `/admin.html`.

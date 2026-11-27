@@ -506,6 +506,7 @@ Live validation completed:
 - Admin password was reset on 2026-11-27 via a temporary token-protected serverless endpoint; sessions were rotated, the old password was rejected, the new password authenticated, and the plaintext was saved only in local `.env.local` and Vercel `ADMIN_PASSWORD`.
 - Admin DB password was later resynced to the Vercel `ADMIN_PASSWORD` value via a one-time endpoint that verified the hash server-side without exposing the plaintext; sessions were rotated again and the old local value was rejected.
 - Homepage Selected work now renders live from `work.projects`; verified deployed rows match current CMS projects (`EscroHomes`, `Rotic Aluminium Extrusion Company`) with clean case-study links.
+- Deployed admin JS/CSS verified to auto-scroll opened projects to the editor with a `24px` scroll margin.
 
 ## 12. Open questions / optional follow-ups
 

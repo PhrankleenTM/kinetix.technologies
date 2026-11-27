@@ -200,6 +200,7 @@ Animations:
 - `get(path)` supports dot paths and `caseStudies[slug=mediflow].title` style selectors.
 - `findBySlug` strips URL/path and `.html` so clean links and old values both work.
 - Renderers: `words`, `badges`, `marquee`, `iconCards`, `serviceCards`, `workRows`, `stats`, `steps`, `quotes`, `chips`, `projects`, `collabCards`, `paragraphs`, `list`, `strongList`, `numberCards`, `serviceRows`, `navLinks`, `ctaLabel`, `mailto`, `socials`, `infoList`, `articleRows`, `articleBlocks`, `caseBlocks`.
+- `workRows` is bound to `work.projects` on the homepage and falls back from `link` to `slug`.
 - Generated links use clean URLs: `/contact`, `/services`, `/case-studies/<slug>`, `/insights/<slug>`.
 - Global specials: `seo`, `colors`, `logo`, `ui`, `siteName`, `companyFooter`; `logoImage` may inject an `<img>`, but CSS hides header logos so the supplied theme-aware asset stays authoritative.
 - `colors` writes `--cms-*` variables; light mode stays on its own palette.
@@ -317,7 +318,7 @@ Animations:
 
 ### Root pages
 
-- `index.html` — homepage; `flow`; badges `40%`, `3.2x`, `100%`.
+- `index.html` — homepage; `flow`; badges `40%`, `3.2x`, `100%`; Selected work rows render from `work.projects`, so admin project edits appear automatically and the static rows are only a no-JS fallback.
 - `services.html` — six service sections with IDs `#website`, `#ecom`, `#clinic`, `#inventory`, `#crm`, `#custom`; `rings`.
 - `work.html` — filterable portfolio; `streaks`; 7 `.pcard` items; `.chip` filters; `.empty` fallback; CMS cover images fill `.viz` with `object-fit: cover`.
 - `about.html` — company story; `wave`.
@@ -419,6 +420,7 @@ Always: update `kinetix.md` → make requested change → validate → report wh
 - Manual entries need `category`, `categories`, `tags`, `year`, `slug`, `details`, image or `viz`.
 - `link` becomes `/case-studies/<slug>` and renders through `case-studies/project.html`; `projectUrl` is the optional live-project link shown there.
 - No new HTML file or `data/bindings.json` entry is needed for new projects.
+- Homepage Selected work rows and `/work` cards both read `work.projects` automatically.
 
 ### Add an article
 
@@ -464,6 +466,7 @@ npm start
 
 Smoke-test locally:
 - `/` loads CMS data via `/api/bootstrap?page=index.html`.
+- `/` Selected work rows match the current `work.projects` titles/years/categories and clean case-study links.
 - `/case-studies/mediflow` loads `page=case-studies/project.html` with `__CMS_SLUG__=mediflow`.
 - With no saved theme, `/` loads in light mode; saved `dark` still loads dark.
 - `/` shows a desktop theme button; clicking it toggles `html[data-theme]` and persists `kinetix-theme`.

@@ -240,33 +240,7 @@
     },
     "work": {
       "eyebrow": "Selected work",
-      "title": "Real projects. Real results.",
-      "rows": [
-        {
-          "year": "2025",
-          "title": "MediFlow",
-          "category": "Clinic System",
-          "link": "/case-studies/mediflow"
-        },
-        {
-          "year": "2026",
-          "title": "StockPilot",
-          "category": "Inventory & ERP",
-          "link": "/case-studies/stockpilot"
-        },
-        {
-          "year": "2026",
-          "title": "Cobalt",
-          "category": "E-Commerce Platform",
-          "link": "/case-studies/cobalt"
-        },
-        {
-          "year": "2026",
-          "title": "Pulse",
-          "category": "CRM Suite",
-          "link": "/case-studies/pulse"
-        }
-      ]
+      "title": "Real projects. Real results."
     },
     "stats": [
       {

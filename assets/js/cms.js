@@ -165,10 +165,10 @@
     },
     workRows: (items, el) => {
       el.innerHTML = (items || [])
-        .map(
-          (x) =>
-            `<a class="rv" href="${esc(x.link)}"><span class="yr">${esc(x.year)}</span><h3>${esc(x.title)}</h3><span class="cat">${esc(x.category)}</span>${arrow}</a>`,
-        )
+        .map((x) => {
+          const href = x.link || (x.slug ? `/case-studies/${x.slug}` : "/work");
+          return `<a class="rv" href="${esc(href)}"><span class="yr">${esc(x.year || "")}</span><h3>${esc(x.title || "Untitled project")}</h3><span class="cat">${esc(x.category || "Project")}</span>${arrow}</a>`;
+        })
         .join("");
     },
     stats: (items, el) => {

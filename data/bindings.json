@@ -47,7 +47,7 @@
         "selector": "main > section:nth-of-type(3) .grid.g3",
         "render": "serviceCards"
       },
-      "home.work.rows": { "selector": ".rows", "render": "workRows" },
+      "work.projects": { "selector": ".rows", "render": "workRows" },
       "home.stats": { "selector": ".stats", "render": "stats" },
       "home.process.steps": { "selector": ".steps", "render": "steps" },
       "home.testimonials.quotes": {

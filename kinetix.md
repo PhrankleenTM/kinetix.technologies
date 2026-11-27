@@ -314,7 +314,7 @@ Animations:
 
 - `index.html` — homepage; `flow`; badges `40%`, `3.2x`, `100%`.
 - `services.html` — six service sections with IDs `#website`, `#ecom`, `#clinic`, `#inventory`, `#crm`, `#custom`; `rings`.
-- `work.html` — filterable portfolio; `streaks`; 7 `.pcard` items; `.chip` filters; `.empty` fallback.
+- `work.html` — filterable portfolio; `streaks`; 7 `.pcard` items; `.chip` filters; `.empty` fallback; CMS cover images fill `.viz` with `object-fit: cover`.
 - `about.html` — company story; `wave`.
 - `insights.html` — article index + newsletter; `scan`.
 - `collaborations.html` — partnership options; `venn`.

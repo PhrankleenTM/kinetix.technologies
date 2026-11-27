@@ -495,6 +495,9 @@ Live validation completed:
 - Authenticated upload returned `storage: "db+blob"`; `/api/media?path=...` returned full PNG bytes with `image/png`.
 - DB tables present: `cms_admin`, `cms_kv`, `cms_submissions`, `cms_uploads`.
 - CMS cover images sync from Work projects to matching case-study heroes; `escrohomes` verified with `--hero-img` pointing to `/api/media?path=...`, media status `200`, and browser `naturalWidth > 0`.
+- Live content was patched with `projectUrl: ""` defaults and `ui.visitProject: "View live project"`.
+- Admin editor shows the “Project URL” field; a live test value synced to `caseStudies[slug=escrohomes].projectUrl` and was restored to empty.
+- `/case-studies/escrohomes` hides `.case-project-link` when empty (`display: none`, no `href`) and shows it when set (`View live project`, `target="_blank"`, `rel="noopener noreferrer"`).
 
 ## 12. Open questions / optional follow-ups
 

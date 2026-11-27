@@ -506,7 +506,7 @@
         text: "cta.text",
         button: `${root}.ctaButton`,
       },
-      special: ["caseHero", "caseNext", "cta"],
+      special: ["caseHero", "caseProjectLink", "caseNext", "cta"],
     };
   }
 
@@ -553,6 +553,28 @@
           hero.style.setProperty("--hero-img", `url("${src}")`);
           hero.classList.add("has-cms-cover");
         }
+      }
+      if (name === "caseProjectLink") {
+        const item = findBySlug("caseStudies", caseSlug);
+        const link = q(".case-project-link");
+        if (!link) return;
+        const value = String((item && item.projectUrl) || "").trim();
+        if (!/^(https?:\/\/|\/(?!\/))/i.test(value)) {
+          link.hidden = true;
+          link.removeAttribute("href");
+          return;
+        }
+        link.hidden = false;
+        link.setAttribute("href", value);
+        if (/^https?:\/\//i.test(value)) {
+          link.setAttribute("target", "_blank");
+          link.setAttribute("rel", "noopener noreferrer");
+        } else {
+          link.removeAttribute("target");
+          link.setAttribute("rel", "noopener");
+        }
+        const label = (C.ui || {}).visitProject || "View live project";
+        link.innerHTML = esc(label) + " " + arrow;
       }
       if (name === "caseNext") {
         const item = findBySlug("caseStudies", caseSlug);

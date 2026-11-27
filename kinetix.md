@@ -38,7 +38,9 @@
 - Auth uses a stateless signed `cms_token` cookie; restarting or redeploying no longer logs users out.
 - The signing key is stored as `sessionKey` in `cms_admin` when DB is configured; changing Blob vars does not invalidate active sessions.
 - Admin is Projects-only and auto-creates/updates matching `caseStudies` entries on save.
+- Projects have an optional `projectUrl` field; the admin label is “Project URL” and it is synced to the matching case study.
 - Every Work project has a detail page at `/case-studies/<slug>`; no hardcoded HTML page is needed for new projects.
+- Case-study pages show a “View live project” button only when `caseStudies[slug].projectUrl` is set.
 - Blob store access mode cannot be changed after store creation. Code supports both public and private stores by trying both access modes unless `BLOB_ACCESS` is set.
 - A Blob store must still be connected once to the Vercel project. No manual API URL configuration is needed.
 - Admin is linked from every public page footer under **Company**.
@@ -194,7 +196,7 @@ Animations:
 - Guards against double initialization.
 - Resolves page from `data.page` with normalized `location.pathname` fallback.
 - Reads `window.__CMS_SLUG__` for generic case-study routes.
-- Builds a dynamic case-study binding for `case-studies/project.html` from the requested slug, including the cover image as the hero background.
+- Builds a dynamic case-study binding for `case-studies/project.html` from the requested slug, including the cover image as the hero background and optional `caseProjectLink` button.
 - `get(path)` supports dot paths and `caseStudies[slug=mediflow].title` style selectors.
 - `findBySlug` strips URL/path and `.html` so clean links and old values both work.
 - Renderers: `words`, `badges`, `marquee`, `iconCards`, `serviceCards`, `workRows`, `stats`, `steps`, `quotes`, `chips`, `projects`, `collabCards`, `paragraphs`, `list`, `strongList`, `numberCards`, `serviceRows`, `navLinks`, `ctaLabel`, `mailto`, `socials`, `infoList`, `articleRows`, `articleBlocks`, `caseBlocks`.
@@ -202,7 +204,8 @@ Animations:
 - Global specials: `seo`, `colors`, `logo`, `ui`, `siteName`, `companyFooter`; `logoImage` may inject an `<img>`, but CSS hides header logos so the supplied theme-aware asset stays authoritative.
 - `colors` writes `--cms-*` variables; light mode stays on its own palette.
 - `seo` does not write `theme-color`; the active theme controls it.
-- Page specials: `cta`, `caseNext`, `articleNext`, `typeOptions`.
+- Page specials: `cta`, `caseProjectLink`, `caseNext`, `articleNext`, `typeOptions`.
+- `caseProjectLink` hides the button for empty/invalid URLs, uses same-tab for relative links, and opens http(s) links in a new tab with `noopener noreferrer`.
 - Emits `cms:ready` with the content object after rendering.
 
 ### `assets/js/main.js`
@@ -215,8 +218,9 @@ Animations:
 ### `assets/js/admin.js`
 
 - Focused Projects CMS only: login, project card grid, add/edit/remove project, cover image upload, live preview, save, export/import backup, password change, logout.
-- Project fields: name, auto slug, category, year, short description, full details, tags, filter categories, fallback illustration.
-- Every project gets `/case-studies/<slug>`; on save, matching `state.caseStudies` entries are created/updated.
+- Project fields: name, auto slug, Project URL, category, year, short description, full details, tags, filter categories, fallback illustration.
+- Every project gets `/case-studies/<slug>`; on save, matching `state.caseStudies` entries are created/updated with `projectUrl`.
+- Bare domains entered in Project URL are prefixed with `https://`; `link` remains the internal `/case-studies/<slug>` route.
 - Existing rich case-study blocks are preserved; new projects get generated Overview/Capabilities/The brief blocks.
 - Handles `401` by showing the login screen and asking the user to sign in again.
 - No section navigation, no raw JSON editor, no generic field editor.
@@ -249,6 +253,7 @@ Animations:
 - Sessions are HMAC-signed JSON payloads in `cms_token`, 12 hours, `HttpOnly; SameSite=Lax; Path=/`.
 - Session secret comes from stored `sessionKey`, then `CMS_SECRET`, then a fallback development secret.
 - `sendJson`, `readBody`, `normalizePage`, and `normalizeMediaPath` are shared helpers.
+- `syncCaseStudies(content)` is enforced server-side on save and copies title/tag/sub/image/blocks/next plus normalized `projectUrl`.
 
 ### `server.js`
 
@@ -344,6 +349,7 @@ Animations:
 - New entries are generated from project name/category/year/description/details/tags when saved in admin.
 - Existing rich blocks are preserved; `next` follows Work project order and wraps.
 - Detail pages render through `case-studies/project.html` with dynamic CMS bindings.
+- An optional `projectUrl` renders as the `.case-project-link` hero button; empty values leave it hidden.
 
 ### Articles
 
@@ -409,9 +415,9 @@ Always: update `kinetix.md` → make requested change → validate → report wh
 
 ### Add a portfolio item
 
-- Prefer adding through `/admin`; it sets `slug`, `link`, and matching `caseStudies` entry.
+- Prefer adding through `/admin`; it sets `slug`, internal `link`, optional `projectUrl`, and matching `caseStudies` entry.
 - Manual entries need `category`, `categories`, `tags`, `year`, `slug`, `details`, image or `viz`.
-- Link becomes `/case-studies/<slug>` and renders through `case-studies/project.html`.
+- `link` becomes `/case-studies/<slug>` and renders through `case-studies/project.html`; `projectUrl` is the optional live-project link shown there.
 - No new HTML file or `data/bindings.json` entry is needed for new projects.
 
 ### Add an article
@@ -468,6 +474,8 @@ Smoke-test locally:
 - `/api/contact` and `/api/newsletter` return `503` locally until `DATABASE_URL` and `GMAIL_APP_PASSWORD` are set.
 - With DB and SMTP configured, contact/newsletter forms show success, save to `cms_submissions`, and deliver to the configured Gmail inbox.
 - Upload/save/password require auth; login uses current password; save reflects on public site.
+- Admin Projects editor shows a “Project URL” input; saving copies it to the matching `caseStudies` entry.
+- `/case-studies/<slug>` hides `.case-project-link` when `projectUrl` is empty and shows it with a safe `href` when set.
 - `/data/admin.json`, `/api/_lib/store.js`, `/server.js`, `/package.json`, `/vercel.json` return 403.
 - Restore content after any test mutation.
 

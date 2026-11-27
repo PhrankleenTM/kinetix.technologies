@@ -190,6 +190,9 @@ function syncCaseStudies(content) {
     item.service = project.category || "Project";
     item.year = project.year || "";
     item.image = project.image || "";
+    const projectUrl = String(project.projectUrl || "").trim();
+    item.projectUrl =
+      projectUrl && !/^(https?:\/\/|\/)/i.test(projectUrl) ? "https://" + projectUrl : projectUrl;
     const blocks = Array.isArray(item.blocks) && item.blocks.length ? item.blocks.slice() : [];
     const lead =
       String(project.details || "").trim() ||

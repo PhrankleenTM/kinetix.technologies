@@ -1638,6 +1638,9 @@ html[data-theme="light"] .hero.has-cms-cover {
   padding: clamp(40px, 6vw, 72px) 0;
   border-top: 1px solid var(--line);
 }
+.case-project-link[hidden] {
+  display: none;
+}
 .res b {
   display: block;
   font-size: clamp(2.6rem, 5vw, 4.2rem);

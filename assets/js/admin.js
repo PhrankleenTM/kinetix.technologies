@@ -16,6 +16,7 @@
     slug: "",
     slugAuto: true,
     link: "",
+    projectUrl: "",
     image: "",
     viz: "browser",
   };
@@ -87,6 +88,9 @@
       if (used.has(project.slug)) project.slug = `${project.slug}-${i + 1}`;
       used.add(project.slug);
       project.link = "/case-studies/" + project.slug;
+      const projectUrl = String(project.projectUrl || "").trim();
+      project.projectUrl =
+        projectUrl && !/^(https?:\/\/|\/)/i.test(projectUrl) ? "https://" + projectUrl : projectUrl;
       if (typeof project.details !== "string") project.details = "";
     });
     state.work.projects = projects.filter((project) => project && typeof project === "object");
@@ -112,6 +116,7 @@
           client: title,
           service: project.category || "Project",
           year: project.year || "",
+          projectUrl: project.projectUrl || "",
           blocks: [],
           next: next ? next.slug : project.slug,
           ctaButton: "Discuss a similar project",
@@ -125,6 +130,7 @@
           client: title,
           service: project.category || "Project",
           year: project.year || "",
+          projectUrl: project.projectUrl || "",
           next: next ? next.slug : project.slug,
         });
       }
@@ -326,6 +332,13 @@
       project.link = "/case-studies/" + project.slug;
     });
     field("Page slug", slug, "Creates /case-studies/" + (project.slug || "your-slug") + ".");
+
+    text(
+      "Project URL",
+      "projectUrl",
+      false,
+      "Optional link shown on the case-study page. Use https:// or a /path.",
+    );
 
     text("Category", "category");
     text("Year", "year");

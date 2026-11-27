@@ -267,10 +267,11 @@
       );
       if (!res.ok) throw new Error("Bootstrap failed: " + res.status);
       const data = await res.json();
+      const content = data.content || data;
       await loadCmsScript();
       window.__CMS__ = data;
       window.KinetixCMS.init(data);
-      applySeo(data);
+      applySeo(content);
     } catch (e) {
       console.warn("Kinetix CMS data unavailable", e);
     }

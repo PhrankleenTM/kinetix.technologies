@@ -12,20 +12,12 @@
 
   const THEME_KEY = 'kinetix-theme';
   const themeMeta = $('meta[name="theme-color"]');
-  const favicon = $('link[rel="icon"]');
-  const appleIcon = $('link[rel="apple-touch-icon"]');
   const SUN = '<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M2 12h2M20 12h2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M19.1 4.9l-1.4 1.4M6.3 17.7l-1.4 1.4"/></svg>';
   const MOON = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 14.5A8.5 8.5 0 0 1 9.5 4 8.5 8.5 0 1 0 20 14.5Z"/></svg>';
-  const syncBrand = theme => {
-    const light = theme === 'light';
-    if (favicon) favicon.href = light ? '/assets/img/favicon.svg' : '/assets/img/favicon-dark.svg';
-    if (appleIcon) appleIcon.href = light ? '/assets/img/apple-touch-icon.png' : '/assets/img/apple-touch-icon-dark.png';
-  };
   const applyTheme = (value, persist) => {
     const theme = value === 'light' ? 'light' : 'dark';
     document.documentElement.dataset.theme = theme;
     if (themeMeta) themeMeta.setAttribute('content', theme === 'light' ? '#f4f4f5' : '#18181b');
-    syncBrand(theme);
     if (persist) { try { localStorage.setItem(THEME_KEY, theme); } catch (e) {} }
     const next = theme === 'light' ? 'Dark mode' : 'Light mode';
     $$('.theme-toggle').forEach(btn => {

@@ -59,9 +59,9 @@
 - Form status/labels are CMS-controlled through `ui`; fallback email is `settings.email`.
 - Heroes use locally stored blurred stock photos plus the static `.grid-bg` overlay; there is no canvas background animation.
 - Hero headings use one font family: `--sans` Geist, the font used in "We build digital systems that"; mono labels/code and serif text outside hero headings are unchanged.
-- Branding uses the supplied Kinetix logo set: transparent full logos for header/footer, background favicons for browser tabs, and background PNGs for Apple touch icons.
-- Light mode uses `kinetix-full-light.svg`, `favicon.svg`, and `apple-touch-icon.png`; dark mode uses `kinetix-full-dark.svg`, `favicon-dark.svg`, and `apple-touch-icon-dark.png`.
-- Browser favicons are square, enlarged crops of the new logo's `K` glyph so they remain visible at tab sizes.
+- Branding uses the supplied matched icon set for browser/title icons and social previews; header/footer keep the theme-aware full logos.
+- Root `favicon.ico`, `favicon.svg`, PNG sizes, `apple-touch-icon.png`, and `site.webmanifest` come from `kinetix-icons-matched/favicon`.
+- `/og-image.png` is the light 1024px app icon from `kinetix-icons-matched/app`, used by `og:image` and `twitter:image` for WhatsApp/Facebook/X shares.
 
 ## 3. File map
 
@@ -98,8 +98,9 @@
 - `case-studies/*.html` — 4 original case-study pages kept as static fallbacks.
 - `insights/*.html` — 5 article pages.
 - `assets/css/style.css` — full design system, layout, responsive rules, blurred hero photos, animations, and page fade.
-- `assets/img/favicon.svg`, `assets/img/favicon-dark.svg` — light/dark square `K` browser tab icons linked by every page and swapped by `main.js`.
-- `assets/img/apple-touch-icon.png`, `assets/img/apple-touch-icon-dark.png` — light/dark Apple touch icons swapped by `main.js`.
+- `favicon.ico`, `favicon.svg`, `favicon-16x16.png`, `favicon-32x32.png`, `favicon-48x48.png`, `favicon-96x96.png` — matched browser/title icons linked by every page.
+- `apple-touch-icon.png`, `icon-192.png`, `icon-512.png`, `icon-maskable-192.png`, `icon-maskable-512.png`, `site.webmanifest` — matched touch/app icons.
+- `og-image.png` — light 1024px square social preview icon used by Open Graph and Twitter/X meta tags.
 - `assets/img/hero/` — locally stored Pexels hero photos (Pexels License); each page sets `--hero-img` on its `.hero`.
 - `assets/img/logo/kinetix-full-light.svg`, `assets/img/logo/kinetix-full-dark.svg` — transparent full logos used by header and footer; `kinetix-full-light-background.svg` and `kinetix-full-dark-background.svg` are source background variants.
 
@@ -199,7 +200,7 @@ Animations:
 
 - `cms`, `ui`, and `siteEmail` are mutable.
 - Listens for `cms:ready` and refreshes CMS-derived strings.
-- Injects the desktop theme button, applies stored theme or light default, persists `kinetix-theme` in `localStorage`, syncs `theme-color`, swaps favicon/Apple touch icon, and updates button icons.
+- Injects the desktop theme button, applies stored theme or light default, persists `kinetix-theme` in `localStorage`, syncs `theme-color`, and updates button icons.
 - Handles nav scroll state, burger menu, same-origin page fade, reveals, counters, card spotlight, work filters, newsletter/contact form POSTs, reading progress, and footer year.
 
 ### `assets/js/admin.js`

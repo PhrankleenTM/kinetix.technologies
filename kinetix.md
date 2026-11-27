@@ -503,6 +503,7 @@ Live validation completed:
 - `/case-studies/escrohomes` hides `.case-project-link` when empty (`display: none`, no `href`) and shows it when set (`View live project`, `target="_blank"`, `rel="noopener noreferrer"`).
 - Admin password was reset on 2026-11-27 via a temporary token-protected serverless endpoint; sessions were rotated, the old password was rejected, the new password authenticated, and the plaintext was saved only in local `.env.local` and Vercel `ADMIN_PASSWORD`.
 - Admin DB password was later resynced to the Vercel `ADMIN_PASSWORD` value via a one-time endpoint that verified the hash server-side without exposing the plaintext; sessions were rotated again and the old local value was rejected.
+- Homepage Selected work now renders live from `work.projects`; verified deployed rows match current CMS projects (`EscroHomes`, `Rotic Aluminium Extrusion Company`) with clean case-study links.
 
 ## 12. Open questions / optional follow-ups
 

@@ -58,6 +58,7 @@
 - CMS content, admin state, upload metadata, and form submissions use Postgres as source of truth when `DATABASE_URL` is set.
 - Form status/labels are CMS-controlled through `ui`; fallback email is `settings.email`.
 - Heroes use locally stored blurred stock photos plus the static `.grid-bg` overlay; there is no canvas background animation.
+- Hero heights are tuned to `92svh` for full heroes and `76svh` for `.hero.short`, with tighter tag/sub/actions/badges spacing.
 - Hero headings use one font family: `--sans` Geist, the font used in "We build digital systems that"; mono labels/code and serif text outside hero headings are unchanged.
 - Branding uses the supplied matched icon set for browser/title icons and social previews; header/footer keep the theme-aware full logos.
 - Root `favicon.ico`, `favicon.svg`, PNG sizes, `apple-touch-icon.png`, and `site.webmanifest` come from `kinetix-icons-matched/favicon`.
@@ -158,6 +159,7 @@ Mobile menu:
 - `.mobile-menu` uses safe centering, scroll overflow, `84px 24px 28px` padding, and `2px` gaps so all links plus CTA fit on short screens.
 - `.mobile-menu a.ml` uses `clamp(1.65rem, 7vw, 2.25rem)` with `10px` vertical padding; `.mobile-menu .btn` uses reduced margin/padding.
 - Theme toggle: `.theme-toggle.desktop-theme` only in the navbar; icons are injected by `main.js`.
+- On screens up to `1020px`, the navbar toggle sits immediately left of `.burger` with an `8px` gap; the logo keeps `margin-right: auto`.
 
 Admin visibility:
 - `assets/css/admin.css` defines `[hidden] { display: none !important; }` so author `display:grid` rules cannot override `#login` and `#app` hidden toggles.
@@ -460,7 +462,7 @@ Smoke-test locally:
 - With no saved theme, `/` loads in light mode; saved `dark` still loads dark.
 - `/` shows a desktop theme button; clicking it toggles `html[data-theme]` and persists `kinetix-theme`.
 - No `canvas.fx` elements or `fx.js` references remain; hero stock photo, text, marquee, reveals, and page fade still render/animate.
-- Mobile menu has no theme toggle; navbar toggle remains available.
+- Mobile menu has no theme toggle; navbar toggle remains available beside the burger on small screens.
 - `/admin` opens the admin panel.
 - `/api/status` reports `authenticated: false` and storage modes when logged out.
 - `/api/contact` and `/api/newsletter` return `503` locally until `DATABASE_URL` and `GMAIL_APP_PASSWORD` are set.

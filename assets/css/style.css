@@ -290,6 +290,13 @@ html[data-theme="light"] .logo::before {
   font-size: 0.92rem;
 }
 @media (max-width: 1020px) {
+  .nav-in {
+    justify-content: flex-start;
+    gap: 8px;
+  }
+  .nav-in .logo {
+    margin-right: auto;
+  }
   .links,
   .nav .btn-nav {
     display: none;
@@ -430,10 +437,10 @@ html[data-theme="light"] .logo::before {
 /* HERO */
 .hero {
   position: relative;
-  min-height: 100svh;
+  min-height: 92svh;
   display: flex;
   align-items: center;
-  padding: 140px 0 110px;
+  padding: 120px 0 90px;
   overflow: hidden;
   isolation: isolate;
 }
@@ -467,8 +474,8 @@ html[data-theme="light"] .hero.has-cms-cover {
   transform: scale(1.02);
 }
 .hero.short {
-  min-height: 80svh;
-  padding: 150px 0 90px;
+  min-height: 76svh;
+  padding: 130px 0 80px;
 }
 .hero .grid-bg {
   position: absolute;
@@ -512,7 +519,7 @@ html[data-theme="light"] .hero.has-cms-cover {
   color: var(--muted);
   background: rgba(24, 24, 27, 0.5);
   backdrop-filter: blur(8px);
-  margin-bottom: 30px;
+  margin-bottom: 24px;
 }
 .pulse-dot {
   width: 8px;
@@ -555,7 +562,7 @@ html[data-theme="light"] .hero.has-cms-cover {
   max-width: 15ch;
 }
 .hero .sub {
-  margin-top: 30px;
+  margin-top: 24px;
   font-size: clamp(1.05rem, 1.6vw, 1.3rem);
   color: var(--muted);
   max-width: 52ch;
@@ -565,7 +572,7 @@ html[data-theme="light"] .hero.has-cms-cover {
   flex-wrap: wrap;
   gap: 14px;
   align-items: center;
-  margin-top: 40px;
+  margin-top: 32px;
 }
 .w {
   display: inline-block;
@@ -621,7 +628,7 @@ html[data-theme="light"] .hero.has-cms-cover {
   display: flex;
   flex-wrap: wrap;
   gap: 12px;
-  margin-top: 56px;
+  margin-top: 44px;
 }
 .badge {
   display: flex;

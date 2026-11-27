@@ -27,6 +27,13 @@
     el.className = "status " + kind;
   }
 
+  function openProject(index) {
+    activeProjectIndex = index;
+    render();
+    const editor = $(".project-editor");
+    if (editor) editor.scrollIntoView({ behavior: "auto", block: "start" });
+  }
+
   async function api(url, options = {}) {
     let res;
     try {
@@ -192,8 +199,7 @@
     add.type = "button";
     add.addEventListener("click", () => {
       projects.push(JSON.parse(JSON.stringify(PROJECT_TEMPLATE)));
-      activeProjectIndex = projects.length - 1;
-      render();
+      openProject(projects.length - 1);
     });
     group.appendChild(add);
 
@@ -215,7 +221,7 @@
       body.appendChild(make("div", "project-tile-title", project.title || "Untitled project"));
       body.appendChild(make("div", "project-tile-meta", `${project.category || "Uncategorised"}${project.year ? " � " + project.year : ""}`));
       tile.appendChild(body);
-      tile.addEventListener("click", () => { activeProjectIndex = i; render(); });
+      tile.addEventListener("click", () => openProject(i));
       grid.appendChild(tile);
     });
     group.appendChild(grid);

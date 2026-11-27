@@ -223,6 +223,7 @@ Animations:
 - Every project gets `/case-studies/<slug>`; on save, matching `state.caseStudies` entries are created/updated with `projectUrl`.
 - Bare domains entered in Project URL are prefixed with `https://`; `link` remains the internal `/case-studies/<slug>` route.
 - Existing rich case-study blocks are preserved; new projects get generated Overview/Capabilities/The brief blocks.
+- Clicking a project tile or **Add project** scrolls straight to the editor with `scroll-margin-top: 24px`.
 - Handles `401` by showing the login screen and asking the user to sign in again.
 - No section navigation, no raw JSON editor, no generic field editor.
 
@@ -473,6 +474,7 @@ Smoke-test locally:
 - No `canvas.fx` elements or `fx.js` references remain; hero stock photo, text, marquee, reveals, and page fade still render/animate.
 - Mobile menu has no theme toggle; navbar toggle remains available beside the burger on small screens.
 - `/admin` opens the admin panel.
+- Clicking a project tile or **Add project** opens the editor in view without manual scrolling.
 - `/api/status` reports `authenticated: false` and storage modes when logged out.
 - `/api/contact` and `/api/newsletter` return `503` locally until `DATABASE_URL` and `GMAIL_APP_PASSWORD` are set.
 - With DB and SMTP configured, contact/newsletter forms show success, save to `cms_submissions`, and deliver to the configured Gmail inbox.

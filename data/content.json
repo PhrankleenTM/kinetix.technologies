@@ -1,6 +1,7 @@
 {
   "settings": {
     "siteName": "Kinetix Technologies",
+    "siteUrl": "https://kinetixtechnologies.vercel.app",
     "logoText": "KINETIX",
     "logoImage": "/assets/img/logo/kinetix-full-light.svg",
     "email": "kinetix.technologies.web@gmail.com",
@@ -40,19 +41,19 @@
     },
     "about.html": {
       "title": "About | Kinetix Technologies",
-      "description": "A focused team building digital systems with precision and momentum."
+      "description": "Kinetix is a focused team of designers and engineers building digital systems with precision, speed and momentum."
     },
     "insights.html": {
       "title": "Insights | Kinetix Technologies",
-      "description": "Practical notes on websites, clinic systems, inventory and ERP, and building software people actually use."
+      "description": "Notes from the work: faster websites, useful software and systems that hold up in daily use."
     },
     "collaborations.html": {
       "title": "Collaborations | Kinetix Technologies",
-      "description": "Design and build, subcontracting, product partnerships and consulting with Kinetix Technologies."
+      "description": "Partner with Kinetix: design and build, subcontracting, product partnerships and consulting."
     },
     "contact.html": {
       "title": "Contact | Kinetix Technologies",
-      "description": "Tell Kinetix Technologies about your project and get a clear answer within one business day."
+      "description": "Start a project, ask about availability or get in touch with Kinetix Technologies."
     },
     "case-studies/mediflow.html": {
       "title": "MediFlow | Case Study | Kinetix Technologies",
@@ -796,6 +797,8 @@
     {
       "slug": "why-clinic-systems-fail",
       "date": "September 2026",
+      "datePublished": "2026-09-01",
+      "dateModified": "2026-09-01",
       "author": "KINETIX TEAM",
       "readTime": "5 MIN READ",
       "title": "Why most clinic systems fail (and how to avoid it)",
@@ -864,6 +867,8 @@
     {
       "slug": "real-cost-of-a-slow-website",
       "date": "August 2026",
+      "datePublished": "2026-08-01",
+      "dateModified": "2026-08-01",
       "author": "KINETIX TEAM",
       "readTime": "5 MIN READ",
       "title": "The real cost of a slow website",
@@ -923,6 +928,8 @@
     {
       "slug": "principles-inventory-design",
       "date": "July 2026",
+      "datePublished": "2026-07-01",
+      "dateModified": "2026-07-01",
       "author": "KINETIX TEAM",
       "readTime": "5 MIN READ",
       "title": "5 principles we use when designing inventory systems",
@@ -984,6 +991,8 @@
     {
       "slug": "custom-vs-off-the-shelf",
       "date": "June 2026",
+      "datePublished": "2026-06-01",
+      "dateModified": "2026-06-01",
       "author": "KINETIX TEAM",
       "readTime": "5 MIN READ",
       "title": "How to choose between a custom system and off-the-shelf tools",
@@ -1042,6 +1051,8 @@
     {
       "slug": "designing-for-non-technical-users",
       "date": "May 2026",
+      "datePublished": "2026-05-01",
+      "dateModified": "2026-05-01",
       "author": "KINETIX TEAM",
       "readTime": "5 MIN READ",
       "title": "Designing for non-technical users",

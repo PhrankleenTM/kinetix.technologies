@@ -19,9 +19,12 @@ const MIME = {
   ".webp": "image/webp",
   ".ico": "image/x-icon",
   ".woff2": "font/woff2",
+  ".xml": "application/xml; charset=utf-8",
+  ".txt": "text/plain; charset=utf-8",
 };
 
 const API_HANDLERS = {
+  "/sitemap.xml": require("./api/sitemap"),
   "/api/bootstrap": require("./api/bootstrap"),
   "/api/content": require("./api/content"),
   "/api/status": require("./api/status"),

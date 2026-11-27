@@ -1,5 +1,11 @@
 {
+  "cleanUrls": true,
+  "trailingSlash": false,
+  "redirects": [
+    { "source": "/index", "destination": "/", "permanent": true }
+  ],
   "rewrites": [
+    { "source": "/sitemap.xml", "destination": "/api/sitemap" },
     { "source": "/admin", "destination": "/admin.html" },
     { "source": "/index", "destination": "/index.html" },
     { "source": "/services", "destination": "/services.html" },

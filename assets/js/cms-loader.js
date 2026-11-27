@@ -180,20 +180,20 @@
       });
       graph[2].breadcrumb = { "@id": canonical + "#breadcrumb" };
 
-      if (!document.querySelector(".breadcrumbs")) {
-        const main = document.querySelector("main");
-        if (main && main.parentNode) {
-          const nav = document.createElement("nav");
-          nav.className = "breadcrumbs";
-          nav.setAttribute("aria-label", "Breadcrumb");
-          nav.innerHTML =
-            `<a href="/">Home</a><span aria-hidden="true">/</span>` +
-            (parent
-              ? `<a href="${parent.href}">${escapeHtml(parent.label)}</a><span aria-hidden="true">/</span>`
-              : "") +
-            `<span aria-current="page">${escapeHtml(currentLabel)}</span>`;
-          main.parentNode.insertBefore(nav, main);
-        }
+      const existingBreadcrumbs = document.querySelector(".breadcrumbs");
+      if (existingBreadcrumbs) existingBreadcrumbs.remove();
+      const main = document.querySelector("main");
+      if (main && main.parentNode) {
+        const nav = document.createElement("nav");
+        nav.className = "breadcrumbs";
+        nav.setAttribute("aria-label", "Breadcrumb");
+        nav.innerHTML =
+          `<a href="/">Home</a><span aria-hidden="true">/</span>` +
+          (parent
+            ? `<a href="${parent.href}">${escapeHtml(parent.label)}</a><span aria-hidden="true">/</span>`
+            : "") +
+          `<span aria-current="page">${escapeHtml(currentLabel)}</span>`;
+        main.parentNode.insertBefore(nav, main);
       }
     }
 
